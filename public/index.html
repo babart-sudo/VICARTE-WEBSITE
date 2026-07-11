@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vicarte Interior Concept — Bespoke kitchens, custom cabinetry, and interior design in Cebu, Philippines." />
+  <title>Vicarte Interior Concept – Kitchen & Cabinetries | Cebu</title>
+
+  <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* =============================================
+       TOKEN SYSTEM
+       ============================================= */
+    :root {
+      --navy:           #1a2840;
+      --navy-mid:       #1e2d4a;
+      --navy-light:     #2b3f65;
+      --gold:           #b8975a;
+      --gold-light:     #d4b07a;
+      --gold-pale:      #f0e4ce;
+      --white:          #ffffff;
+      --off-white:      #f8f6f2;
+      --grey:           #6b7280;
+      --grey-light:     #e8e3db;
+      --text:           #1f1f1f;
+      --aluminum:       #9aa3ad;
+      --aluminum-light: #c7ced4;
+
+      /* spacing */
+      --section-pad: clamp(72px, 10vw, 120px);
+      --container:   1280px;
+      --gap:         clamp(24px, 4vw, 56px);
+
+      /* transitions */
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    /* =============================================
+       UTILITY
+       ============================================= */
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
+    }
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); flex-shrink: 0; }
+
+    /* =============================================
+       NAVIGATION
+       ============================================= */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(20px, 4vw, 48px); height: 72px;
+      background: transparent;
+      transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease), backdrop-filter 0.4s;
+    }
+
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; letter-spacing: 3px; color: var(--white); line-height: 1; text-decoration: none; }
+    .nav-logo small { display: block; font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 4px; color: var(--gold-light); margin-top: 2px; }
+
+    .nav-links { display: flex; gap: 0; list-style: none; align-items: center; }
+    .nav-links > li > a {
+      display: block; padding: 8px 18px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.82); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links > li > a:hover { color: var(--gold-light); }
+
+    .nav-cta-btn {
+      margin-left: 16px;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gold); color: var(--white) !important;
+      padding: 10px 22px !important; border-radius: 4px;
+      font-size: 11px !important; font-weight: 600 !important;
+      letter-spacing: 0.12em !important; text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta-btn:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+
+    /* Dropdown */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { content: ''; display: inline-block; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); margin-left: 6px; opacity: 0.6; }
+    .dropdown-panel {
+      position: absolute; top: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: var(--white); border-radius: 6px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.04);
+      min-width: 200px; padding: 6px;
+      opacity: 0; visibility: hidden;
+      transition: all 0.25s var(--ease);
+      pointer-events: none;
+    }
+    .nav-dropdown:hover .dropdown-panel {
+      opacity: 1; visibility: visible;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+    .dropdown-panel a {
+      display: block; padding: 11px 16px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--navy-mid); text-decoration: none; border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .dropdown-panel a:hover { background: var(--gold-pale); color: var(--gold); }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: 0.3s; border-radius: 2px; }
+
+    /* Mobile overlay */
+    .mobile-overlay {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: var(--navy); flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    }
+    .mobile-overlay.open { display: flex; }
+    .mobile-overlay a {
+      font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300;
+      color: var(--white); text-decoration: none; padding: 12px 0; transition: color 0.2s;
+    }
+    .mobile-overlay a:hover { color: var(--gold-light); }
+    .mobile-overlay .mob-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: var(--white); font-size: 26px; cursor: pointer; }
+
+    /* =============================================
+       HERO
+       ============================================= */
+    #hero {
+      min-height: 100vh; position: relative;
+      display: flex; align-items: flex-end; justify-content: flex-start;
+      overflow: hidden; background: var(--navy);
+    }
+
+    .hero-slides { position: absolute; inset: 0; z-index: 0; }
+    .hero-slide {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center; background-repeat: no-repeat;
+      opacity: 0; transition: opacity 1.8s ease-in-out;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: high-quality;
+      filter: contrast(1.05) saturate(1.12) brightness(1.02);
+      will-change: opacity;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    .hero-slide.active { opacity: 1; z-index: 1; }
+    .hero-slide::after {
+      content: ''; position: absolute; inset: 0;
+      /* light scrim, concentrated bottom-left where the copy sits, so the
+         photography itself reads clear, crisp, and near-untouched everywhere else */
+      background:
+        linear-gradient(90deg, rgba(8,14,24,0.56) 0%, rgba(8,14,24,0.22) 32%, transparent 55%),
+        linear-gradient(0deg, rgba(8,14,24,0.6) 0%, rgba(8,14,24,0.16) 30%, transparent 56%);
+    }
+
+    /* Decorative gold line */
+    .hero-line {
+      position: absolute; left: clamp(24px,5vw,72px); top: 0; bottom: 0;
+      width: 1px; background: linear-gradient(to bottom, transparent, rgba(184,151,90,0.5) 20%, rgba(184,151,90,0.5) 80%, transparent);
+      z-index: 3;
+    }
+
+    .hero-content {
+      position: relative; z-index: 4;
+      text-align: left; padding: 0 clamp(24px,5vw,72px) clamp(64px,9vh,110px);
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 14px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 24px;
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp 0.7s var(--ease) forwards 0.3s;
+    }
+    .hero-eyebrow span { width: 32px; height: 1px; background: var(--gold); }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(46px, 6.6vw, 84px);
+      font-weight: 300; line-height: 1.04; letter-spacing: -0.01em;
+      color: var(--white); margin-bottom: 22px;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+      opacity: 0; transform: translateY(24px);
+      animation: fadeUp 0.9s var(--ease) forwards 0.5s;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-light); }
+
+    .hero-sub {
+      font-size: clamp(14px, 1.2vw, 16px); font-weight: 300; line-height: 1.9;
+      color: rgba(255,255,255,0.72); max-width: 460px; margin: 0 0 44px;
+      text-shadow: 0 1px 16px rgba(0,0,0,0.3);
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp 0.9s var(--ease) forwards 0.7s;
+    }
+
+    .hero-actions {
+      display: flex; gap: 14px; justify-content: flex-start; flex-wrap: wrap;
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp 0.9s var(--ease) forwards 0.9s;
+    }
+
+    /* slide controls */
+    .hero-prev, .hero-next {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+      width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.06); backdrop-filter: blur(8px);
+      color: var(--white); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .hero-prev { left: clamp(16px,3vw,40px); }
+    .hero-next { right: clamp(16px,3vw,40px); }
+    .hero-prev:hover, .hero-next:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-50%) scale(1.06); }
+
+    /* dots */
+    .hero-dots { position: absolute; bottom: clamp(28px,5vh,60px); left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 5; }
+    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: pointer; transition: all 0.3s; border: none; }
+    .hero-dot.active { background: var(--gold); transform: scale(1.5); }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: clamp(28px,5vh,52px); right: clamp(24px,4vw,56px);
+      z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.45); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .scroll-hint::before { content: ''; width: 1px; height: 40px; background: rgba(255,255,255,0.25); }
+
+    /* =============================================
+       BUTTONS
+       ============================================= */
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: var(--white);
+      padding: 14px 34px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; border-radius: 3px;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,151,90,0.35); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--white);
+      padding: 13px 34px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.28);
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold-light); background: rgba(184,151,90,0.1); transform: translateY(-2px); }
+
+    .btn-outline-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--gold-light);
+      padding: 13px 34px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; border-radius: 3px;
+      border: 1px solid var(--gold-light);
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn-outline-gold:hover { background: var(--gold-light); color: var(--navy); }
+
+    .btn-alum {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--aluminum-light), var(--aluminum));
+      color: #1a1f24; padding: 14px 34px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; border-radius: 3px;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .btn-alum:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(199,206,212,0.3); }
+
+    /* Premium sweep-fill CTA — used for the projects "View Our Work" button */
+    .btn-premium {
+      position: relative;
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 17px 48px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold-light); background: transparent;
+      border: 1px solid rgba(212,176,122,0.55); border-radius: 2px;
+      text-decoration: none; overflow: hidden; isolation: isolate;
+      transition: color 0.45s var(--ease), border-color 0.45s var(--ease);
+    }
+    .btn-premium::before {
+      content: ''; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.55s var(--ease);
+    }
+    .btn-premium .bp-arrow { transition: transform 0.4s var(--ease); }
+    .btn-premium:hover { color: var(--white); border-color: var(--gold-light); }
+    .btn-premium:hover::before { transform: scaleX(1); }
+    .btn-premium:hover .bp-arrow { transform: translateX(5px); }
+
+    /* =============================================
+       PROJECTS GALLERY
+       ============================================= */
+    #projects {
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+      padding: var(--section-pad) 0;
+      position: relative; overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop') center/cover fixed;
+    }
+    #projects::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(14,20,32,0.92) 0%, rgba(26,40,64,0.86) 100%);
+    }
+    #projects > * { position: relative; z-index: 1; }
+
+    .projects-header { text-align: center; margin-bottom: clamp(40px,6vw,72px); }
+    .projects-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 7vw, 88px);
+      font-weight: 300; line-height: 1.05; color: var(--white);
+    }
+    .projects-title em { font-style: italic; color: var(--gold-light); }
+    .projects-sub { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 560px; margin: 20px auto 0; }
+    .title-rule { display: block; width: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); margin: 26px auto 0; transition: width 1.3s var(--ease) 0.25s; }
+    .reveal.in .title-rule { width: 160px; }
+    .title-rule-left { display: block; width: 0; height: 1px; background: linear-gradient(90deg, var(--gold-light), transparent); margin: 22px 0 0; transition: width 1.3s var(--ease) 0.25s; }
+    .reveal.in .title-rule-left { width: 120px; }
+
+    /* Static 4-up grid: Aluminum · Kitchen · Cabinetry · Interiors */
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 3vw, 40px);
+      padding: 0 clamp(20px,4vw,48px);
+    }
+
+    .gallery-card {
+      display: flex; flex-direction: column;
+      opacity: 0; transform: translateY(56px) scale(0.96);
+      transition: opacity 1s var(--ease), transform 1s var(--ease);
+    }
+    .gallery-card.in { opacity: 1; transform: translateY(0) scale(1); }
+
+    .gallery-card-media {
+      display: block; aspect-ratio: 3 / 4; border-radius: 10px; overflow: hidden;
+      position: relative; text-decoration: none; color: inherit;
+      box-shadow: 0 0 0 1px rgba(184,151,90,0);
+      transition: box-shadow 0.6s var(--ease);
+    }
+    .gallery-card:hover .gallery-card-media { box-shadow: 0 32px 72px rgba(0,0,0,0.48), 0 0 0 1px rgba(184,151,90,0.4); }
+    .gc-frame {
+      position: absolute; inset: 12px; z-index: 3; pointer-events: none;
+      border: 1px solid rgba(255,255,255,0); border-radius: 3px;
+      transition: border-color 0.7s var(--ease);
+    }
+    .gallery-card:hover .gc-frame { border-color: rgba(212,176,122,0.55); }
+    .gc-shine {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.14) 46%, transparent 62%);
+      transform: translateX(-140%) skewX(-12deg);
+      transition: transform 1.1s var(--ease);
+    }
+    .gallery-card:hover .gc-shine { transform: translateX(140%) skewX(-12deg); }
+    .gallery-card-media img {
+      width: 100%; height: 100%; object-fit: cover;
+      transform: scale(1.16);
+      transition: transform 1.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .gallery-card.in .gallery-card-media img { transform: scale(1.05); }
+    .gallery-card:hover .gallery-card-media img { transform: scale(1.15); transition: transform 7s linear; }
+
+    .gallery-card-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 45%, transparent 100%);
+      opacity: 0; transition: opacity 0.4s var(--ease);
+    }
+    .gallery-card:hover .gallery-card-overlay { opacity: 1; }
+
+    /* Caption now sits BELOW the image box, centered — premium plaque style */
+    .gallery-card-caption { text-align: center; padding-top: 22px; }
+    .gallery-card-tag {
+      display: inline-block; margin-bottom: 12px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold-light); border: 1px solid rgba(184,151,90,0.4); border-radius: 2px; padding: 5px 12px;
+    }
+    .gallery-card-title {
+      position: relative; display: inline-block; padding-bottom: 12px;
+      font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--white); line-height: 1.2;
+    }
+    .gallery-card-title::after {
+      content: ''; position: absolute; left: 50%; bottom: 0; width: 0; height: 1px;
+      background: var(--gold-light);
+      transition: width 0.5s var(--ease), left 0.5s var(--ease);
+    }
+    .gallery-card:hover .gallery-card-title::after { width: 44px; left: calc(50% - 22px); }
+
+    /* View cue */
+    .gallery-card-cue {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.85);
+      background: rgba(184,151,90,0.92); color: var(--white);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 10px 22px; border-radius: 3px; opacity: 0; white-space: nowrap; z-index: 4;
+      transition: opacity 0.3s, transform 0.3s; pointer-events: none;
+    }
+    .gallery-card:hover .gallery-card-cue { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+
+    /* Featured badge */
+    .gallery-badge {
+      position: absolute; top: 18px; left: 18px; z-index: 4;
+      background: linear-gradient(135deg, rgba(199,206,212,0.92), rgba(154,163,173,0.88));
+      backdrop-filter: blur(6px); color: #1a1f24;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 3px; display: flex; align-items: center; gap: 5px;
+    }
+
+    /* CTA below the grid */
+    .gallery-cta { text-align: center; margin-top: clamp(48px,7vw,76px); }
+    .gallery-cta-line {
+      display: block; width: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+      margin: 0 auto 32px; transition: width 1.2s var(--ease) 0.2s;
+    }
+    .gallery-cta.in .gallery-cta-line { width: 220px; }
+
+
+    /* =============================================
+       ALUMINUM SECTION — Precision Engineering Redesign
+       Design language: technical spec sheet / architectural blueprint.
+       Palette adds a graphite + blueprint layer distinct from the
+       photographic navy sections around it, so the material itself
+       (not another lifestyle photo) is the hero.
+       ============================================= */
+    #aluminum {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: var(--section-pad) clamp(20px,4vw,48px);
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse 900px 500px at 85% 8%, rgba(184,151,90,0.10), transparent 60%),
+        linear-gradient(155deg, #0d1015 0%, #12161d 45%, #171b22 100%);
+    }
+    /* faint blueprint grid — the "drafting table" surface */
+    #aluminum::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(199,206,212,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(199,206,212,0.055) 1px, transparent 1px);
+      background-size: 48px 48px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 40%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 40%, transparent 100%);
+    }
+    #aluminum::after {
+      content: '';
+      position: absolute; left: 0; right: 0; top: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(184,151,90,0.4), transparent);
+    }
+
+    .alu-wrap { position: relative; z-index: 1; width: 100%; max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; }
+
+    .alu-head {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+      margin-bottom: clamp(40px,5vw,64px);
+      padding-bottom: 28px; border-bottom: 1px solid rgba(199,206,212,0.14);
+    }
+    .alu-head-left { max-width: 620px; }
+    .alu-head .eyebrow { color: var(--aluminum-light); }
+    .alu-head .eyebrow::before { background: var(--aluminum-light); }
+    .alu-head h2 {
+      font-family:'Cormorant Garamond',serif; font-size:clamp(38px,5vw,60px);
+      font-weight:300; color:var(--white); line-height:1.05;
+    }
+    .alu-head h2 em {
+      font-style: italic;
+      background: linear-gradient(120deg, var(--aluminum-light), #fff 45%, var(--aluminum));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    /* spec plate — reads like a material data tag */
+    .alu-spec-plate {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255,0.55);
+      border: 1px solid rgba(199,206,212,0.22); border-radius: 6px;
+      padding: 14px 20px; display: grid; grid-template-columns: auto auto; gap: 4px 24px;
+      background: rgba(255,255,255,0.02); white-space: nowrap;
+    }
+    .alu-spec-plate b { color: var(--aluminum-light); font-weight: 500; }
+    .alu-spec-plate .psp-row { display: contents; }
+    .alu-spec-plate .psp-k { color: rgba(255,255,255,0.35); text-transform: uppercase; font-size: 9px; letter-spacing: 0.14em; align-self: center; }
+
+    .alu-body { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; align-items: stretch; }
+
+    /* ---- Left: photo showcase, treated like a spec-sheet photograph ---- */
+    .alu-showcase { position: relative; border-radius: 4px; overflow: hidden; min-height: 560px; border: 1px solid rgba(199,206,212,0.16); }
+    .alu-showcase::before, .alu-showcase::after {
+      content: ''; position: absolute; z-index: 5; width: 26px; height: 26px; pointer-events: none;
+      border-color: var(--gold-light); opacity: 0.85;
+    }
+    .alu-showcase::before { top: 16px; left: 16px; border-top: 1.5px solid; border-left: 1.5px solid; }
+    .alu-showcase::after { bottom: 16px; right: 16px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+    .alu-sl { position: absolute; inset: 0; opacity: 0; transition: opacity 1.3s ease-in-out; z-index: 0; overflow: hidden; }
+    .alu-sl.on { opacity: 1; z-index: 1; }
+    .alu-sl img {
+      width: 100%; height: 100%; object-fit: cover; filter: brightness(0.82) saturate(0.85) contrast(1.05);
+      transform: scale(1.1);
+    }
+    .alu-sl.on img { animation: aluKenBurns 8s ease-out forwards; }
+    @keyframes aluKenBurns {
+      from { transform: scale(1.12) translate(0, 0); }
+      to   { transform: scale(1.02) translate(-1.5%, -1%); }
+    }
+    /* measurement ticks along showcase edges — precision motif */
+    .alu-ticks { position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0.5; }
+    .alu-showcase-label {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 4; padding: 56px 26px 22px;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
+    }
+    .alu-showcase-label .name { font-family:'Cormorant Garamond',serif; font-size: 24px; color: var(--white); font-weight:400; }
+    .alu-showcase-label .code { font-family:'IBM Plex Mono',monospace; font-size: 11px; color: var(--gold-light); letter-spacing: 0.08em; }
+    .alu-sl-dots { position: absolute; top: 20px; right: 20px; display: flex; gap: 7px; z-index: 6; }
+    .alu-sl-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
+    .alu-sl-dot.on { background: var(--gold); transform: scale(1.4); }
+    .alu-sl-arr { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); color: var(--white); border: 1px solid rgba(255,255,255,0.16); font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 6; }
+    .alu-sl-arr:hover { background: var(--gold); border-color: var(--gold); }
+    .alu-sl-arr.l { left: 16px; }
+    .alu-sl-arr.r { right: 16px; }
+
+    /* ---- Right: spec-sheet rows instead of generic cards ---- */
+    .alu-specs { display: flex; flex-direction: column; }
+    .alu-specs-top { font-family:'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.32); display: flex; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid rgba(199,206,212,0.16); margin-bottom: 4px; }
+
+    .alu-row {
+      display: grid; grid-template-columns: 64px 1fr; gap: 20px;
+      padding: 24px 4px; border-bottom: 1px solid rgba(199,206,212,0.1);
+      position: relative; transition: padding-left 0.35s var(--ease), border-color 0.35s;
+    }
+    .alu-row:last-child { border-bottom: none; }
+    .alu-row::before {
+      content: ''; position: absolute; left: -1px; top: 0; bottom: 0; width: 2px;
+      background: var(--gold); transform: scaleY(0); transform-origin: top; transition: transform 0.4s var(--ease);
+    }
+    .alu-row:hover { padding-left: 16px; border-color: rgba(212,176,122,0.3); }
+    .alu-row:hover::before { transform: scaleY(1); }
+    .alu-row-code { font-family:'IBM Plex Mono', monospace; font-size: 13px; color: var(--aluminum-light); letter-spacing: 0.02em; padding-top: 3px; transition: color 0.35s; }
+    .alu-row:hover .alu-row-code { color: var(--gold-light); }
+    .alu-row h3 { font-family:'Cormorant Garamond', serif; font-size: 21px; font-weight: 400; color: var(--white); margin-bottom: 6px; line-height: 1.2; }
+    .alu-row p { font-size: 13px; line-height: 1.75; color: rgba(255,255,255,0.5); max-width: 460px; }
+
+    .alu-cta { display: flex; flex-direction: column; gap: 16px; margin-top: clamp(36px,5vw,52px); align-items: center; text-align: center; }
+    .alu-cta-note { font-family:'IBM Plex Mono',monospace; font-size: 10.5px; color: rgba(255,255,255,0.32); letter-spacing: 0.05em; }
+
+    /* ---- Signature: premium finish palette — the metals themselves as the hero ---- */
+    .alu-finishes {
+      margin-top: clamp(48px,6vw,72px);
+      border: 1px solid rgba(199,206,212,0.16); border-radius: 8px;
+      padding: clamp(30px,4vw,46px) clamp(24px,4vw,48px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.006));
+      position: relative; overflow: hidden;
+    }
+    .alu-finishes::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 520px 260px at 12% 0%, rgba(184,151,90,0.10), transparent 70%);
+    }
+    .alu-finishes-top {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+      margin-bottom: clamp(28px,4vw,40px); position: relative; z-index: 1;
+    }
+    .alu-finishes-top .tag { font-family:'IBM Plex Mono',monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 10px; display: block; }
+    .alu-finishes-top h3 { font-family:'Cormorant Garamond',serif; font-size: clamp(24px,2.6vw,30px); font-weight: 300; color: var(--white); line-height: 1.2; }
+    .alu-finishes-top p { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.5); max-width: 340px; }
+
+    .alu-swatch-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px,2.4vw,28px);
+      position: relative; z-index: 1;
+    }
+    .alu-swatch {
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      text-align: center; opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .alu-finishes.in .alu-swatch { opacity: 1; transform: translateY(0); }
+    .alu-swatch:nth-child(1) { transition-delay: 0.05s; }
+    .alu-swatch:nth-child(2) { transition-delay: 0.15s; }
+    .alu-swatch:nth-child(3) { transition-delay: 0.25s; }
+    .alu-swatch:nth-child(4) { transition-delay: 0.35s; }
+    .alu-swatch-disc {
+      width: clamp(72px,8vw,96px); height: clamp(72px,8vw,96px); border-radius: 50%;
+      position: relative; box-shadow: 0 14px 32px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.25), inset 0 -6px 10px rgba(0,0,0,0.35);
+      transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+    }
+    .alu-swatch-disc::after {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.35), transparent 45%);
+    }
+    .alu-swatch:hover .alu-swatch-disc {
+      transform: translateY(-6px) scale(1.06);
+      box-shadow: 0 20px 44px rgba(184,151,90,0.28), inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -6px 10px rgba(0,0,0,0.35);
+    }
+    .alu-swatch-champagne { background: linear-gradient(135deg, #ecd9ac, #b8975a 55%, #8a6d3f); }
+    .alu-swatch-graphite  { background: linear-gradient(135deg, #4a4f57, #1c1f24 55%, #08090b); }
+    .alu-swatch-silver    { background: linear-gradient(135deg, #eef1f3, #b6bec6 55%, #838d97); }
+    .alu-swatch-bronze    { background: linear-gradient(135deg, #b58868, #6b4530 55%, #3a2417); }
+    .alu-swatch-name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 400; color: var(--white); }
+    .alu-swatch-code { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); }
+
+    /* =============================================
+       SERVICES — LUXURY REDESIGN
+       ============================================= */
+    #services {
+      padding: var(--section-pad) 0; min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop') center/cover fixed;
+    }
+    #services::before { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(14,20,32,0.92) 0%, rgba(26,40,64,0.88) 100%); }
+    #services > .container { position: relative; z-index: 1; width: 100%; }
+
+    .services-header { text-align: center; margin-bottom: clamp(48px,7vw,80px); }
+    .services-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,62px); font-weight: 300; color: var(--white); }
+    .services-header h2 em { font-style: italic; color: var(--gold-light); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(2px);
+    }
+    .svc-card {
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+      padding: clamp(40px,5vw,60px) clamp(28px,3vw,40px);
+      position: relative; overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s, background 0.3s;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      border-right: 1px solid rgba(0,0,0,0.04);
+    }
+    .svc-card:last-child { border-right: none; }
+    .svc-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .svc-card:hover::after { width: 100%; }
+    .svc-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 56px rgba(0,0,0,0.18);
+      background: rgba(255,255,255,1);
+      z-index: 2;
+    }
+    .svc-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 300;
+      color: var(--gold-pale);
+      line-height: 0.8;
+      margin-bottom: 24px;
+      transition: color 0.3s;
+    }
+    .svc-card:hover .svc-num { color: var(--gold); }
+    .svc-icon {
+      width: 52px;
+      height: 52px;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0.8;
+      transition: transform 0.4s, opacity 0.3s;
+    }
+    .svc-card:hover .svc-icon { transform: scale(1.05); opacity: 1; }
+    .svc-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--navy);
+      margin-bottom: 14px;
+      letter-spacing: 0.01em;
+    }
+    .svc-card p {
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--grey);
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+    .svc-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: auto;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none;
+      transition: gap 0.3s, color 0.3s;
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+    }
+    .svc-link:hover { gap: 16px; color: var(--gold-light); border-bottom-color: var(--gold-light); }
+
+    .services-footer { text-align: center; margin-top: clamp(40px,6vw,60px); }
+
+    /* =============================================
+       ABOUT
+       ============================================= */
+    #about {
+      padding: var(--section-pad) 0; min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop') center/cover fixed;
+    }
+    #about::before { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(14,20,32,0.9) 0%, rgba(26,40,64,0.85) 100%); }
+    #about > .container { position: relative; z-index: 1; width: 100%; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: center; }
+    .about-visual { position: relative; }
+    .about-img { width: 100%; aspect-ratio: 4/5; border-radius: 4px; overflow: hidden; background: var(--navy-light); }
+    .about-img svg { width: 100%; height: 100%; }
+    .about-badge {
+      position: absolute; bottom: -24px; right: -24px;
+      width: 130px; height: 130px; border-radius: 50%;
+      background: var(--gold); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 14px;
+      animation: spin 24s linear infinite;
+    }
+    .about-badge .n { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--white); line-height: 1; }
+    .about-badge .l { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.8); margin-top: 2px; }
+
+    .about-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px,4.5vw,56px); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 24px; }
+
+    /* ---- About video showcase ---- */
+    .about-video-wrap { position: relative; width: 100%; height: 100%; background: var(--navy-light); }
+    .about-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .about-video-scrim {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(to top, rgba(8,14,24,0.55) 0%, rgba(8,14,24,0.05) 32%, transparent 55%);
+    }
+    .about-video-play {
+      position: absolute; bottom: 20px; right: 20px; top: auto; left: auto; transform: none;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(8,14,24,0.55); backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      transition: transform 0.3s var(--ease), background 0.3s;
+      z-index: 2;
+    }
+    .about-video-play:hover { transform: scale(1.08); background: var(--gold); border-color: var(--gold); }
+    .about-video-play svg { width: 18px; height: 18px; color: var(--white); }
+    .about-video-caption {
+      position: absolute; left: 22px; bottom: 20px; z-index: 2;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+    .about-video-caption .avc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-light); flex-shrink: 0; }
+    .about-text h2 em { font-style: italic; color: var(--gold-light); }
+    .about-text p { font-size: 15px; line-height: 1.9; color: rgba(255,255,255,0.68); margin-bottom: 18px; }
+
+    .about-stats { display: flex; gap: clamp(32px,5vw,56px); margin: 36px 0; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.12); }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--white); line-height: 1; }
+    .stat-lbl { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+    /* =============================================
+       CONTACT — full redesign with maps
+       ============================================= */
+    #contact {
+      padding: var(--section-pad) 0;
+      position: relative; overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop') center/cover fixed;
+    }
+    #contact::before { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(14,20,32,0.93) 0%, rgba(26,40,64,0.9) 100%); }
+    #contact > .container { position: relative; z-index: 1; width: 100%; }
+
+    .contact-header { text-align: center; margin-bottom: clamp(48px,7vw,80px); }
+    .contact-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,62px); font-weight: 300; color: var(--white); }
+    .contact-header h2 em { font-style: italic; color: var(--gold-light); }
+    .contact-header p { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 520px; margin: 18px auto 0; }
+
+    /* Top row: info + form */
+    .contact-top { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-bottom: 64px; }
+
+    /* Info column */
+    .contact-info-col h3 { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; color: var(--white); margin-bottom: 24px; }
+    .contact-info-col h3 em { font-style: italic; color: var(--gold-light); }
+    .contact-info-col > p { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
+
+    .contact-list { list-style: none; margin-bottom: 32px; }
+    .contact-list li { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 14px; color: rgba(255,255,255,0.7); transition: transform 0.2s; }
+    .contact-list li:last-child { border-bottom: none; }
+    .contact-list li:hover { transform: translateX(4px); }
+    .contact-list .ci { width: 36px; height: 36px; border-radius: 8px; background: rgba(184,151,90,0.12); border: 1px solid rgba(184,151,90,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .contact-list .ci svg { width: 16px; height: 16px; color: var(--gold); }
+
+    .follow-us-label { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); margin-top: 28px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .socials { display: flex; gap: 10px; margin-top: 14px; }
+    .socials a { width: 40px; height: 40px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.65); font-size: 16px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.25s; }
+    .socials a:hover { background: var(--gold); border-color: var(--gold); color: var(--white); transform: translateY(-3px); }
+
+    /* Form column */
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.42); }
+    .field input, .field select, .field textarea {
+      background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); padding: 13px 16px; border-radius: 4px;
+      font-family: 'Inter', sans-serif; font-size: 14px; outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.28); }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); background: rgba(255,255,255,0.08); }
+    .field select option { background: var(--navy); }
+    .field textarea { resize: vertical; min-height: 118px; }
+    .submit-btn {
+      background: var(--gold); color: var(--white); border: none;
+      padding: 15px 36px; font-family: 'Inter', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer; border-radius: 4px; transition: background 0.25s, transform 0.2s; margin-top: 4px;
+      align-self: flex-start;
+    }
+    .submit-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    /* ---- SHOWROOMS MAP SECTION ---- */
+    .showrooms-section { margin-top: 0; }
+    .showrooms-label {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px;
+    }
+    .showrooms-label h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--white); }
+    .showrooms-label h3 em { font-style: italic; color: var(--gold-light); }
+    .showrooms-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+
+    .showrooms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .showroom-card { border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); transition: border-color 0.3s; }
+    .showroom-card:hover { border-color: rgba(184,151,90,0.3); }
+
+    .showroom-map-wrap { position: relative; width: 100%; height: 260px; overflow: hidden; }
+    .showroom-map-wrap iframe { width: 100%; height: 100%; border: none; display: block; filter: grayscale(20%) contrast(1.05); transition: filter 0.3s; }
+    .showroom-card:hover .showroom-map-wrap iframe { filter: grayscale(0%) contrast(1); }
+
+    /* "Open in Maps" pill overlay */
+    .map-open-btn {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(26,40,64,0.88); backdrop-filter: blur(6px);
+      color: var(--gold-light); font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 7px 14px; border-radius: 20px; text-decoration: none;
+      border: 1px solid rgba(184,151,90,0.3); transition: all 0.25s;
+    }
+    .map-open-btn:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    .showroom-info { padding: 20px 22px; }
+    .showroom-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .showroom-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .showroom-info h4 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--white); margin-bottom: 6px; }
+    .showroom-info p { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.55); }
+    .showroom-info .sh-hours { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.42); }
+    .showroom-info .sh-hours svg { width: 13px; height: 13px; color: var(--gold); flex-shrink: 0; }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+    footer {
+      background: #080f1c; padding: 56px clamp(20px,4vw,48px) 32px;
+    }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .footer-brand .fn { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; letter-spacing: 3px; color: var(--white); }
+    .footer-brand .fs { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light); display: block; margin-top: 2px; }
+    .footer-brand p { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.38); margin-top: 16px; max-width: 260px; }
+    .footer-col h5 { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li + li { margin-top: 10px; }
+    .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold-light); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.22); }
+    .footer-socials-wrap { display: flex; align-items: center; gap: 10px; }
+    .footer-follow-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-socials a { width: 34px; height: 34px; border-radius: 6px; background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); font-size: 14px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.25s; }
+    .footer-socials a:hover { background: var(--gold); color: var(--white); }
+
+    /* =============================================
+       ANIMATIONS & REVEALS
+       ============================================= */
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal-l { opacity: 0; transform: translateX(-48px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal-l.in { opacity: 1; transform: translateX(0); }
+    .reveal-r { opacity: 0; transform: translateX(48px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal-r.in { opacity: 1; transform: translateX(0); }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+
+    /* =============================================
+       MOBILE
+       ============================================= */
+    @media (max-width: 900px) {
+      .contact-top, .about-grid, .showrooms-grid { grid-template-columns: 1fr; }
+      .alu-body { grid-template-columns: 1fr; }
+      .alu-swatch-row { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .about-badge { display: none; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .alu-spec-plate { display: none; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      #navbar { height: 60px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-title { font-size: clamp(40px, 10vw, 64px); }
+      .gallery-grid { grid-template-columns: 1fr; gap: 28px; }
+      .alu-showcase { min-height: 340px; }
+      .alu-row { grid-template-columns: 44px 1fr; padding: 18px 4px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .form-row2 { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      #services, #about, #contact { background-attachment: scroll; }
+      .showrooms-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =============================================
+     NAVIGATION
+     ============================================= -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">VICARTE <small>INTERIOR CONCEPTS</small></a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li class="nav-dropdown">
+      <a href="/services.html">Services</a>
+      <div class="dropdown-panel">
+        <a href="/services.html#kitchen-design">Kitchen Design</a>
+        <a href="/services.html#custom-cabinetries">Custom Cabinetries</a>
+        <a href="/services.html#interior-concept">Interior Concept</a>
+        <a href="/services.html#visualization">3D Visualization</a>
+      </div>
+    </li>
+    <li><a href="#about">About</a></li>
+    <li class="nav-dropdown">
+      <a href="/portfolio.html">Projects</a>
+      <div class="dropdown-panel">
+        <a href="/portfolio.html?filter=kitchen">Kitchen</a>
+        <a href="/portfolio.html?filter=cabinet">Cabinetry</a>
+        <a href="/portfolio.html?filter=interior">Interior</a>
+        <a href="/portfolio.html?filter=aluminum">Aluminum</a>
+      </div>
+    </li>
+    <li><a href="#contact" class="nav-cta-btn">Contact Us</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="#hero" onclick="closeMob()">Home</a>
+  <a href="/services.html" onclick="closeMob()">Services</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="/portfolio.html" onclick="closeMob()">Portfolio</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+
+<!-- =============================================
+     HERO
+     ============================================= -->
+<section id="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1725257928373-dc6d2ac7b145?q=100&w=3200&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1632583824020-937ae9564495?q=100&w=3200&auto=format&fit=crop');"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1611095210561-67f0832b1ca3?q=100&w=3200&auto=format&fit=crop');"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1672137233327-37b0c1049e77?q=100&w=3200&auto=format&fit=crop');"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=100&w=3200&auto=format&fit=crop');"></div>
+  </div>
+  <div class="hero-line"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">
+      <span></span>
+      Kitchen &nbsp;·&nbsp; Cabinetries &nbsp;·&nbsp; Interior Design
+    </p>
+    <h1 class="hero-title">Where Every Space<br>Tells Your <em>Story</em></h1>
+    <p class="hero-sub">Vicarte crafts bespoke kitchens and custom cabinetries with meticulous attention to detail — spaces designed to be lived in, and loved.</p>
+    <div class="hero-actions">
+      <a href="/portfolio.html" class="btn-gold">View Our Work &rarr;</a>
+      <a href="#contact" class="btn-ghost">Get a Quote</a>
+    </div>
+  </div>
+
+  <button class="hero-prev" onclick="heroSlide(-1)">&#10094;</button>
+  <button class="hero-next" onclick="heroSlide(1)">&#10095;</button>
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active" onclick="heroGo(0)"></button>
+    <button class="hero-dot" onclick="heroGo(1)"></button>
+    <button class="hero-dot" onclick="heroGo(2)"></button>
+    <button class="hero-dot" onclick="heroGo(3)"></button>
+    <button class="hero-dot" onclick="heroGo(4)"></button>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+
+<!-- =============================================
+     PROJECTS GALLERY
+     ============================================= -->
+<section id="projects">
+  <div class="projects-header reveal">
+    <h2 class="projects-title">Our <em>Projects</em></h2>
+    <span class="title-rule"></span>
+  </div>
+
+  <div class="gallery-grid">
+
+    <div class="gallery-card">
+      <a href="/portfolio.html?filter=aluminum" class="gallery-card-media">
+        <img src="/images/aluminum1.jpg" alt="Aluminum Window Frames">
+        <div class="gallery-card-overlay"></div>
+        <div class="gc-shine"></div>
+        <div class="gc-frame"></div>
+        <div class="gallery-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          Featured
+        </div>
+        <div class="gallery-card-cue">View Project →</div>
+      </a>
+      <div class="gallery-card-caption">
+        <span class="gallery-card-tag">Aluminum Systems</span><br>
+        <h3 class="gallery-card-title">Aluminum</h3>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <a href="/portfolio.html?filter=kitchen" class="gallery-card-media">
+        <img src="/images/Horizontal9.jpg" alt="Modern Kitchen">
+        <div class="gallery-card-overlay"></div>
+        <div class="gc-shine"></div>
+        <div class="gc-frame"></div>
+        <div class="gallery-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3h16v18H4z"/><path d="M4 10h16M9 10v11"/></svg>
+          Featured
+        </div>
+        <div class="gallery-card-cue">View Project →</div>
+      </a>
+      <div class="gallery-card-caption">
+        <span class="gallery-card-tag">Kitchen Design</span><br>
+        <h3 class="gallery-card-title">Kitchen</h3>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <a href="/portfolio.html?filter=cabinet" class="gallery-card-media">
+        <img src="/images/Cabinet4.jpg" alt="Custom Cabinets">
+        <div class="gallery-card-overlay"></div>
+        <div class="gc-shine"></div>
+        <div class="gc-frame"></div>
+        <div class="gallery-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18"/><path d="M12 3v18M3 9h18M3 15h18"/></svg>
+          Featured
+        </div>
+        <div class="gallery-card-cue">View Project →</div>
+      </a>
+      <div class="gallery-card-caption">
+        <span class="gallery-card-tag">Cabinetry</span><br>
+        <h3 class="gallery-card-title">Cabinetry</h3>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <a href="/portfolio.html?filter=interior" class="gallery-card-media">
+        <img src="/images/Interior5.jpg" alt="Modern Living Room">
+        <div class="gallery-card-overlay"></div>
+        <div class="gc-shine"></div>
+        <div class="gc-frame"></div>
+        <div class="gallery-card-cue">View Project →</div>
+      </a>
+      <div class="gallery-card-caption">
+        <span class="gallery-card-tag">Interior Design</span><br>
+        <h3 class="gallery-card-title">Interiors</h3>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="gallery-cta reveal">
+    <span class="gallery-cta-line"></span>
+    <a href="/portfolio.html" class="btn-premium">View Our Work <span class="bp-arrow">&rarr;</span></a>
+  </div>
+</section>
+
+
+<!-- =============================================
+     ALUMINUM SECTION — Precision Engineering Redesign
+     ============================================= -->
+<section id="aluminum">
+  <div class="alu-wrap">
+
+    <div class="alu-head reveal">
+      <div class="alu-head-left">
+        <p class="eyebrow">Premium Materials</p>
+        <h2>The <em>Aluminum</em> Advantage</h2>
+      </div>
+      <div class="alu-spec-plate" aria-hidden="true">
+        <div class="psp-row"><span class="psp-k">Alloy</span><b>6063-T5</b></div>
+        <div class="psp-row"><span class="psp-k">Finish</span><b>Powder-Coat</b></div>
+        <div class="psp-row"><span class="psp-k">Tolerance</span><b>±0.1&nbsp;mm</b></div>
+        <div class="psp-row"><span class="psp-k">Origin</span><b>Cebu, PH</b></div>
+      </div>
+    </div>
+
+    <div class="alu-body">
+
+      <!-- Photo showcase -->
+      <div class="alu-showcase reveal-l" id="aluSlider">
+        <div class="alu-sl on"><img src="/images/aluminum1.jpg" alt="Window Systems"></div>
+        <div class="alu-sl"><img src="/images/aluminum2.jpg" alt="Kitchen Profiles"></div>
+        <div class="alu-sl"><img src="/images/aluminum3.jpg" alt="Cabinet Edging"></div>
+        <div class="alu-sl"><img src="/images/aluminum1.jpg" alt="Sliding Doors"></div>
+        <div class="alu-sl"><img src="/images/aluminum2.jpg" alt="Interior Partitions"></div>
+
+        <button class="alu-sl-arr l" id="aluPrev">&#10094;</button>
+        <button class="alu-sl-arr r" id="aluNext">&#10095;</button>
+        <div class="alu-sl-dots" id="aluDots"></div>
+
+        <div class="alu-showcase-label">
+          <span class="name" id="aluLabelName">Aluminum Kitchen</span>
+          <span class="code" id="aluLabelCode">FIG. 01 / 05</span>
+        </div>
+      </div>
+
+      <!-- Spec-sheet rows -->
+      <div class="alu-specs reveal-r">
+        <div class="alu-specs-top"><span>Property</span><span>Rating</span></div>
+
+        <div class="alu-row">
+          <div class="alu-row-code">AL·01</div>
+          <div>
+            <h3>Built to Last</h3>
+            <p>Corrosion-resistant and impervious to warping, aluminum frames retain their precision fit for decades.</p>
+          </div>
+        </div>
+        <div class="alu-row">
+          <div class="alu-row-code">AL·02</div>
+          <div>
+            <h3>Sleek &amp; Minimal</h3>
+            <p>Slim profiles and clean lines give kitchens and living spaces an architectural, gallery-like finish.</p>
+          </div>
+        </div>
+        <div class="alu-row">
+          <div class="alu-row-code">AL·03</div>
+          <div>
+            <h3>Sustainable Choice</h3>
+            <p>Fully recyclable without loss of quality — one of the most responsible materials we specify.</p>
+          </div>
+        </div>
+        <div class="alu-row">
+          <div class="alu-row-code">AL·04</div>
+          <div>
+            <h3>Low Maintenance</h3>
+            <p>A simple wipe keeps surfaces looking new — no sealing, repainting, or seasonal upkeep required.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Signature: premium finish palette -->
+    <div class="alu-finishes reveal" id="aluFinishes">
+      <div class="alu-finishes-top">
+        <div>
+          <span class="tag">Finish Palette</span>
+          <h3>A Metal for Every <em style="font-style:italic;color:var(--gold-light);">Vision</em></h3>
+        </div>
+        <p>Every profile is powder-coated in-house, so your aluminum always matches the mood of the room — not just the hardware store's shelf.</p>
+      </div>
+      <div class="alu-swatch-row">
+        <div class="alu-swatch">
+          <div class="alu-swatch-disc alu-swatch-champagne"></div>
+          <div class="alu-swatch-name">Champagne Gold</div>
+          <div class="alu-swatch-code">RAL 1036</div>
+        </div>
+        <div class="alu-swatch">
+          <div class="alu-swatch-disc alu-swatch-graphite"></div>
+          <div class="alu-swatch-name">Matte Graphite</div>
+          <div class="alu-swatch-code">RAL 7024</div>
+        </div>
+        <div class="alu-swatch">
+          <div class="alu-swatch-disc alu-swatch-silver"></div>
+          <div class="alu-swatch-name">Silver Anodized</div>
+          <div class="alu-swatch-code">RAL 9006</div>
+        </div>
+        <div class="alu-swatch">
+          <div class="alu-swatch-disc alu-swatch-bronze"></div>
+          <div class="alu-swatch-name">Statuario Bronze</div>
+          <div class="alu-swatch-code">RAL 8007</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alu-cta reveal">
+      <a href="/portfolio.html?filter=aluminum" class="btn-alum">View Aluminum Projects</a>
+      <span class="alu-cta-note">Custom profiles quoted within 48 hrs</span>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =============================================
+     SERVICES — LUXURY GRID
+     ============================================= -->
+<section id="services">
+  <div class="container">
+    <div class="services-header reveal">
+      <p class="eyebrow">What We Do</p>
+      <h2>Our <em>Expertise</em></h2>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal d1">
+        <div class="svc-num">01</div>
+        <svg class="svc-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <h3>Kitchen Design</h3>
+        <p>Complete kitchen transformations from concept to installation — designed around how you live.</p>
+        <a href="/services.html#kitchen-design" class="svc-link">Learn more →</a>
+      </div>
+      <div class="svc-card reveal d2">
+        <div class="svc-num">02</div>
+        <svg class="svc-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <h3>Custom Cabinetries</h3>
+        <p>Handcrafted cabinets built to your exact specifications — every dimension, finish, and hardware detail.</p>
+        <a href="/services.html#custom-cabinetries" class="svc-link">Learn more →</a>
+      </div>
+      <div class="svc-card reveal d3">
+        <div class="svc-num">03</div>
+        <svg class="svc-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <h3>Interior Concept</h3>
+        <p>Holistic interior design that harmonizes your entire living space into a single, cohesive vision.</p>
+        <a href="/services.html#interior-concept" class="svc-link">Learn more →</a>
+      </div>
+      <div class="svc-card reveal d4">
+        <div class="svc-num">04</div>
+        <svg class="svc-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <h3>3D Visualization</h3>
+        <p>See your dream space rendered in photorealistic 3D — before a single nail is hammered.</p>
+        <a href="/services.html#visualization" class="svc-link">Learn more →</a>
+      </div>
+    </div>
+    <div class="services-footer reveal">
+      <a href="/services.html" class="btn-outline-gold">View All Services &rarr;</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     ABOUT
+     ============================================= -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal-l">
+        <div class="about-img">
+          <div class="about-video-wrap" id="aboutVideoWrap">
+            <video class="about-video" id="aboutVideo" playsinline preload="auto" autoplay muted loop>
+              <source src="/images/vicarte-story.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="about-video-scrim"></div>
+            <button class="about-video-play" id="aboutPlayBtn" aria-label="Mute or unmute video">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="aboutPlayIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            </button>
+            <div class="about-video-caption"><span class="avc-dot"></span> Behind the Craft</div>
+          </div>
+        </div>
+        <div class="about-badge"><span class="n">13+</span><span class="l">Years of Excellence</span></div>
+      </div>
+      <div class="about-text reveal-r">
+        <p class="eyebrow">Our Story</p>
+        <h2>Crafting <em>Beautiful</em><br>Spaces Since 2013</h2>
+        <p>Vicarte Interior Concept was born from a simple belief: that your kitchen and living space should be a true reflection of who you are.</p>
+        <p>Our team of designers, craftsmen, and project managers share a single passion for precision and beauty — delivering spaces that endure.</p>
+        <div class="about-stats">
+          <div><div class="stat-num" data-count="500">0</div><div class="stat-lbl">Projects Completed</div></div>
+          <div><div class="stat-num" data-count="13">0</div><div class="stat-lbl">Years Experience</div></div>
+          <div><div class="stat-num" data-count="2">0</div><div class="stat-lbl">Showrooms</div></div>
+        </div>
+        <a href="/portfolio.html" class="btn-gold">View Our Portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     CONTACT + SHOWROOMS MAP
+     ============================================= -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-header reveal">
+      <p class="eyebrow">Let's Create Together</p>
+      <h2>Start Your <em>Dream</em> Space</h2>
+      <p>Ready to transform your space? Reach out for a complimentary consultation — or visit one of our showrooms in Cebu.</p>
+    </div>
+
+    <!-- Top row: info + form -->
+    <div class="contact-top">
+      <div class="contact-info-col reveal-l">
+        <h3>Get in <em>Touch</em></h3>
+        <p>Our design team is ready to bring your vision to life. Fill in the form or visit us at either showroom.</p>
+
+        <ul class="contact-list">
+          <li>
+            <span class="ci"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></span>
+            <div>
+              <strong style="color:var(--white);display:block;margin-bottom:2px;">Cebu Showroom</strong>
+              (032) 4654207 &nbsp;·&nbsp; vicarteinterior2@gmail.com
+            </div>
+          </li>
+          <li>
+            <span class="ci"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></span>
+            <div>
+              <strong style="color:var(--white);display:block;margin-bottom:2px;">Manila Showroom</strong>
+              (032) 412 1444 &nbsp;·&nbsp; vicartemnl@gmail.com
+            </div>
+          </li>
+          <li>
+            <span class="ci"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></span>
+            <div><strong style="color:var(--white);display:block;margin-bottom:2px;">Showroom Hours</strong>Mon – Sat: 8:00 AM – 6:00 PM</div>
+          </li>
+        </ul>
+
+        <div class="follow-us-label">Follow Us</div>
+        <div class="socials">
+          <a href="https://www.facebook.com/vicartekitchencebu" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/vicarte.kitchen/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-row2">
+          <div class="field"><label>First Name</label><input type="text" id="firstName" placeholder="Juan" required /></div>
+          <div class="field"><label>Last Name</label><input type="text" id="lastName" placeholder="dela Cruz" required /></div>
+        </div>
+        <div class="field"><label>Email Address</label><input type="email" id="email" placeholder="hello@example.com" required /></div>
+        <div class="field"><label>Phone Number</label><input type="tel" id="phone" placeholder="+63 9XX XXX XXXX" /></div>
+        <div class="field">
+          <label>Service Interest</label>
+          <select id="service">
+            <option value="">— Select a service —</option>
+            <option>Kitchen Design</option>
+            <option>Custom Cabinetry</option>
+            <option>Full Interior Design</option>
+            <option>Aluminum Systems</option>
+            <option>3D Visualization</option>
+          </select>
+        </div>
+        <div class="field"><label>Message</label><textarea id="message" placeholder="Tell us about your space, timeline, and budget…"></textarea></div>
+        <button type="submit" class="submit-btn">Send Inquiry &rarr;</button>
+      </form>
+    </div>
+
+    <!-- Showroom Maps -->
+    <div class="showrooms-section reveal">
+      <div class="showrooms-label">
+        <h3>Visit Our <em>Showrooms</em></h3>
+      </div>
+
+      <div class="showrooms-grid">
+
+        <!-- Showroom 1: Mabolo / TAA Center -->
+        <div class="showroom-card">
+          <div class="showroom-map-wrap">
+            <iframe
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.8!2d123.8966!3d10.3236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999d0cfb6a0b9%3A0x1234567890abcdef!2sTAA%20Center%2C%20F.%20Cabahug%20St%2C%20Mabolo%2C%20Cebu%20City!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
+              title="Vicarte Showroom — Mabolo, Cebu City">
+            </iframe>
+            <a class="map-open-btn" href="https://www.google.com/maps/place/Vicarte+Interior+Concepts/@10.3211844,123.9107036,18z/data=!4m6!3m5!1s0x33a999256878f343:0xc6ca21a9b4737380!8m2!3d10.3217583!4d123.9124142!16s%2Fg%2F11y043g52b?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open in Maps
+            </a>
+          </div>
+          <div class="showroom-info">
+            <div class="showroom-badge">Main Showroom</div>
+            <h4>Mabolo, Cebu City</h4>
+            <p>TAA Center, F. Cabahug St., Kasambagan, Cebu City, 6000 Cebu</p>
+            <div class="sh-hours">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Mon – Sat &nbsp;·&nbsp; 8:00 AM – 6:00 PM
+            </div>
+          </div>
+        </div>
+
+        <!-- Showroom 2: Mandaue City -->
+        <div class="showroom-card">
+          <div class="showroom-map-wrap">
+            <iframe
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.2!2d123.9241!3d10.3285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9a0c0e0e0e0e0%3A0xabcdef1234567890!2sMandaue%20City%2C%20Cebu%2C%20Philippines!5e0!3m2!1sen!2sph!4v1700000000001!5m2!1sen!2sph"
+              title="Vicarte Branch — Mandaue City">
+            </iframe>
+            <a class="map-open-btn" href="https://www.bing.com/maps/search?v=2&pc=FACEBK&mid=8100&mkt=en-US&FORM=FBKPL1&style=r&q=Centris+walk%2C+Eton%2C+Quezon+City%2C+Philippines&secq=Eton+Centris+centris+walk+eton&sece=ypid%3AYN8144x15976936891469833487&cp=14.641938%7E121.040142&lvl=19.7" target="_blank" rel="noopener">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open in Maps
+            </a>
+          </div>
+          <div class="showroom-info">
+            <div class="showroom-badge">Branch</div>
+            <h4>Quezon City, Metro Manila</h4>
+            <p>Centris Station, Quezon City, Metro Manila, 1100 Philippines</p>
+            <div class="sh-hours">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Mon – Sat &nbsp;·&nbsp; 8:00 AM – 6:00 PM
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     FOOTER
+     ============================================= -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="fn">VICARTE</div>
+      <small class="fs">Interior Concepts</small>
+      <p>Bespoke kitchens, custom cabinetries, and interior design for discerning homeowners in Cebu since 2013.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/services.html#kitchen-design">Kitchen Design</a></li>
+        <li><a href="/services.html#custom-cabinetries">Custom Cabinetries</a></li>
+        <li><a href="/services.html#interior-concept">Interior Concept</a></li>
+        <li><a href="/services.html#visualization">3D Visualization</a></li>
+        <li><a href="/portfolio.html?filter=aluminum">Aluminum Systems</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Showrooms</h5>
+      <ul>
+        <li><a href="https://www.bing.com/maps/search?v=2&pc=FACEBK&mid=8100&mkt=en-US&FORM=FBKPL1&q=Vicarte+Kitchen+is+Located+at+TAA+Arcade+Building%2C+F.+Cabahug+St%2C+Kasambagan%2C+%2C+Cebu+City%2C+Philippines%2C+6000&cp=10.324975%7E123.915250&lvl=17.4&style=r" target="_blank">TAA Center, Mabolo</a></li>
+        <li><a href="https://www.bing.com/maps/search?v=2&pc=FACEBK&mid=8100&mkt=en-US&FORM=FBKPL1&style=r&q=Centris+walk%2C+Eton%2C+Quezon+City%2C+Philippines&secq=Eton+Centris+centris+walk+eton&sece=ypid%3AYN8144x15976936891469833487&cp=14.641938%7E121.040142&lvl=19.7" target="_blank">Centris Station, Quezon City</a></li>
+        <li><a href="tel:03244654207">(032) 4654207</a></li>
+        <li><a href="mailto:vicarteinterior2@gmail.com">vicarteinterior2@gmail.com</a></li>
+        <li><a href="mailto:vicartemnl@gmail.com">vicartemnl@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2013. Vicarte Interior Concept. All rights reserved.</p>
+    <div class="footer-socials-wrap">
+      <span class="footer-follow-label">Follow Us</span>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/vicartekitchencebu" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/vicarte.kitchen/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  /* ---- NAV ---- */
+  const nb = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nb.classList.toggle('scrolled', scrollY > 60), { passive: true });
+
+  /* ---- MOBILE MENU ---- */
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileOverlay').classList.add('open'));
+  document.getElementById('mobClose').addEventListener('click', closeMob);
+  function closeMob() { document.getElementById('mobileOverlay').classList.remove('open'); }
+  window.closeMob = closeMob;
+
+  /* ---- SCROLL REVEAL ---- */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => obs.observe(el));
+
+  /* ---- GALLERY CARD STAGGERED REVEAL ---- */
+  const galleryCards = [...document.querySelectorAll('.gallery-card')];
+  galleryCards.forEach((el, i) => { el.style.transitionDelay = (i % 4) * 0.12 + 's'; });
+  const galObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); galObs.unobserve(e.target); } });
+  }, { threshold: 0.15, rootMargin: '0px -40px -40px 0px' });
+  galleryCards.forEach(el => galObs.observe(el));
+
+  /* ---- GALLERY CTA REVEAL ---- */
+  const galCta = document.querySelector('.gallery-cta');
+  if (galCta) {
+    const galCtaObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); galCtaObs.unobserve(e.target); } });
+    }, { threshold: 0.3 });
+    galCtaObs.observe(galCta);
+  }
+
+  /* ---- COUNTERS ---- */
+  const cntObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('[data-count]').forEach(el => {
+        const t = +el.dataset.count; let c = 0;
+        const step = () => { c = Math.min(c + t / 50, t); el.textContent = Math.floor(c) + '+'; if (c < t) requestAnimationFrame(step); };
+        step();
+      });
+      cntObs.unobserve(e.target);
+    });
+  }, { threshold: 0.4 });
+  const stats = document.querySelector('.about-stats');
+  if (stats) cntObs.observe(stats);
+
+  /* ---- FINISH SWATCHES REVEAL ---- */
+  const fin = document.getElementById('aluFinishes');
+  if (fin) {
+    const finObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); finObs.unobserve(e.target); } });
+    }, { threshold: 0.2 });
+    finObs.observe(fin);
+  }
+
+  /* ---- HERO SLIDESHOW ---- */
+  const heroSlides = [...document.querySelectorAll('.hero-slide')];
+  const heroDotEls = [...document.querySelectorAll('.hero-dot')];
+  let heroIdx = 0, heroTimer;
+
+  function heroSet(i) {
+    heroSlides[heroIdx].classList.remove('active');
+    heroDotEls[heroIdx].classList.remove('active');
+    heroIdx = (i + heroSlides.length) % heroSlides.length;
+    heroSlides[heroIdx].classList.add('active');
+    heroDotEls[heroIdx].classList.add('active');
+    clearTimeout(heroTimer);
+    heroTimer = setTimeout(() => heroSet(heroIdx + 1), 5500);
+  }
+  window.heroSlide = n => heroSet(heroIdx + n);
+  window.heroGo = i => heroSet(i);
+  heroTimer = setTimeout(() => heroSet(1), 5500);
+
+  /* ---- ALUMINUM SHOWCASE SLIDER ---- */
+  const aluSl = [...document.querySelectorAll('.alu-sl')];
+  const aluDc = document.getElementById('aluDots');
+  const aluLabels = ['Window Systems', 'Kitchen Profiles', 'Cabinet Edging', 'Sliding Doors', 'Interior Partitions'];
+  const aluLabelName = document.getElementById('aluLabelName');
+  const aluLabelCode = document.getElementById('aluLabelCode');
+  let aluIdx = 0, aluTimer;
+
+  aluSl.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'alu-sl-dot' + (i === 0 ? ' on' : '');
+    d.onclick = () => { aluGo(i); resetAlu(); };
+    aluDc.appendChild(d);
+  });
+
+  function aluGo(i) {
+    aluSl[aluIdx].classList.remove('on');
+    aluDc.children[aluIdx].classList.remove('on');
+    aluIdx = (i + aluSl.length) % aluSl.length;
+    aluSl[aluIdx].classList.add('on');
+    aluDc.children[aluIdx].classList.add('on');
+    aluLabelName.textContent = aluLabels[aluIdx];
+    aluLabelCode.textContent = 'FIG. ' + String(aluIdx + 1).padStart(2, '0') + ' / 05';
+  }
+  function resetAlu() { clearInterval(aluTimer); aluTimer = setInterval(() => aluGo(aluIdx + 1), 4200); }
+  document.getElementById('aluPrev').onclick = () => { aluGo(aluIdx - 1); resetAlu(); };
+  document.getElementById('aluNext').onclick = () => { aluGo(aluIdx + 1); resetAlu(); };
+  resetAlu();
+
+  /* ---- ABOUT VIDEO ---- */
+  const aboutVideo = document.getElementById('aboutVideo');
+  const aboutPlayBtn = document.getElementById('aboutPlayBtn');
+  const aboutPlayIcon = document.getElementById('aboutPlayIcon');
+  if (aboutVideo && aboutPlayBtn) {
+    const mutedIcon = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+    const soundIcon = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>';
+    aboutPlayBtn.addEventListener('click', () => {
+      aboutVideo.muted = !aboutVideo.muted;
+      aboutPlayIcon.innerHTML = aboutVideo.muted ? mutedIcon : soundIcon;
+    });
+    // Autoplay with sound is blocked by most browsers; fall back to muted playback if it fails.
+    const tryPlay = aboutVideo.play();
+    if (tryPlay && tryPlay.catch) tryPlay.catch(() => { aboutVideo.muted = true; aboutVideo.play(); });
+  }
+
+  /* ---- CONTACT FORM ---- */
+  const cf = document.getElementById('contactForm');
+  if (cf) {
+    cf.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = cf.querySelector('.submit-btn');
+      const orig = btn.textContent;
+      const data = { firstName: firstName.value, lastName: lastName.value, email: email.value, phone: phone.value, service: service.value, message: message.value };
+      btn.textContent = 'Sending…'; btn.disabled = true;
+      try {
+        const r = await fetch('/api/contact/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        if (r.ok) { btn.textContent = '✓ Message Sent!'; btn.style.background = '#2563eb'; cf.reset(); }
+        else throw 0;
+      } catch { btn.textContent = '✗ Failed — try again'; btn.style.background = '#dc2626'; }
+      setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 5000);
+    });
+  }
+</script>
+</body>
+</html>
