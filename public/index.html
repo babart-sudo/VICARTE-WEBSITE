@@ -158,14 +158,11 @@
     .hero-slide.active { opacity: 1; z-index: 1; }
     .hero-slide::after {
       content: ''; position: absolute; inset: 0;
-      /* light scrim, concentrated bottom-left where the copy sits, so the
-         photography itself reads clear, crisp, and near-untouched everywhere else */
       background:
         linear-gradient(90deg, rgba(8,14,24,0.56) 0%, rgba(8,14,24,0.22) 32%, transparent 55%),
         linear-gradient(0deg, rgba(8,14,24,0.6) 0%, rgba(8,14,24,0.16) 30%, transparent 56%);
     }
 
-    /* Decorative gold line */
     .hero-line {
       position: absolute; left: clamp(24px,5vw,72px); top: 0; bottom: 0;
       width: 1px; background: linear-gradient(to bottom, transparent, rgba(184,151,90,0.5) 20%, rgba(184,151,90,0.5) 80%, transparent);
@@ -212,7 +209,6 @@
       animation: fadeUp 0.9s var(--ease) forwards 0.9s;
     }
 
-    /* slide controls */
     .hero-prev, .hero-next {
       position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
       width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
@@ -225,12 +221,10 @@
     .hero-next { right: clamp(16px,3vw,40px); }
     .hero-prev:hover, .hero-next:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-50%) scale(1.06); }
 
-    /* dots */
     .hero-dots { position: absolute; bottom: clamp(28px,5vh,60px); left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 5; }
     .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: pointer; transition: all 0.3s; border: none; }
     .hero-dot.active { background: var(--gold); transform: scale(1.5); }
 
-    /* scroll indicator */
     .scroll-hint {
       position: absolute; bottom: clamp(28px,5vh,52px); right: clamp(24px,4vw,56px);
       z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -283,7 +277,6 @@
     }
     .btn-alum:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(199,206,212,0.3); }
 
-    /* Premium sweep-fill CTA — used for the projects "View Our Work" button */
     .btn-premium {
       position: relative;
       display: inline-flex; align-items: center; gap: 12px;
@@ -332,7 +325,6 @@
     .title-rule-left { display: block; width: 0; height: 1px; background: linear-gradient(90deg, var(--gold-light), transparent); margin: 22px 0 0; transition: width 1.3s var(--ease) 0.25s; }
     .reveal.in .title-rule-left { width: 120px; }
 
-    /* Static 4-up grid: Aluminum · Kitchen · Cabinetry · Interiors */
     .gallery-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 3vw, 40px);
       padding: 0 clamp(20px,4vw,48px);
@@ -380,7 +372,6 @@
     }
     .gallery-card:hover .gallery-card-overlay { opacity: 1; }
 
-    /* Caption now sits BELOW the image box, centered — premium plaque style */
     .gallery-card-caption { text-align: center; padding-top: 22px; }
     .gallery-card-tag {
       display: inline-block; margin-bottom: 12px;
@@ -398,7 +389,6 @@
     }
     .gallery-card:hover .gallery-card-title::after { width: 44px; left: calc(50% - 22px); }
 
-    /* View cue */
     .gallery-card-cue {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.85);
       background: rgba(184,151,90,0.92); color: var(--white);
@@ -408,7 +398,6 @@
     }
     .gallery-card:hover .gallery-card-cue { opacity: 1; transform: translate(-50%,-50%) scale(1); }
 
-    /* Featured badge */
     .gallery-badge {
       position: absolute; top: 18px; left: 18px; z-index: 4;
       background: linear-gradient(135deg, rgba(199,206,212,0.92), rgba(154,163,173,0.88));
@@ -417,7 +406,6 @@
       padding: 5px 12px; border-radius: 3px; display: flex; align-items: center; gap: 5px;
     }
 
-    /* CTA below the grid */
     .gallery-cta { text-align: center; margin-top: clamp(48px,7vw,76px); }
     .gallery-cta-line {
       display: block; width: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
@@ -427,11 +415,7 @@
 
 
     /* =============================================
-       ALUMINUM SECTION — Precision Engineering Redesign
-       Design language: technical spec sheet / architectural blueprint.
-       Palette adds a graphite + blueprint layer distinct from the
-       photographic navy sections around it, so the material itself
-       (not another lifestyle photo) is the hero.
+       ALUMINUM SECTION
        ============================================= */
     #aluminum {
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
@@ -441,7 +425,6 @@
         radial-gradient(ellipse 900px 500px at 85% 8%, rgba(184,151,90,0.10), transparent 60%),
         linear-gradient(155deg, #0d1015 0%, #12161d 45%, #171b22 100%);
     }
-    /* faint blueprint grid — the "drafting table" surface */
     #aluminum::before {
       content: '';
       position: absolute; inset: 0;
@@ -477,7 +460,6 @@
       background: linear-gradient(120deg, var(--aluminum-light), #fff 45%, var(--aluminum));
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    /* spec plate — reads like a material data tag */
     .alu-spec-plate {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 11px; letter-spacing: 0.04em; color: rgba(255,255,255,0.55);
@@ -491,7 +473,6 @@
 
     .alu-body { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; align-items: stretch; }
 
-    /* ---- Left: photo showcase, treated like a spec-sheet photograph ---- */
     .alu-showcase { position: relative; border-radius: 4px; overflow: hidden; min-height: 560px; border: 1px solid rgba(199,206,212,0.16); }
     .alu-showcase::before, .alu-showcase::after {
       content: ''; position: absolute; z-index: 5; width: 26px; height: 26px; pointer-events: none;
@@ -510,7 +491,6 @@
       from { transform: scale(1.12) translate(0, 0); }
       to   { transform: scale(1.02) translate(-1.5%, -1%); }
     }
-    /* measurement ticks along showcase edges — precision motif */
     .alu-ticks { position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0.5; }
     .alu-showcase-label {
       position: absolute; bottom: 0; left: 0; right: 0; z-index: 4; padding: 56px 26px 22px;
@@ -527,7 +507,6 @@
     .alu-sl-arr.l { left: 16px; }
     .alu-sl-arr.r { right: 16px; }
 
-    /* ---- Right: spec-sheet rows instead of generic cards ---- */
     .alu-specs { display: flex; flex-direction: column; }
     .alu-specs-top { font-family:'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.32); display: flex; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid rgba(199,206,212,0.16); margin-bottom: 4px; }
 
@@ -551,7 +530,6 @@
     .alu-cta { display: flex; flex-direction: column; gap: 16px; margin-top: clamp(36px,5vw,52px); align-items: center; text-align: center; }
     .alu-cta-note { font-family:'IBM Plex Mono',monospace; font-size: 10.5px; color: rgba(255,255,255,0.32); letter-spacing: 0.05em; }
 
-    /* ---- Signature: premium finish palette — the metals themselves as the hero ---- */
     .alu-finishes {
       margin-top: clamp(48px,6vw,72px);
       border: 1px solid rgba(199,206,212,0.16); border-radius: 8px;
@@ -606,7 +584,7 @@
     .alu-swatch-code { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); }
 
     /* =============================================
-       SERVICES — LUXURY REDESIGN
+       SERVICES
        ============================================= */
     #services {
       padding: var(--section-pad) 0; min-height: 100vh;
@@ -732,7 +710,6 @@
 
     .about-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px,4.5vw,56px); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 24px; }
 
-    /* ---- About video showcase ---- */
     .about-video-wrap { position: relative; width: 100%; height: 100%; background: var(--navy-light); }
     .about-video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .about-video-scrim {
@@ -765,7 +742,7 @@
     .stat-lbl { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
 
     /* =============================================
-       CONTACT — full redesign with maps
+       CONTACT + SHOWROOMS MAP
        ============================================= */
     #contact {
       padding: var(--section-pad) 0;
@@ -780,10 +757,8 @@
     .contact-header h2 em { font-style: italic; color: var(--gold-light); }
     .contact-header p { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 520px; margin: 18px auto 0; }
 
-    /* Top row: info + form */
     .contact-top { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-bottom: 64px; }
 
-    /* Info column */
     .contact-info-col h3 { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; color: var(--white); margin-bottom: 24px; }
     .contact-info-col h3 em { font-style: italic; color: var(--gold-light); }
     .contact-info-col > p { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
@@ -800,7 +775,6 @@
     .socials a { width: 40px; height: 40px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.65); font-size: 16px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.25s; }
     .socials a:hover { background: var(--gold); border-color: var(--gold); color: var(--white); transform: translateY(-3px); }
 
-    /* Form column */
     .contact-form { display: flex; flex-direction: column; gap: 14px; }
     .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .field { display: flex; flex-direction: column; gap: 6px; }
@@ -824,7 +798,6 @@
     }
     .submit-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
 
-    /* ---- SHOWROOMS MAP SECTION ---- */
     .showrooms-section { margin-top: 0; }
     .showrooms-label {
       display: flex; align-items: center; gap: 16px;
@@ -843,7 +816,6 @@
     .showroom-map-wrap iframe { width: 100%; height: 100%; border: none; display: block; filter: grayscale(20%) contrast(1.05); transition: filter 0.3s; }
     .showroom-card:hover .showroom-map-wrap iframe { filter: grayscale(0%) contrast(1); }
 
-    /* "Open in Maps" pill overlay */
     .map-open-btn {
       position: absolute; top: 12px; right: 12px; z-index: 2;
       display: inline-flex; align-items: center; gap: 6px;
@@ -949,7 +921,7 @@
         <a href="/services.html#visualization">3D Visualization</a>
       </div>
     </li>
-    <li><a href="#about">About</a></li>
+    <li><a href="/about.html">About</a></li>
     <li class="nav-dropdown">
       <a href="/portfolio.html">Projects</a>
       <div class="dropdown-panel">
@@ -970,7 +942,7 @@
   <button class="mob-close" id="mobClose">✕</button>
   <a href="#hero" onclick="closeMob()">Home</a>
   <a href="/services.html" onclick="closeMob()">Services</a>
-  <a href="#about" onclick="closeMob()">About</a>
+  <a href="/about.html" onclick="closeMob()">About</a>
   <a href="/portfolio.html" onclick="closeMob()">Portfolio</a>
   <a href="#contact" onclick="closeMob()">Contact</a>
 </div>
@@ -1104,7 +1076,7 @@
 
 
 <!-- =============================================
-     ALUMINUM SECTION — Precision Engineering Redesign
+     ALUMINUM SECTION
      ============================================= -->
 <section id="aluminum">
   <div class="alu-wrap">
@@ -1124,7 +1096,6 @@
 
     <div class="alu-body">
 
-      <!-- Photo showcase -->
       <div class="alu-showcase reveal-l" id="aluSlider">
         <div class="alu-sl on"><img src="/images/aluminum1.jpg" alt="Window Systems"></div>
         <div class="alu-sl"><img src="/images/aluminum2.jpg" alt="Kitchen Profiles"></div>
@@ -1142,7 +1113,6 @@
         </div>
       </div>
 
-      <!-- Spec-sheet rows -->
       <div class="alu-specs reveal-r">
         <div class="alu-specs-top"><span>Property</span><span>Rating</span></div>
 
@@ -1178,7 +1148,6 @@
 
     </div>
 
-    <!-- Signature: premium finish palette -->
     <div class="alu-finishes reveal" id="aluFinishes">
       <div class="alu-finishes-top">
         <div>
@@ -1221,7 +1190,7 @@
 
 
 <!-- =============================================
-     SERVICES — LUXURY GRID
+     SERVICES
      ============================================= -->
 <section id="services">
   <div class="container">
@@ -1298,7 +1267,10 @@
           <div><div class="stat-num" data-count="13">0</div><div class="stat-lbl">Years Experience</div></div>
           <div><div class="stat-num" data-count="2">0</div><div class="stat-lbl">Showrooms</div></div>
         </div>
-        <a href="/portfolio.html" class="btn-gold">View Our Portfolio</a>
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="/portfolio.html" class="btn-gold">View Our Portfolio</a>
+          <a href="/about.html" class="btn-ghost">Read Our Full Story &rarr;</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1316,7 +1288,6 @@
       <p>Ready to transform your space? Reach out for a complimentary consultation — or visit one of our showrooms in Cebu.</p>
     </div>
 
-    <!-- Top row: info + form -->
     <div class="contact-top">
       <div class="contact-info-col reveal-l">
         <h3>Get in <em>Touch</em></h3>
@@ -1373,7 +1344,6 @@
       </form>
     </div>
 
-    <!-- Showroom Maps -->
     <div class="showrooms-section reveal">
       <div class="showrooms-label">
         <h3>Visit Our <em>Showrooms</em></h3>
@@ -1381,7 +1351,6 @@
 
       <div class="showrooms-grid">
 
-        <!-- Showroom 1: Mabolo / TAA Center -->
         <div class="showroom-card">
           <div class="showroom-map-wrap">
             <iframe
@@ -1407,7 +1376,6 @@
           </div>
         </div>
 
-        <!-- Showroom 2: Mandaue City -->
         <div class="showroom-card">
           <div class="showroom-map-wrap">
             <iframe
@@ -1462,7 +1430,7 @@
     <div class="footer-col">
       <h5>Company</h5>
       <ul>
-        <li><a href="#about">About Us</a></li>
+        <li><a href="/about.html">About Us</a></li>
         <li><a href="/portfolio.html">Portfolio</a></li>
         <li><a href="#contact">Contact Us</a></li>
       </ul>
@@ -1607,7 +1575,6 @@
       aboutVideo.muted = !aboutVideo.muted;
       aboutPlayIcon.innerHTML = aboutVideo.muted ? mutedIcon : soundIcon;
     });
-    // Autoplay with sound is blocked by most browsers; fall back to muted playback if it fails.
     const tryPlay = aboutVideo.play();
     if (tryPlay && tryPlay.catch) tryPlay.catch(() => { aboutVideo.muted = true; aboutVideo.play(); });
   }

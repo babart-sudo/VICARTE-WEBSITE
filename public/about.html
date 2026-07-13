@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Vicarte Interior Concept — our story, mission, and vision. Bespoke kitchens, custom cabinetries, and interior design in Cebu, Philippines." />
+  <title>About Us — Vicarte Interior Concept</title>
+  <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* =============================================
+       TOKEN SYSTEM — identical to the rest of the site
+       ============================================= */
+    :root {
+      --navy:           #1a2840;
+      --navy-mid:       #1e2d4a;
+      --navy-light:     #2b3f65;
+      --gold:           #b8975a;
+      --gold-light:     #d4b07a;
+      --gold-pale:      #f0e4ce;
+      --white:          #ffffff;
+      --off-white:      #f8f6f2;
+      --grey:           #6b7280;
+      --grey-light:     #e8e3db;
+      --text:           #1f1f1f;
+      --aluminum:       #9aa3ad;
+      --aluminum-light: #c7ced4;
+
+      --section-pad: clamp(72px, 10vw, 120px);
+      --container:   1280px;
+      --gap:         clamp(24px, 4vw, 56px);
+
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--navy); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font-family: inherit; }
+
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
+    }
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); flex-shrink: 0; }
+
+    /* =============================================
+       NAVIGATION — matches site, transparent even on scroll
+       ============================================= */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(20px, 4vw, 48px); height: 72px;
+      background: transparent;
+      transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease), backdrop-filter 0.4s;
+    }
+    #navbar.scrolled { background: transparent; }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; letter-spacing: 3px; color: var(--white); line-height: 1; text-decoration: none; }
+    .nav-logo small { display: block; font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 4px; color: var(--gold-light); margin-top: 2px; }
+    .nav-links { display: flex; gap: 0; list-style: none; align-items: center; }
+    .nav-links > li > a {
+      display: block; padding: 8px 18px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.82); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links > li > a:hover, .nav-links > li > a.current { color: var(--gold-light); }
+    .nav-cta-btn {
+      margin-left: 16px;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gold); color: var(--white) !important;
+      padding: 10px 22px !important; border-radius: 4px;
+      font-size: 11px !important; font-weight: 600 !important;
+      letter-spacing: 0.12em !important; text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta-btn:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { content: ''; display: inline-block; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); margin-left: 6px; opacity: 0.6; }
+    .dropdown-panel {
+      position: absolute; top: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: var(--white); border-radius: 6px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.04);
+      min-width: 200px; padding: 6px;
+      opacity: 0; visibility: hidden;
+      transition: all 0.25s var(--ease);
+      pointer-events: none;
+    }
+    .nav-dropdown:hover .dropdown-panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .dropdown-panel a {
+      display: block; padding: 11px 16px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--navy-mid); text-decoration: none; border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .dropdown-panel a:hover { background: var(--gold-pale); color: var(--gold); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: 0.3s; border-radius: 2px; }
+    .mobile-overlay {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: var(--navy); flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    }
+    .mobile-overlay.open { display: flex; }
+    .mobile-overlay a { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--white); text-decoration: none; padding: 12px 0; transition: color 0.2s; }
+    .mobile-overlay a:hover { color: var(--gold-light); }
+    .mobile-overlay .mob-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: var(--white); font-size: 26px; cursor: pointer; }
+
+    /* =============================================
+       ABOUT HERO — with Ecclesiastes 4:9-12
+       ============================================= */
+    #about-hero {
+      min-height: 74vh; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; text-align: center;
+      background: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1800&auto=format&fit=crop') center/cover fixed;
+      padding: 168px clamp(20px,4vw,48px) 96px;
+    }
+    #about-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(8,13,24,0.92) 0%, rgba(20,31,52,0.86) 55%, rgba(8,13,24,0.9) 100%);
+    }
+    #about-hero::after {
+      content: ''; position: absolute; inset: clamp(18px,3vw,34px);
+      border: 1px solid rgba(212,176,122,0.22); pointer-events: none;
+    }
+    .ah-content { position: relative; z-index: 1; max-width: 760px; }
+    .ah-eyebrow {
+      display: inline-flex; align-items: center; gap: 14px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); margin-bottom: 26px;
+    }
+    .ah-eyebrow::before, .ah-eyebrow::after { content: ''; width: 30px; height: 1px; background: rgba(212,176,122,0.55); }
+    .ah-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(46px, 6.5vw, 80px); font-weight: 300; line-height: 1.05; color: var(--white); letter-spacing: 0.01em; margin-bottom: 40px; }
+    .ah-title em { font-style: italic; color: var(--gold-light); }
+
+    .ah-verse {
+      max-width: 620px; margin: 0 auto; padding-top: 36px;
+      border-top: 1px solid rgba(212,176,122,0.28);
+    }
+    .ah-verse-mark { font-family: 'Cormorant Garamond', serif; font-size: 52px; color: var(--gold-light); line-height: 0.6; opacity: 0.6; margin-bottom: 8px; }
+    .ah-verse p {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+      font-size: clamp(17px, 2vw, 21px); line-height: 1.75; color: rgba(255,255,255,0.82);
+    }
+    .ah-verse cite {
+      display: block; margin-top: 20px; font-style: normal;
+      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-light);
+    }
+
+    /* =============================================
+       STORY SECTION — text + video showcase
+       ============================================= */
+    #story {
+      padding: var(--section-pad) 0; min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop') center/cover fixed;
+    }
+    #story::before { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(14,20,32,0.92) 0%, rgba(26,40,64,0.88) 100%); }
+    #story > .container { position: relative; z-index: 1; width: 100%; }
+
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: center; }
+    .story-visual { position: relative; }
+    .story-img { width: 100%; aspect-ratio: 4/5; border-radius: 4px; overflow: hidden; background: var(--navy-light); }
+    .story-badge {
+      position: absolute; bottom: -24px; right: -24px;
+      width: 130px; height: 130px; border-radius: 50%;
+      background: var(--gold); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 14px;
+      animation: spin 24s linear infinite;
+    }
+    .story-badge .n { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--white); line-height: 1; }
+    .story-badge .l { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.8); margin-top: 2px; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* video showcase, matches homepage about section */
+    .story-video-wrap { position: relative; width: 100%; height: 100%; background: var(--navy-light); }
+    .story-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .story-video-scrim {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(to top, rgba(8,14,24,0.55) 0%, rgba(8,14,24,0.05) 32%, transparent 55%);
+    }
+    .story-video-play {
+      position: absolute; bottom: 20px; right: 20px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(8,14,24,0.55); backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      transition: transform 0.3s var(--ease), background 0.3s;
+      z-index: 2;
+    }
+    .story-video-play:hover { transform: scale(1.08); background: var(--gold); border-color: var(--gold); }
+    .story-video-play svg { width: 18px; height: 18px; color: var(--white); }
+    .story-video-caption {
+      position: absolute; left: 22px; bottom: 20px; z-index: 2;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+    .story-video-caption .svc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-light); flex-shrink: 0; }
+
+    .story-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px,4.5vw,56px); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 24px; }
+    .story-text h2 em { font-style: italic; color: var(--gold-light); }
+    .story-text p { font-size: 15px; line-height: 1.9; color: rgba(255,255,255,0.68); margin-bottom: 18px; }
+
+    .story-stats { display: flex; gap: clamp(32px,5vw,56px); margin: 36px 0; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.12); }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--white); line-height: 1; }
+    .stat-lbl { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+    /* =============================================
+       MISSION & VISION
+       ============================================= */
+    #mission-vision {
+      padding: var(--section-pad) 0;
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse 900px 500px at 85% 8%, rgba(184,151,90,0.08), transparent 60%),
+        linear-gradient(155deg, #0d1015 0%, #12161d 45%, #171b22 100%);
+    }
+    #mission-vision::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(199,206,212,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(199,206,212,0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 40%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 40%, transparent 100%);
+    }
+    #mission-vision > .container { position: relative; z-index: 1; }
+
+    .mv-header { text-align: center; margin-bottom: clamp(48px,7vw,76px); }
+    .mv-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px,5vw,58px); font-weight: 300; color: var(--white); }
+    .mv-header h2 em { font-style: italic; color: var(--gold-light); }
+
+    .mv-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(24px,3vw,40px); align-items: stretch; }
+
+    /* image box beside the Mission & Vision cards */
+    .mv-visual { position: relative; border-radius: 4px; overflow: hidden; min-height: 480px; border: 1px solid rgba(199,206,212,0.16); }
+    .mv-visual::before, .mv-visual::after {
+      content: ''; position: absolute; z-index: 2; width: 26px; height: 26px; pointer-events: none;
+      border-color: var(--gold-light); opacity: 0.85;
+    }
+    .mv-visual::before { top: 16px; left: 16px; border-top: 1.5px solid; border-left: 1.5px solid; }
+    .mv-visual::after { bottom: 16px; right: 16px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+    .mv-img { position: absolute; inset: 0; }
+    .mv-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85) saturate(0.92) contrast(1.05); }
+    .mv-img-label {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 3; padding: 48px 24px 22px;
+      background: linear-gradient(to top, rgba(0,0,0,0.72), transparent);
+    }
+    .mv-img-label .name { font-family:'Cormorant Garamond',serif; font-size: 22px; color: var(--white); font-weight:400; }
+    .mv-img-label .code { font-family:'IBM Plex Mono',monospace; font-size: 10px; color: var(--gold-light); letter-spacing: 0.08em; display: block; margin-top: 4px; }
+
+    .mv-cards { display: flex; flex-direction: column; gap: clamp(20px,2.5vw,28px); }
+    .mv-card {
+      flex: 1;
+      border: 1px solid rgba(199,206,212,0.16); border-radius: 8px;
+      padding: clamp(28px,3.2vw,40px) clamp(26px,3vw,36px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.006));
+      position: relative; overflow: hidden;
+      transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+    .mv-card:hover { border-color: rgba(212,176,122,0.4); transform: translateY(-4px); }
+    .mv-card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 420px 220px at 12% 0%, rgba(184,151,90,0.10), transparent 70%);
+    }
+    .mv-icon {
+      width: 46px; height: 46px; border-radius: 50%;
+      border: 1px solid rgba(212,176,122,0.5);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light); margin-bottom: 20px; position: relative; z-index: 1;
+    }
+    .mv-icon svg { width: 20px; height: 20px; }
+    .mv-card h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(23px,2.4vw,27px); font-weight: 300; color: var(--white); margin-bottom: 12px; position: relative; z-index: 1; }
+    .mv-card h3 em { font-style: italic; color: var(--gold-light); }
+    .mv-card p { font-size: 13.5px; line-height: 1.85; color: rgba(255,255,255,0.55); position: relative; z-index: 1; }
+
+    /* =============================================
+       CLIENT PARTNERSHIPS
+       ============================================= */
+    #partners {
+      padding: var(--section-pad) 0;
+      position: relative; overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop') center/cover fixed;
+    }
+    #partners::before { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(14,20,32,0.93) 0%, rgba(26,40,64,0.9) 100%); }
+    #partners > .container { position: relative; z-index: 1; }
+
+    .partners-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: center; }
+    .partners-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px,4.2vw,50px); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 22px; }
+    .partners-text h2 em { font-style: italic; color: var(--gold-light); }
+    .partners-text > p { font-size: 14.5px; line-height: 1.9; color: rgba(255,255,255,0.62); margin-bottom: 30px; max-width: 460px; }
+
+    .partners-list { display: flex; flex-wrap: wrap; gap: 12px; }
+    .partner-chip {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 22px; border: 1px solid rgba(212,176,122,0.32); border-radius: 4px;
+      font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 400;
+      color: var(--white); background: rgba(255,255,255,0.03);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .partner-chip:hover { border-color: rgba(212,176,122,0.6); background: rgba(184,151,90,0.08); }
+    .partner-chip .pc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-light); flex-shrink: 0; }
+
+    /* image box beside the client partnerships text */
+    .partners-visual { position: relative; border-radius: 4px; overflow: hidden; min-height: 420px; border: 1px solid rgba(255,255,255,0.1); }
+    .partners-visual::before, .partners-visual::after {
+      content: ''; position: absolute; z-index: 2; width: 26px; height: 26px; pointer-events: none;
+      border-color: var(--gold-light); opacity: 0.85;
+    }
+    .partners-visual::before { top: 16px; left: 16px; border-top: 1.5px solid; border-left: 1.5px solid; }
+    .partners-visual::after { bottom: 16px; right: 16px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+    .partners-img { position: absolute; inset: 0; }
+    .partners-img img { width: 100%; height: 100%; object-fit: cover; }
+    .partners-img-label {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 3; padding: 48px 24px 22px;
+      background: linear-gradient(to top, rgba(0,0,0,0.72), transparent);
+    }
+    .partners-img-label .name { font-family:'Cormorant Garamond',serif; font-size: 20px; color: var(--white); font-weight:400; }
+    .partners-img-label .code { font-family:'IBM Plex Mono',monospace; font-size: 10px; color: var(--gold-light); letter-spacing: 0.08em; display: block; margin-top: 4px; }
+
+    /* =============================================
+       VALUES STRIP
+       ============================================= */
+    #values {
+      padding: var(--section-pad) 0;
+      position: relative; overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop') center/cover fixed;
+    }
+    #values::before { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(14,20,32,0.93) 0%, rgba(26,40,64,0.9) 100%); }
+    #values > .container { position: relative; z-index: 1; }
+    .values-header { text-align: center; margin-bottom: clamp(40px,6vw,64px); }
+    .values-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px,4.5vw,54px); font-weight: 300; color: var(--white); }
+    .values-header h2 em { font-style: italic; color: var(--gold-light); }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px,3vw,32px); }
+    .value-item { text-align: center; padding: clamp(28px,3vw,36px) clamp(16px,2vw,24px); }
+    .value-num { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; color: var(--gold-light); opacity: 0.6; margin-bottom: 14px; }
+    .value-item h4 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--white); margin-bottom: 10px; }
+    .value-item p { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.55); }
+
+    /* CTA */
+    .about-cta { text-align: center; margin-top: clamp(56px,7vw,84px); }
+    .about-cta-line { display: block; width: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); margin: 0 auto 32px; transition: width 1.2s var(--ease) 0.2s; }
+    .about-cta.in .about-cta-line { width: 220px; }
+
+    .btn-premium {
+      position: relative;
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 17px 48px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold-light); background: transparent;
+      border: 1px solid rgba(212,176,122,0.55); border-radius: 2px;
+      text-decoration: none; overflow: hidden; isolation: isolate;
+      transition: color 0.45s var(--ease), border-color 0.45s var(--ease);
+    }
+    .btn-premium::before {
+      content: ''; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.55s var(--ease);
+    }
+    .btn-premium:hover { color: var(--white); border-color: var(--gold-light); }
+    .btn-premium:hover::before { transform: scaleX(1); }
+
+    /* =============================================
+       FOOTER — matches site exactly
+       ============================================= */
+    footer { background: #080f1c; padding: 56px clamp(20px,4vw,48px) 32px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .footer-brand .fn { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; letter-spacing: 3px; color: var(--white); }
+    .footer-brand .fs { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light); display: block; margin-top: 2px; }
+    .footer-brand p { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.38); margin-top: 16px; max-width: 260px; }
+    .footer-col h5 { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li + li { margin-top: 10px; }
+    .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold-light); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.22); }
+    .footer-socials-wrap { display: flex; align-items: center; gap: 16px; }
+    .footer-follow-label { font-size: 14px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); }
+    .footer-socials { display: flex; gap: 14px; }
+    .footer-socials a { width: 52px; height: 52px; border-radius: 10px; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6); font-size: 22px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.25s; border: 1px solid rgba(255,255,255,0.1); }
+    .footer-socials a:hover { background: var(--gold); border-color: var(--gold); color: var(--white); transform: translateY(-3px); }
+
+    /* =============================================
+       REVEALS
+       ============================================= */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal-l { opacity: 0; transform: translateX(-48px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal-l.in { opacity: 1; transform: translateX(0); }
+    .reveal-r { opacity: 0; transform: translateX(48px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal-r.in { opacity: 1; transform: translateX(0); }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+
+    /* =============================================
+       MOBILE
+       ============================================= */
+    @media (max-width: 900px) {
+      .story-grid, .mv-grid, .partners-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .story-badge { display: none; }
+      .mv-visual { min-height: 320px; order: -1; }
+      .partners-visual { min-height: 300px; }
+    }
+    @media (max-width: 640px) {
+      #navbar { height: 60px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      #about-hero { min-height: 60vh; padding: 128px 20px 64px; background-attachment: scroll; }
+      #story, #values { background-attachment: scroll; }
+      .values-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .story-stats { flex-wrap: wrap; row-gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =============================================
+     NAVIGATION
+     ============================================= -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">VICARTE <small>INTERIOR CONCEPTS</small></a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li class="nav-dropdown">
+      <a href="/services.html">Services</a>
+      <div class="dropdown-panel">
+        <a href="/services.html#kitchen-design">Kitchen Design</a>
+        <a href="/services.html#custom-cabinetries">Custom Cabinetries</a>
+        <a href="/services.html#interior-concept">Interior Concept</a>
+        <a href="/services.html#visualization">3D Visualization</a>
+      </div>
+    </li>
+    <li><a href="/about.html" class="current">About</a></li>
+    <li class="nav-dropdown">
+      <a href="/portfolio.html">Projects</a>
+      <div class="dropdown-panel">
+        <a href="/portfolio.html?filter=kitchen">Kitchen</a>
+        <a href="/portfolio.html?filter=cabinet">Cabinetry</a>
+        <a href="/portfolio.html?filter=interior">Interior</a>
+        <a href="/portfolio.html?filter=aluminum">Aluminum</a>
+      </div>
+    </li>
+    <li><a href="/#contact" class="nav-cta-btn">Contact Us</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="/" onclick="closeMob()">Home</a>
+  <a href="/services.html" onclick="closeMob()">Services</a>
+  <a href="/about.html" onclick="closeMob()">About</a>
+  <a href="/portfolio.html" onclick="closeMob()">Portfolio</a>
+  <a href="/#contact" onclick="closeMob()">Contact</a>
+</div>
+
+
+<!-- =============================================
+     ABOUT HERO
+     ============================================= -->
+<section id="about-hero">
+  <div class="ah-content">
+    <p class="ah-eyebrow">About Vicarte</p>
+    <h1 class="ah-title">Built on Craft.<br>Held Together by <em>Faith</em></h1>
+
+    <div class="ah-verse">
+      <div class="ah-verse-mark">"</div>
+      <p>Two are better than one, because they have a good reward for their labour. For if they fall, the one will lift up his fellow: but woe to him that is alone when he falleth; for he hath not another to help him up. Again, if two lie together, then they have heat: but how can one be warm alone? And if one prevail against him, two shall withstand him; and a threefold cord is not quickly broken.</p>
+      <cite>Ecclesiastes 4:9&ndash;12</cite>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     STORY — text + video showcase
+     ============================================= -->
+<section id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-visual reveal-l">
+        <div class="story-img">
+          <div class="story-video-wrap" id="storyVideoWrap">
+            <video class="story-video" id="storyVideo" playsinline preload="auto" autoplay muted loop>
+              <source src="/images/vicarte-story.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="story-video-scrim"></div>
+            <button class="story-video-play" id="storyPlayBtn" aria-label="Mute or unmute video">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="storyPlayIcon"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            </button>
+            <div class="story-video-caption"><span class="svc-dot"></span> Behind the Craft</div>
+          </div>
+        </div>
+        <div class="story-badge"><span class="n">13+</span><span class="l">Years of Excellence</span></div>
+      </div>
+
+      <div class="story-text reveal-r">
+        <p class="eyebrow">Our Story</p>
+        <h2>Crafting <em>Beautiful</em><br>Spaces Since 2013</h2>
+        <p>Vicarte Interior Concept was born from a simple belief: that your kitchen and living space should be a true reflection of who you are. What began as a small team with a shared passion for craftsmanship has grown into a name trusted by homeowners across Cebu and Manila.</p>
+        <p>Every project we take on is treated as a partnership — not a transaction. Our designers, craftsmen, and project managers work side by side with each client, carrying the belief that the best spaces are built the way the best things in life are built: together, with patience, and with care.</p>
+        <p>That same spirit of partnership is why we hold to Ecclesiastes 4:9&ndash;12 as something close to our working philosophy — good work, like a good life, is rarely done alone.</p>
+
+        <div class="story-stats">
+          <div><div class="stat-num" data-count="500">0</div><div class="stat-lbl">Projects Completed</div></div>
+          <div><div class="stat-num" data-count="13">0</div><div class="stat-lbl">Years Experience</div></div>
+          <div><div class="stat-num" data-count="2">0</div><div class="stat-lbl">Showrooms</div></div>
+        </div>
+
+        <a href="/portfolio.html" class="btn-gold" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--white);padding:14px 34px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:background 0.25s, transform 0.2s;">View Our Portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     MISSION & VISION
+     ============================================= -->
+<section id="mission-vision">
+  <div class="container">
+    <div class="mv-header reveal">
+      <p class="eyebrow" style="justify-content:center;">What Drives Us</p>
+      <h2>Mission &amp; <em>Vision</em></h2>
+    </div>
+
+    <div class="mv-grid">
+      <div class="mv-visual reveal-l">
+        <div class="mv-img">
+          <img src="/images/kitchen-design1.jpg" alt="Vicarte custom kitchen design">
+        </div>
+        <div class="mv-img-label">
+          <span class="name">Where It Begins</span>
+          <span class="code">DESIGN &middot; CRAFT &middot; DELIVER</span>
+        </div>
+      </div>
+
+      <div class="mv-cards reveal-r">
+        <div class="mv-card">
+          <div class="mv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Our <em>Mission</em></h3>
+          <p>To design and craft kitchens, cabinetry, and interiors that are honest reflections of the people who live in them — built with precision, sourced with integrity, and finished with a level of care that outlasts trends. We exist to turn a house into a space our clients are proud to call home.</p>
+        </div>
+
+        <div class="mv-card">
+          <div class="mv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/></svg>
+          </div>
+          <h3>Our <em>Vision</em></h3>
+          <p>To be the most trusted name in bespoke interiors across the Philippines — known not only for the quality of our craftsmanship, but for the relationships we build along the way. We envision a Vicarte that grows the same way it started: one collaboration, one showroom, and one family at a time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     CLIENT PARTNERSHIPS
+     ============================================= -->
+<section id="partners">
+  <div class="container">
+    <div class="partners-grid">
+      <div class="partners-text reveal-l">
+        <p class="eyebrow">Trusted By</p>
+        <h2>Client <em>Partnerships</em></h2>
+        <p>Beyond individual homes, Vicarte has been trusted to bring the same precision and care to commercial and institutional spaces — partnering with organizations that hold their environments to as high a standard as we hold our craft.</p>
+        <div class="partners-list">
+          <span class="partner-chip"><span class="pc-dot"></span>Belo Medical Group</span>
+        </div>
+      </div>
+
+      <div class="partners-visual reveal-r">
+        <div class="partners-img">
+          <img src="/images/cabinet-design11.jpg" alt="Vicarte commercial cabinetry project">
+        </div>
+        <div class="partners-img-label">
+          <span class="name">Commercial &amp; Institutional Work</span>
+          <span class="code">CUSTOM CABINETRY &middot; FIT-OUTS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     VALUES
+     ============================================= -->
+<section id="values">
+  <div class="container">
+    <div class="values-header reveal">
+      <p class="eyebrow" style="justify-content:center;">What We Stand On</p>
+      <h2>Our Core <em>Values</em></h2>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-item reveal d1">
+        <div class="value-num">01</div>
+        <h4>Craftsmanship</h4>
+        <p>Every joint, finish, and detail is held to a standard we'd want in our own homes.</p>
+      </div>
+      <div class="value-item reveal d2">
+        <div class="value-num">02</div>
+        <h4>Partnership</h4>
+        <p>We build alongside our clients, not just for them — every project is a shared effort.</p>
+      </div>
+      <div class="value-item reveal d3">
+        <div class="value-num">03</div>
+        <h4>Integrity</h4>
+        <p>Honest timelines, honest materials, honest pricing — no shortcuts, no surprises.</p>
+      </div>
+    </div>
+
+    <div class="about-cta reveal">
+      <span class="about-cta-line"></span>
+      <a href="/#contact" class="btn-premium">Start Your Project <span>&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     FOOTER
+     ============================================= -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="fn">VICARTE</div>
+      <small class="fs">Interior Concepts</small>
+      <p>Bespoke kitchens, custom cabinetries, and interior design for discerning homeowners in Cebu since 2013.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/services.html#kitchen-design">Kitchen Design</a></li>
+        <li><a href="/services.html#custom-cabinetries">Custom Cabinetries</a></li>
+        <li><a href="/services.html#interior-concept">Interior Concept</a></li>
+        <li><a href="/services.html#visualization">3D Visualization</a></li>
+        <li><a href="/portfolio.html?filter=aluminum">Aluminum Systems</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="/about.html">About Us</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/#contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Showrooms</h5>
+      <ul>
+        <li><a href="https://www.bing.com/maps/search?v=2&pc=FACEBK&mid=8100&mkt=en-US&FORM=FBKPL1&q=Vicarte+Kitchen+is+Located+at+TAA+Arcade+Building%2C+F.+Cabahug+St%2C+Kasambagan%2C+%2C+Cebu+City%2C+Philippines%2C+6000&cp=10.324975%7E123.915250&lvl=17.4&style=r" target="_blank">TAA Center, Mabolo</a></li>
+        <li><a href="https://www.bing.com/maps/search?v=2&pc=FACEBK&mid=8100&mkt=en-US&FORM=FBKPL1&style=r&q=Centris+walk%2C+Eton%2C+Quezon+City%2C+Philippines&secq=Eton+Centris+centris+walk+eton&sece=ypid%3AYN8144x15976936891469833487&cp=14.641938%7E121.040142&lvl=19.7" target="_blank">Centris Station, Quezon City</a></li>
+        <li><a href="tel:03244654207">(032) 4654207</a></li>
+        <li><a href="mailto:vicarteinterior2@gmail.com">vicarteinterior2@gmail.com</a></li>
+        <li><a href="mailto:vicartemnl@gmail.com">vicartemnl@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2013. Vicarte Interior Concept. All rights reserved.</p>
+    <div class="footer-socials-wrap">
+      <span class="footer-follow-label">Follow Us</span>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/vicartekitchencebu" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/vicarte.kitchen/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  /* ---- NAV ---- */
+  const nb = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nb.classList.toggle('scrolled', scrollY > 60), { passive: true });
+
+  /* ---- MOBILE MENU ---- */
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileOverlay').classList.add('open'));
+  document.getElementById('mobClose').addEventListener('click', closeMob);
+  function closeMob() { document.getElementById('mobileOverlay').classList.remove('open'); }
+  window.closeMob = closeMob;
+
+  /* ---- SCROLL REVEAL ---- */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => obs.observe(el));
+
+  /* ---- COUNTERS ---- */
+  const cntObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('[data-count]').forEach(el => {
+        const t = +el.dataset.count; let c = 0;
+        const step = () => { c = Math.min(c + t / 50, t); el.textContent = Math.floor(c) + '+'; if (c < t) requestAnimationFrame(step); };
+        step();
+      });
+      cntObs.unobserve(e.target);
+    });
+  }, { threshold: 0.4 });
+  const stats = document.querySelector('.story-stats');
+  if (stats) cntObs.observe(stats);
+
+  /* ---- STORY VIDEO ---- */
+  const storyVideo = document.getElementById('storyVideo');
+  const storyPlayBtn = document.getElementById('storyPlayBtn');
+  const storyPlayIcon = document.getElementById('storyPlayIcon');
+  if (storyVideo && storyPlayBtn) {
+    const mutedIcon = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+    const soundIcon = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>';
+    storyPlayBtn.addEventListener('click', () => {
+      storyVideo.muted = !storyVideo.muted;
+      storyPlayIcon.innerHTML = storyVideo.muted ? mutedIcon : soundIcon;
+    });
+    const tryPlay = storyVideo.play();
+    if (tryPlay && tryPlay.catch) tryPlay.catch(() => { storyVideo.muted = true; storyVideo.play(); });
+  }
+
+  /* ---- ABOUT CTA LINE REVEAL ---- */
+  const aboutCta = document.querySelector('.about-cta');
+  if (aboutCta) {
+    const ctaObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ctaObs.unobserve(e.target); } });
+    }, { threshold: 0.3 });
+    ctaObs.observe(aboutCta);
+  }
+</script>
+</body>
+</html>
