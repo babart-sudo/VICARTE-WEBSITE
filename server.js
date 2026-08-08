@@ -6,8 +6,17 @@ const path = require('path');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 
-// Initialize Firebase Admin
-const serviceAccount = require('./firebase-admin-key.json');
+// Firebase credentials:
+// - Locally: read from firebase-admin-key.json (gitignored, stays on your machine)
+// - On Vercel: read from the FIREBASE_SERVICE_ACCOUNT env var, since the JSON
+//   file never gets deployed (it's not in git)
+let serviceAccount;
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+} else {
+  serviceAccount = require('./firebase-admin-key.json');
+}
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket: 'vicarte-website.firebasestorage.app'
@@ -16,9 +25,8 @@ admin.initializeApp({
 const db = admin.firestore();
 const app = express();
 
-// Email transporter — set EMAIL_USER and EMAIL_PASS in .env
-// (EMAIL_PASS must be a Gmail "App Password", not your normal login password:
-// https://myaccount.google.com/apppasswords)
+// Email transporter — set EMAIL_USER and EMAIL_PASS in .env locally,
+// and in Vercel's Environment Variables settings for the deployed site.
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -27,8 +35,9 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Admin key — set ADMIN_KEY in your .env file. Falls back to your old
-// hardcoded value so nothing breaks if you haven't added it yet.
+// Admin key — set ADMIN_KEY in .env locally and in Vercel's Environment
+// Variables for the deployed site. Falls back to your old hardcoded value
+// so nothing breaks if you haven't set it yet.
 const ADMIN_KEY = process.env.ADMIN_KEY || 'vicarte_admin_2024';
 
 // Middleware
@@ -132,7 +141,7 @@ app.patch('/api/contacts/:id/reply', requireAdmin, async (req, res) => {
         console.error('Email send failed:', mailErr);
       }
     } else {
-      console.error('EMAIL_USER or EMAIL_PASS is missing from process.env — check .env is loaded and both values are set.');
+      console.error('EMAIL_USER or EMAIL_PASS is missing — check your env vars.');
     }
 
     await docRef.update({
@@ -173,3 +182,5 @@ app.listen(PORT, () => {
   console.log(`✅ Firebase connected to project: vicarte-website`);
   console.log(process.env.EMAIL_USER ? `✅ Email configured for: ${process.env.EMAIL_USER}` : '⚠️  EMAIL_USER not set — replies will save but not email');
 });
+
+module.exports = app;
