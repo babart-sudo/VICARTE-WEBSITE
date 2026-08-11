@@ -18,6 +18,9 @@
   --aluminum:#9aa3ad; --aluminum-light:#c7ced4;
   --new:#c2542f; --replied:#3f7d5c; --archived:#8a8f97;
   --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:0 4px 16px rgba(26,40,64,0.08);
+  --shadow-lg:0 12px 40px rgba(26,40,64,0.12);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{font-size:16px;}
@@ -115,26 +118,28 @@ input,textarea,select{font-family:inherit;}
 .topbar{
   display:flex;align-items:center;justify-content:space-between;gap:20px;
   padding:22px 34px;background:var(--white);border-bottom:1px solid var(--grey-light);flex-shrink:0;
+  box-shadow:var(--shadow-sm);
 }
 .tb-left h1{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:var(--navy);}
 .tb-left p{font-size:12.5px;color:var(--grey);margin-top:2px;}
-.hamburger-admin{display:none;background:none;border:none;font-size:20px;color:var(--navy);}
+.hamburger-admin{display:none;background:none;border:none;font-size:20px;color:var(--navy);padding:8px;border-radius:6px;transition:background 0.2s;}
+.hamburger-admin:hover{background:var(--off-white);}
 
 .tb-right{display:flex;align-items:center;gap:12px;}
 .tb-search{position:relative;}
 .tb-search input{
   width:230px;padding:10px 14px 10px 36px;border:1px solid var(--grey-light);border-radius:20px;
-  font-size:13px;background:var(--off-white);outline:none;transition:border-color 0.2s,background 0.2s,width 0.25s;
+  font-size:13px;background:var(--off-white);outline:none;transition:border-color 0.2s,background 0.2s,width 0.25s,box-shadow 0.2s;
 }
-.tb-search input:focus{border-color:var(--gold);background:var(--white);width:270px;}
+.tb-search input:focus{border-color:var(--gold);background:var(--white);width:270px;box-shadow:0 0 0 3px rgba(184,151,90,0.1);}
 .tb-search i{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--grey);}
 
 .icon-btn{
   position:relative;width:40px;height:40px;border-radius:50%;border:1px solid var(--grey-light);
   background:var(--white);display:flex;align-items:center;justify-content:center;color:var(--navy);
-  font-size:15px;transition:background 0.2s,border-color 0.2s,transform 0.2s;
+  font-size:15px;transition:background 0.2s,border-color 0.2s,transform 0.2s,box-shadow 0.2s;
 }
-.icon-btn:hover{background:var(--off-white);border-color:var(--gold);transform:translateY(-1px);}
+.icon-btn:hover{background:var(--off-white);border-color:var(--gold);transform:translateY(-1px);box-shadow:var(--shadow-sm);}
 .icon-btn .dot{
   position:absolute;top:6px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--new);
   border:2px solid var(--white);display:none;
@@ -151,7 +156,7 @@ input,textarea,select{font-family:inherit;}
   background:var(--white);border:1px solid var(--grey-light);border-radius:10px;
   padding:22px 24px;position:relative;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;
 }
-.stat-card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(26,40,64,0.08);}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
 .stat-card .sc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
 .stat-card .sc-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;}
 .stat-card .sc-code{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--grey);letter-spacing:0.06em;opacity:0.65;}
@@ -165,7 +170,7 @@ input,textarea,select{font-family:inherit;}
 /* ================= BODY GRID ================= */
 .body-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:20px;align-items:start;}
 
-.panel{background:var(--white);border:1px solid var(--grey-light);border-radius:12px;overflow:hidden;}
+.panel{background:var(--white);border:1px solid var(--grey-light);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);}
 .panel-head{
   display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:18px 22px;border-bottom:1px solid var(--grey-light);
@@ -177,14 +182,16 @@ input,textarea,select{font-family:inherit;}
   letter-spacing:0.04em;color:var(--grey);border-radius:6px;transition:all 0.2s;
 }
 .tab.active{background:var(--white);color:var(--navy);box-shadow:0 2px 6px rgba(26,40,64,0.1);}
+.tab:hover:not(.active){color:var(--navy);background:rgba(255,255,255,0.5);}
 
 .inquiry-list{max-height:calc(100vh - 330px);overflow-y:auto;}
 .inquiry-row{
   display:flex;gap:14px;padding:16px 22px;border-bottom:1px solid var(--grey-light);
-  cursor:pointer;transition:background 0.2s;position:relative;
+  cursor:pointer;transition:background 0.2s,transform 0.1s;position:relative;
 }
 .inquiry-row:last-child{border-bottom:none;}
 .inquiry-row:hover{background:var(--off-white);}
+.inquiry-row:active{transform:scale(0.99);}
 .inquiry-row.selected{background:var(--gold-pale);}
 .inquiry-row.selected::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);}
 .ir-avatar{
@@ -241,10 +248,11 @@ input,textarea,select{font-family:inherit;}
 .d-status-badge.status-archived{background:#eceef0;color:var(--archived);}
 
 .d-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
-.d-meta-item{background:var(--off-white);border-radius:8px;padding:11px 14px;}
+.d-meta-item{background:var(--off-white);border-radius:8px;padding:11px 14px;transition:background 0.2s;}
+.d-meta-item:hover{background:#f0ede8;}
 .d-meta-item .k{font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--grey);margin-bottom:4px;}
 .d-meta-item .v{font-size:13px;color:var(--navy);font-weight:500;word-break:break-word;}
-.d-meta-item .v a{color:var(--navy);text-decoration:none;}
+.d-meta-item .v a{color:var(--navy);text-decoration:none;transition:color 0.2s;}
 .d-meta-item .v a:hover{color:var(--gold);}
 
 .d-message-label{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--grey);margin-bottom:8px;}
@@ -259,8 +267,8 @@ input,textarea,select{font-family:inherit;}
   background:var(--white);padding:8px 14px;border-radius:20px;font-size:11.5px;font-weight:600;
   color:var(--navy);transition:all 0.2s;
 }
-.pill-btn:hover{border-color:var(--gold);background:var(--off-white);}
-.pill-btn.danger:hover{border-color:#c2542f;color:#c2542f;}
+.pill-btn:hover{border-color:var(--gold);background:var(--off-white);box-shadow:var(--shadow-sm);}
+.pill-btn.danger:hover{border-color:#c2542f;color:#c2542f;background:#fbe9e2;}
 .pill-btn.danger-solid{background:#fbe9e2;border-color:#f3cbb8;color:var(--new);}
 .pill-btn.danger-solid:hover{background:var(--new);border-color:var(--new);color:var(--white);}
 
@@ -277,9 +285,9 @@ input,textarea,select{font-family:inherit;}
 .ai-generate-btn{
   display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:var(--white);
   border:none;padding:9px 16px;border-radius:20px;font-size:11.5px;font-weight:600;letter-spacing:0.03em;
-  transition:background 0.2s,transform 0.2s;
+  transition:background 0.2s,transform 0.2s,box-shadow 0.2s;
 }
-.ai-generate-btn:hover{background:var(--navy-light);transform:translateY(-1px);}
+.ai-generate-btn:hover{background:var(--navy-light);transform:translateY(-1px);box-shadow:var(--shadow-sm);}
 .ai-generate-btn:disabled{opacity:0.6;cursor:progress;transform:none;}
 .ai-box-sub{font-size:11px;color:var(--grey);line-height:1.5;}
 
@@ -287,9 +295,10 @@ input,textarea,select{font-family:inherit;}
 .reply-textarea{
   width:100%;min-height:170px;border:1px solid var(--grey-light);border-radius:8px;
   padding:14px 16px;font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.7;color:var(--text);
-  resize:vertical;outline:none;transition:border-color 0.2s;background:var(--off-white);
+  resize:vertical;outline:none;transition:border-color 0.2s,background 0.2s,box-shadow 0.2s;
+  background:var(--off-white);
 }
-.reply-textarea:focus{border-color:var(--gold);background:var(--white);}
+.reply-textarea:focus{border-color:var(--gold);background:var(--white);box-shadow:0 0 0 3px rgba(184,151,90,0.1);}
 .reply-textarea.shimmer{color:transparent;background:linear-gradient(100deg,var(--off-white) 30%,var(--gold-pale) 50%,var(--off-white) 70%);background-size:200% 100%;animation:shimmerMove 1.2s ease-in-out infinite;}
 @keyframes shimmerMove{to{background-position:-200% 0;}}
 
@@ -297,26 +306,29 @@ input,textarea,select{font-family:inherit;}
 .send-btn{
   display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:var(--white);border:none;
   padding:13px 26px;border-radius:5px;font-size:11.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-  transition:background 0.22s,transform 0.2s;
+  transition:background 0.22s,transform 0.2s,box-shadow 0.2s;
 }
-.send-btn:hover{background:var(--gold-light);transform:translateY(-2px);}
+.send-btn:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.send-btn:disabled{opacity:0.6;cursor:progress;transform:none;}
 .mail-btn{
   display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--navy);
   border:1px solid var(--grey-light);padding:13px 22px;border-radius:5px;font-size:11.5px;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:border-color 0.2s,background 0.2s;
+  letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:border-color 0.2s,background 0.2s,box-shadow 0.2s;
 }
-.mail-btn:hover{border-color:var(--navy);background:var(--off-white);}
+.mail-btn:hover{border-color:var(--navy);background:var(--off-white);box-shadow:var(--shadow-sm);}
 
 /* ================= CONFIRM MODAL ================= */
 .confirm-overlay{
   position:fixed;inset:0;background:rgba(14,21,34,0.55);z-index:800;
   display:none;align-items:center;justify-content:center;padding:20px;
+  backdrop-filter:blur(4px);
 }
 .confirm-overlay.open{display:flex;}
 .confirm-card{
   background:var(--white);border-radius:14px;padding:28px 26px;width:340px;max-width:100%;
-  box-shadow:0 30px 80px rgba(0,0,0,0.35);
+  box-shadow:0 30px 80px rgba(0,0,0,0.35);animation:modalIn 0.25s var(--ease);
 }
+@keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
 .confirm-icon{
   width:46px;height:46px;border-radius:50%;background:#fbe9e2;color:var(--new);
   display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;
@@ -324,11 +336,11 @@ input,textarea,select{font-family:inherit;}
 .confirm-card h3{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--navy);font-weight:500;margin-bottom:8px;}
 .confirm-card p{font-size:12.5px;color:var(--grey);line-height:1.6;margin-bottom:20px;}
 .confirm-actions{display:flex;gap:10px;}
-.confirm-actions button{flex:1;padding:12px;border-radius:6px;font-size:11.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border:none;}
+.confirm-actions button{flex:1;padding:12px;border-radius:6px;font-size:11.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border:none;transition:all 0.2s;}
 .confirm-cancel{background:var(--off-white);color:var(--navy);border:1px solid var(--grey-light) !important;}
 .confirm-cancel:hover{background:var(--grey-light);}
 .confirm-delete{background:var(--new);color:var(--white);}
-.confirm-delete:hover{background:#a8441f;}
+.confirm-delete:hover{background:#a8441f;box-shadow:var(--shadow-sm);}
 .confirm-delete:disabled{opacity:0.6;cursor:progress;}
 
 /* ================= TOASTS ================= */
@@ -345,13 +357,13 @@ input,textarea,select{font-family:inherit;}
 .toast-icon{width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--white);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;}
 .toast-body strong{display:block;font-size:13px;margin-bottom:3px;}
 .toast-body span{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.5;}
-.toast-close{background:none;border:none;color:rgba(255,255,255,0.5);font-size:13px;margin-left:auto;flex-shrink:0;}
-.toast-close:hover{color:var(--white);}
+.toast-close{background:none;border:none;color:rgba(255,255,255,0.5);font-size:13px;margin-left:auto;flex-shrink:0;padding:4px 8px;border-radius:4px;transition:background 0.2s;}
+.toast-close:hover{color:var(--white);background:rgba(255,255,255,0.1);}
 
 /* ================= NOTIF DROPDOWN ================= */
 .notif-dropdown{
   position:absolute;top:52px;right:0;width:320px;background:var(--white);border-radius:10px;
-  box-shadow:0 24px 56px rgba(26,40,64,0.22);border:1px solid var(--grey-light);
+  box-shadow:var(--shadow-lg);border:1px solid var(--grey-light);
   opacity:0;visibility:hidden;transform:translateY(-8px);transition:all 0.25s var(--ease);z-index:100;
   max-height:380px;overflow-y:auto;
 }
@@ -369,11 +381,9 @@ input,textarea,select{font-family:inherit;}
 /* ================= MOBILE OVERLAY ================= */
 .mob-nav-overlay{
   display:none;position:fixed;inset:0;background:rgba(14,21,34,0.6);z-index:400;
+  backdrop-filter:blur(3px);
 }
 .mob-nav-overlay.open{display:block;}
-
-/* swipe-to-delete row affordance (mobile) */
-.ir-swipe-hint{display:none;}
 
 @media (max-width:1080px){
   .body-grid{grid-template-columns:1fr;}
@@ -392,7 +402,6 @@ input,textarea,select{font-family:inherit;}
   .tb-search{display:none;}
   .tb-left h1{font-size:24px;}
 
-  /* stats become a horizontally-scrollable strip so 5 cards don't awkwardly wrap */
   .stats-row{
     display:flex;grid-template-columns:none;gap:12px;margin-bottom:20px;
     overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;-webkit-overflow-scrolling:touch;
@@ -406,7 +415,6 @@ input,textarea,select{font-family:inherit;}
   .panel-head h2{font-size:18px;}
   .tabs{overflow-x:auto;}
 
-  /* mobile master/detail: list and detail panel toggle instead of stacking */
   .body-grid.has-selection .panel:not(.detail-panel){display:none;}
   .detail-panel{display:none;}
   .body-grid.has-selection .detail-panel{display:flex;}
@@ -415,6 +423,7 @@ input,textarea,select{font-family:inherit;}
     background:var(--white);color:var(--navy);font-size:13px;font-weight:600;border:none;width:100%;
     position:sticky;top:0;z-index:5;
   }
+  .d-back-mobile:hover{background:var(--off-white);}
   .d-back-mobile i{font-size:13px;}
 
   .inquiry-row{padding:14px 16px;}
@@ -473,15 +482,16 @@ input,textarea,select{font-family:inherit;}
 
     <div class="side-section-label">Overview</div>
     <ul class="side-nav">
-      <li><a href="#" class="active"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-      <li><a href="#" id="navInquiries"><i class="fa-solid fa-envelope"></i> Inquiries <span class="nav-count" id="navNewCount">0</span></a></li>
+      <li><a href="#" id="navDashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+      <li><a href="#" class="active" id="navInquiries"><i class="fa-solid fa-envelope"></i> Inquiries <span class="nav-count" id="navNewCount">0</span></a></li>
+      <li><a href="#" id="navReplied"><i class="fa-solid fa-check-double"></i> Replied</a></li>
       <li><a href="#" id="navArchived"><i class="fa-solid fa-box-archive"></i> Archived</a></li>
     </ul>
 
     <div class="side-section-label">Configure</div>
     <ul class="side-nav">
-      <li><a href="#"><i class="fa-solid fa-robot"></i> AI Reply Settings</a></li>
-      <li><a href="#"><i class="fa-solid fa-gear"></i> Preferences</a></li>
+      <li><a href="#" id="navAISettings"><i class="fa-solid fa-robot"></i> AI Reply Settings</a></li>
+      <li><a href="#" id="navPreferences"><i class="fa-solid fa-gear"></i> Preferences</a></li>
     </ul>
 
     <div class="side-foot">
@@ -502,25 +512,25 @@ input,textarea,select{font-family:inherit;}
 
     <header class="topbar">
       <div style="display:flex;align-items:center;gap:14px;">
-        <button class="hamburger-admin" id="hamburgerAdmin"><i class="fa-solid fa-bars"></i></button>
+        <button class="hamburger-admin" id="hamburgerAdmin" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
         <div class="tb-left">
-          <h1>Inquiries</h1>
+          <h1 id="pageTitle">New Inquiries</h1>
           <p id="tbSub">Loading inbox…</p>
         </div>
       </div>
       <div class="tb-right">
         <div class="tb-search">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" id="searchInput" placeholder="Search name, email, message…" />
+          <input type="text" id="searchInput" placeholder="Search name, email, message…" aria-label="Search inquiries" />
         </div>
         <div style="position:relative;">
-          <button class="icon-btn" id="notifBtn"><i class="fa-solid fa-bell"></i><span class="dot" id="notifDot"></span></button>
+          <button class="icon-btn" id="notifBtn" aria-label="Notifications"><i class="fa-solid fa-bell"></i><span class="dot" id="notifDot"></span></button>
           <div class="notif-dropdown" id="notifDropdown">
             <div class="notif-dd-head">Notifications</div>
             <div id="notifList"><div class="notif-empty">You're all caught up.</div></div>
           </div>
         </div>
-        <button class="icon-btn spin" id="refreshBtn" title="Refresh inbox"><i class="fa-solid fa-arrows-rotate"></i></button>
+        <button class="icon-btn spin" id="refreshBtn" title="Refresh inbox" aria-label="Refresh"><i class="fa-solid fa-arrows-rotate"></i></button>
       </div>
     </header>
 
@@ -559,10 +569,10 @@ input,textarea,select{font-family:inherit;}
         <!-- LIST -->
         <div class="panel">
           <div class="panel-head">
-            <h2>Client Messages</h2>
+            <h2 id="listTitle">New Messages</h2>
             <div class="tabs" id="tabs">
-              <button class="tab active" data-filter="all">All</button>
-              <button class="tab" data-filter="new">New</button>
+              <button class="tab active" data-filter="new">New</button>
+              <button class="tab" data-filter="all">All</button>
               <button class="tab" data-filter="replied">Replied</button>
               <button class="tab" data-filter="archived">Archived</button>
             </div>
@@ -618,10 +628,11 @@ function deleteUrlFor(id) { return `/api/contacts/${id}`; }
 
 let inquiries = [];
 let selectedId = null;
-let activeFilter = 'all';
+let activeFilter = 'new'; // Default: show only new inquiries
 let seenIds = new Set();
 let notifFeed = [];
 let pendingDeleteId = null;
+let deletedIds = new Set(); // Track deleted IDs to prevent re-appearing
 
 /* ---------- demo seed data (shown until your API responds) ---------- */
 const DEMO = [
@@ -670,7 +681,6 @@ async function loadInquiries(isPoll=false){
   }catch(e){ /* backend not available — use demo/current data */ }
 
   if (Array.isArray(data) && data.length){
-    // Firestore gives createdAt as an ISO string; the UI works in ms timestamps.
     data = data.map(d => ({
       ...d,
       status: d.status || 'new',
@@ -679,10 +689,12 @@ async function loadInquiries(isPoll=false){
   } else if (!inquiries.length){
     data = DEMO;
   } else {
-    data = inquiries; // keep current state if poll found nothing new and we already have data
+    data = inquiries;
   }
 
-  // detect genuinely new entries for notifications
+  // Filter out any deleted IDs
+  data = data.filter(d => !deletedIds.has(d.id));
+
   if (isPoll){
     const newOnes = data.filter(d => !seenIds.has(d.id));
     newOnes.forEach(n => notifyNewInquiry(n));
@@ -734,8 +746,33 @@ function filteredInquiries(){
 function renderList(){
   const list = document.getElementById('inquiryList');
   const items = filteredInquiries();
+  
+  // Update title based on filter
+  const titles = {
+    'new': 'New Messages',
+    'all': 'All Messages',
+    'replied': 'Replied Messages',
+    'archived': 'Archived Messages'
+  };
+  document.getElementById('listTitle').textContent = titles[activeFilter] || 'Messages';
+  
+  // Update page title
+  const pageTitles = {
+    'new': 'New Inquiries',
+    'all': 'All Inquiries',
+    'replied': 'Replied Inquiries',
+    'archived': 'Archived'
+  };
+  document.getElementById('pageTitle').textContent = pageTitles[activeFilter] || 'Inquiries';
+  
   if (!items.length){
-    list.innerHTML = `<div class="empty-state"><i class="fa-regular fa-folder-open"></i><p>No inquiries match this view.</p></div>`;
+    const messages = {
+      'new': 'No new inquiries waiting for reply.',
+      'all': 'No inquiries found.',
+      'replied': 'No replied inquiries yet.',
+      'archived': 'No archived inquiries.'
+    };
+    list.innerHTML = `<div class="empty-state"><i class="fa-regular fa-folder-open"></i><p>${messages[activeFilter] || 'No inquiries match this view.'}</p></div>`;
     return;
   }
   list.innerHTML = items.map(i=>{
@@ -893,6 +930,9 @@ async function confirmDelete(){
     await fetch(deleteUrlFor(id), { method:'DELETE', credentials:'include' });
   }catch(e){ /* removed locally regardless so the UI stays in sync */ }
 
+  // Add to deleted IDs set to prevent re-appearing
+  deletedIds.add(id);
+  
   inquiries = inquiries.filter(x=>x.id!==id);
   seenIds.delete(id);
   if (selectedId === id){
@@ -918,7 +958,6 @@ async function generateAiReply(inquiry){
 
   let reply = null;
 
-  // Try a real AI backend first, if you've wired one up server-side.
   try{
     const res = await fetch(API_AI, {
       method:'POST',
@@ -934,7 +973,6 @@ async function generateAiReply(inquiry){
 
   if (!reply) reply = craftSmartReply(inquiry);
 
-  // typewriter reveal
   ta.classList.remove('shimmer');
   await typeInto(ta, reply);
 
@@ -1073,15 +1111,37 @@ function renderNotifDropdown(){
   });
 }
 
+/* ---------- Navigation Functions ---------- */
+function setFilter(filter, updateTabs = true) {
+  activeFilter = filter;
+  if (updateTabs) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const tab = document.querySelector(`.tab[data-filter="${filter}"]`);
+    if (tab) tab.classList.add('active');
+  }
+  // Update sidebar active states
+  document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
+  if (filter === 'archived') {
+    document.getElementById('navArchived').classList.add('active');
+  } else if (filter === 'replied') {
+    document.getElementById('navReplied').classList.add('active');
+  } else {
+    document.getElementById('navInquiries').classList.add('active');
+  }
+  renderList();
+}
+
 /* ---------- UI wiring ---------- */
 document.getElementById('tabs').addEventListener('click', e=>{
   const btn = e.target.closest('.tab');
   if (!btn) return;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  activeFilter = btn.dataset.filter;
-  renderList();
+  const filter = btn.dataset.filter;
+  setFilter(filter, true);
+  // Close mobile sidebar if open
+  sidebar.classList.remove('open');
+  mobOverlay.classList.remove('open');
 });
+
 document.getElementById('searchInput').addEventListener('input', renderList);
 document.getElementById('refreshBtn').addEventListener('click', ()=> { loadInquiries(false); loadAnalytics(); });
 
@@ -1100,19 +1160,63 @@ const mobOverlay = document.getElementById('mobOverlay');
 hamburgerAdmin.addEventListener('click', ()=>{ sidebar.classList.add('open'); mobOverlay.classList.add('open'); });
 mobOverlay.addEventListener('click', ()=>{ sidebar.classList.remove('open'); mobOverlay.classList.remove('open'); });
 
-document.getElementById('navInquiries').addEventListener('click', e=>{
+// FIXED: Inquiries button shows ONLY new inquiries
+document.getElementById('navInquiries').addEventListener('click', function(e){
   e.preventDefault();
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelector('.tab[data-filter="all"]').classList.add('active');
-  activeFilter = 'all'; renderList();
-  sidebar.classList.remove('open'); mobOverlay.classList.remove('open');
+  setFilter('new', true);
+  sidebar.classList.remove('open');
+  mobOverlay.classList.remove('open');
+  // Deselect any selected inquiry
+  if (selectedId) {
+    selectedId = null;
+    document.getElementById('detailScroll').style.display = 'none';
+    document.getElementById('detailEmpty').style.display = 'flex';
+    setMobileDetailOpen(false);
+  }
 });
-document.getElementById('navArchived').addEventListener('click', e=>{
+
+// NEW: Replied button shows ONLY replied inquiries
+document.getElementById('navReplied').addEventListener('click', function(e){
   e.preventDefault();
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelector('.tab[data-filter="archived"]').classList.add('active');
-  activeFilter = 'archived'; renderList();
-  sidebar.classList.remove('open'); mobOverlay.classList.remove('open');
+  setFilter('replied', true);
+  sidebar.classList.remove('open');
+  mobOverlay.classList.remove('open');
+  // Deselect any selected inquiry
+  if (selectedId) {
+    selectedId = null;
+    document.getElementById('detailScroll').style.display = 'none';
+    document.getElementById('detailEmpty').style.display = 'flex';
+    setMobileDetailOpen(false);
+  }
+});
+
+// FIXED: Archived button shows ONLY archived inquiries
+document.getElementById('navArchived').addEventListener('click', function(e){
+  e.preventDefault();
+  setFilter('archived', true);
+  sidebar.classList.remove('open');
+  mobOverlay.classList.remove('open');
+  // Deselect any selected inquiry
+  if (selectedId) {
+    selectedId = null;
+    document.getElementById('detailScroll').style.display = 'none';
+    document.getElementById('detailEmpty').style.display = 'flex';
+    setMobileDetailOpen(false);
+  }
+});
+
+// Dashboard button shows all inquiries
+document.getElementById('navDashboard').addEventListener('click', function(e){
+  e.preventDefault();
+  setFilter('all', true);
+  sidebar.classList.remove('open');
+  mobOverlay.classList.remove('open');
+  if (selectedId) {
+    selectedId = null;
+    document.getElementById('detailScroll').style.display = 'none';
+    document.getElementById('detailEmpty').style.display = 'flex';
+    setMobileDetailOpen(false);
+  }
 });
 
 document.getElementById('backMobileBtn').addEventListener('click', ()=>{
@@ -1160,7 +1264,7 @@ function showDashboard(){
   document.getElementById('dashboardShell').style.display = 'grid';
   loadInquiries(false);
   loadAnalytics();
-  setInterval(()=> loadInquiries(true), 30000); // poll every 30s for new submissions
+  setInterval(()=> loadInquiries(true), 30000);
   setInterval(loadAnalytics, 30000);
 }
 
