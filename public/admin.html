@@ -137,7 +137,8 @@ input,textarea,select{font-family:inherit;}
 
 /* ================= STATS ================= */
 .content{flex:1;overflow-y:auto;padding:28px 34px 40px;}
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:26px;}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin-bottom:26px;}
+.sc-icon.visits{background:#e6eef7;color:#3a6ea8;}
 .stat-card{
   background:var(--white);border:1px solid var(--grey-light);border-radius:10px;
   padding:22px 24px;position:relative;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;
@@ -459,6 +460,11 @@ input,textarea,select{font-family:inherit;}
           <div class="sc-num" id="statAvg">—</div>
           <div class="sc-label">Avg. Response Time</div>
         </div>
+        <div class="stat-card">
+          <div class="sc-top"><div class="sc-icon visits"><i class="fa-solid fa-eye"></i></div><span class="sc-code">VIS·05</span></div>
+          <div class="sc-num" id="statVisits">—</div>
+          <div class="sc-label">Site Visits</div>
+        </div>
       </section>
 
       <section class="body-grid">
@@ -584,6 +590,17 @@ async function loadInquiries(isPoll=false){
   renderList();
   renderStats();
   setTimeout(()=>refreshBtn.classList.remove('active'), 500);
+}
+
+/* ---------- analytics ---------- */
+async function loadAnalytics(){
+  try{
+    const res = await fetch('/api/analytics', { credentials:'include' });
+    if (res.ok){
+      const data = await res.json();
+      document.getElementById('statVisits').textContent = (data.totalVisits || 0).toLocaleString('en-PH');
+    }
+  }catch(e){ /* leave placeholder if this fails */ }
 }
 
 /* ---------- rendering ---------- */
@@ -908,7 +925,7 @@ document.getElementById('tabs').addEventListener('click', e=>{
   renderList();
 });
 document.getElementById('searchInput').addEventListener('input', renderList);
-document.getElementById('refreshBtn').addEventListener('click', ()=> loadInquiries(false));
+document.getElementById('refreshBtn').addEventListener('click', ()=> { loadInquiries(false); loadAnalytics(); });
 
 const notifBtn = document.getElementById('notifBtn');
 const notifDropdown = document.getElementById('notifDropdown');
@@ -956,7 +973,9 @@ function showDashboard(){
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('dashboardShell').style.display = 'grid';
   loadInquiries(false);
+  loadAnalytics();
   setInterval(()=> loadInquiries(true), 30000); // poll every 30s for new submissions
+  setInterval(loadAnalytics, 30000);
 }
 
 async function checkAuth(){

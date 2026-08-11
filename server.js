@@ -102,6 +102,12 @@ const contactLimiter = rateLimit({
   message: { error: 'Too many submissions. Please try again later.' }
 });
 
+const trackLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  message: { error: 'Too many requests.' }
+});
+
 // Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Vicarte API is working!' });
@@ -129,6 +135,31 @@ app.post('/api/admin/logout', (req, res) => {
 
 app.get('/api/admin/check', requireAdmin, (req, res) => {
   res.json({ authenticated: true });
+});
+
+// Record a page visit — called from the public site's pages, no auth needed.
+// Counts total page loads (not unique visitors — no cookies/IDs stored).
+app.post('/api/track', trackLimiter, async (req, res) => {
+  try {
+    await db.collection('analytics').doc('siteStats').set(
+      { totalVisits: admin.firestore.FieldValue.increment(1) },
+      { merge: true }
+    );
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to record visit' });
+  }
+});
+
+// Get site analytics (admin only)
+app.get('/api/analytics', requireAdmin, async (req, res) => {
+  try {
+    const doc = await db.collection('analytics').doc('siteStats').get();
+    const totalVisits = doc.exists ? (doc.data().totalVisits || 0) : 0;
+    res.json({ totalVisits });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch analytics' });
+  }
 });
 
 // Contact form route with Firebase

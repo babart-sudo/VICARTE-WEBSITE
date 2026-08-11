@@ -104,8 +104,6 @@
     /* Dropdown */
     .nav-dropdown { position: relative; }
     .nav-dropdown > a::after { content: ''; display: inline-block; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); margin-left: 6px; opacity: 0.6; }
-    /* invisible hover bridge — keeps the dropdown open while the cursor
-       travels through the gap between the nav link and the panel below it */
     .nav-dropdown::after {
       content: ''; position: absolute; top: 100%; left: 50%;
       transform: translateX(-50%);
@@ -167,11 +165,10 @@
     .mobile-overlay a:hover { color: var(--gold-light); }
     .mobile-overlay .mob-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: var(--white); font-size: 30px; cursor: pointer; }
 
-    /* scroll progress hairline */
     .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); z-index: 210; transition: width 0.1s linear; }
 
     /* =============================================
-       PAGE HERO — matches services.html exactly
+       PAGE HERO
        ============================================= */
     #page-hero {
       min-height: 70vh; position: relative;
@@ -234,7 +231,7 @@
     .btn-ghost:hover { border-color: var(--gold-light); background: rgba(184,151,90,0.1); transform: translateY(-2px); }
 
     /* =============================================
-       FILTER BAR — refined, gold underline, sticky glass
+       FILTER BAR
        ============================================= */
     #filter-bar {
       position: sticky; top: 0; z-index: 60;
@@ -307,13 +304,13 @@
     }
     .gallery-count b { color: var(--gold-light); font-weight: 500; }
 
-    .portfolio-grid { column-count: 2; column-gap: 22px; }
+    .portfolio-grid { column-count: 2; column-gap: 14px; }
     @media (min-width: 1900px) { .portfolio-grid { column-count: 3; } }
     @media (max-width: 900px)  { .portfolio-grid { column-count: 1; } }
 
     .ig-post {
       position: relative; overflow: hidden; break-inside: avoid;
-      margin-bottom: 22px; border-radius: 6px; cursor: pointer;
+      margin-bottom: 14px; border-radius: 6px; cursor: pointer;
       background: var(--navy-light);
       box-shadow: 0 4px 24px rgba(0,0,0,0.24), 0 0 0 1px rgba(212,176,122,0);
       transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
@@ -363,7 +360,7 @@
     .ig-material-tag svg { width: 11px; height: 11px; }
 
     /* fade-in on view */
-    .ig-post.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+    .ig-post.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
     .ig-post.reveal.visible { opacity: 1; transform: translateY(0); }
     @media (prefers-reduced-motion: reduce) { .ig-post.reveal, .ig-post.reveal.visible { opacity: 1; transform: none; transition: none; } }
 
@@ -723,7 +720,7 @@
 
       <!-- KITCHEN -->
       <div class="ig-post" data-cat="kitchen" data-title="Modern Kitchen" data-category="Kitchen Design" data-likes="128" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/kitchen1.jpg" alt="Modern Kitchen"></div>
+        <div class="ig-post-thumb"><img src="/images/services6.jpg" alt="Modern Kitchen"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
@@ -767,7 +764,7 @@
       </div>
 
       <div class="ig-post" data-cat="kitchen" data-title="Coastal Kitchen" data-category="Kitchen Design" data-likes="174" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/kitchen5.jpg" alt="Coastal Kitchen"></div>
+        <div class="ig-post-thumb"><img src="/images/services2.jpg" alt="Coastal Kitchen"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
@@ -801,7 +798,7 @@
       </div>
 
       <div class="ig-post" data-cat="cabinet" data-title="Custom Cabinets" data-category="Custom Cabinetry" data-likes="134" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/cabinet3.jpg" alt="Custom Cabinets"></div>
+        <div class="ig-post-thumb"><img src="/images/cabinet7.jpg" alt="Custom Cabinets"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
@@ -823,7 +820,7 @@
       </div>
 
       <div class="ig-post" data-cat="cabinet" data-title="Luxury Cabinets" data-category="Custom Cabinetry" data-likes="167" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/cabinet5.jpg" alt="Luxury Cabinets"></div>
+        <div class="ig-post-thumb"><img src="/images/services1.jpg" alt="Luxury Cabinets"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
@@ -834,17 +831,6 @@
       </div>
 
       <!-- INTERIOR -->
-      <div class="ig-post" data-cat="interior" data-title="Modern Living Room" data-category="Interior Design" data-likes="221" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/interior1.jpg" alt="Modern Living Room"></div>
-        <div class="ig-post-frame"></div>
-        <div class="ig-post-overlay"></div>
-        <div class="ig-post-body">
-          <span class="ig-post-tag">Interior Design</span>
-          <h3 class="ig-post-title">Modern Living Room</h3>
-          <div class="ig-post-cue">View Project</div>
-        </div>
-      </div>
-
       <div class="ig-post" data-cat="interior" data-title="Luxury Bedroom" data-category="Interior Design" data-likes="190" onclick="openLightbox(this)">
         <div class="ig-post-thumb"><img src="/images/interior2.jpg" alt="Luxury Bedroom"></div>
         <div class="ig-post-frame"></div>
@@ -852,39 +838,6 @@
         <div class="ig-post-body">
           <span class="ig-post-tag">Interior Design</span>
           <h3 class="ig-post-title">Luxury Bedroom</h3>
-          <div class="ig-post-cue">View Project</div>
-        </div>
-      </div>
-
-      <div class="ig-post" data-cat="interior" data-title="Elegant Dining Room" data-category="Interior Design" data-likes="143" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/interior3.jpg" alt="Elegant Dining Room"></div>
-        <div class="ig-post-frame"></div>
-        <div class="ig-post-overlay"></div>
-        <div class="ig-post-body">
-          <span class="ig-post-tag">Interior Design</span>
-          <h3 class="ig-post-title">Elegant Dining Room</h3>
-          <div class="ig-post-cue">View Project</div>
-        </div>
-      </div>
-
-      <div class="ig-post" data-cat="interior" data-title="Cozy Family Room" data-category="Interior Design" data-likes="176" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/interior4.jpg" alt="Cozy Family Room"></div>
-        <div class="ig-post-frame"></div>
-        <div class="ig-post-overlay"></div>
-        <div class="ig-post-body">
-          <span class="ig-post-tag">Interior Design</span>
-          <h3 class="ig-post-title">Cozy Family Room</h3>
-          <div class="ig-post-cue">View Project</div>
-        </div>
-      </div>
-
-      <div class="ig-post" data-cat="interior" data-title="Scandinavian Style" data-category="Interior Design" data-likes="208" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/interior5.jpg" alt="Scandinavian Style"></div>
-        <div class="ig-post-frame"></div>
-        <div class="ig-post-overlay"></div>
-        <div class="ig-post-body">
-          <span class="ig-post-tag">Interior Design</span>
-          <h3 class="ig-post-title">Scandinavian Style</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
@@ -994,10 +947,10 @@
 
   /* ---- SCROLL REVEAL (gallery cards) ---- */
   const posts = document.querySelectorAll('.ig-post');
-  posts.forEach((el, i) => { el.classList.add('reveal'); el.style.transitionDelay = (i % 6) * 60 + 'ms'; });
+  posts.forEach((el, i) => { el.classList.add('reveal'); el.style.transitionDelay = (i % 6) * 45 + 'ms'; });
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
   posts.forEach(el => revealObserver.observe(el));
 
   /* ---- FILTER ---- */
