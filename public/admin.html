@@ -35,10 +35,18 @@ input,textarea,select{font-family:inherit;}
 .login-card{background:var(--white);border-radius:14px;padding:40px 36px;width:320px;box-shadow:0 30px 80px rgba(0,0,0,0.4);}
 .login-card h2{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:6px;}
 .login-card p{font-size:12.5px;color:var(--grey);margin-bottom:20px;}
-.login-card input{width:100%;padding:12px 14px;border:1px solid var(--grey-light);border-radius:8px;font-size:14px;margin-bottom:12px;outline:none;}
-.login-card input:focus{border-color:var(--gold);}
-.login-card button{width:100%;background:var(--navy);color:white;border:none;padding:13px;border-radius:8px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;font-size:12px;}
-.login-card button:disabled{opacity:0.6;cursor:progress;}
+.login-pw-wrap{position:relative;margin-bottom:12px;}
+.login-pw-wrap input{width:100%;padding:12px 42px 12px 14px;border:1px solid var(--grey-light);border-radius:8px;font-size:14px;outline:none;margin-bottom:0;}
+.login-pw-wrap input:focus{border-color:var(--gold);}
+.login-pw-toggle{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  width:30px;height:30px;border:none;background:none;color:var(--grey);
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-size:13.5px;transition:color 0.2s,background 0.2s;
+}
+.login-pw-toggle:hover{color:var(--navy);background:var(--off-white);}
+.login-card button#loginBtn{width:100%;background:var(--navy);color:white;border:none;padding:13px;border-radius:8px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;font-size:12px;}
+.login-card button#loginBtn:disabled{opacity:0.6;cursor:progress;}
 .login-error{color:var(--new);font-size:12px;margin-top:10px;display:none;}
 
 /* ================= SHELL ================= */
@@ -213,6 +221,8 @@ input,textarea,select{font-family:inherit;}
 
 .d-scroll{overflow-y:auto;padding:24px 26px 28px;flex:1;}
 
+.d-back-mobile{display:none;}
+
 .d-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px;}
 .d-who{display:flex;gap:14px;align-items:center;}
 .d-avatar{
@@ -251,6 +261,8 @@ input,textarea,select{font-family:inherit;}
 }
 .pill-btn:hover{border-color:var(--gold);background:var(--off-white);}
 .pill-btn.danger:hover{border-color:#c2542f;color:#c2542f;}
+.pill-btn.danger-solid{background:#fbe9e2;border-color:#f3cbb8;color:var(--new);}
+.pill-btn.danger-solid:hover{background:var(--new);border-color:var(--new);color:var(--white);}
 
 .ai-box{
   border:1px solid rgba(184,151,90,0.35);background:linear-gradient(165deg,var(--gold-pale) 0%,rgba(240,228,206,0.35) 100%);
@@ -295,6 +307,30 @@ input,textarea,select{font-family:inherit;}
 }
 .mail-btn:hover{border-color:var(--navy);background:var(--off-white);}
 
+/* ================= CONFIRM MODAL ================= */
+.confirm-overlay{
+  position:fixed;inset:0;background:rgba(14,21,34,0.55);z-index:800;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.confirm-overlay.open{display:flex;}
+.confirm-card{
+  background:var(--white);border-radius:14px;padding:28px 26px;width:340px;max-width:100%;
+  box-shadow:0 30px 80px rgba(0,0,0,0.35);
+}
+.confirm-icon{
+  width:46px;height:46px;border-radius:50%;background:#fbe9e2;color:var(--new);
+  display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;
+}
+.confirm-card h3{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--navy);font-weight:500;margin-bottom:8px;}
+.confirm-card p{font-size:12.5px;color:var(--grey);line-height:1.6;margin-bottom:20px;}
+.confirm-actions{display:flex;gap:10px;}
+.confirm-actions button{flex:1;padding:12px;border-radius:6px;font-size:11.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border:none;}
+.confirm-cancel{background:var(--off-white);color:var(--navy);border:1px solid var(--grey-light) !important;}
+.confirm-cancel:hover{background:var(--grey-light);}
+.confirm-delete{background:var(--new);color:var(--white);}
+.confirm-delete:hover{background:#a8441f;}
+.confirm-delete:disabled{opacity:0.6;cursor:progress;}
+
 /* ================= TOASTS ================= */
 .toast-stack{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:10px;z-index:500;width:340px;}
 .toast{
@@ -336,11 +372,15 @@ input,textarea,select{font-family:inherit;}
 }
 .mob-nav-overlay.open{display:block;}
 
+/* swipe-to-delete row affordance (mobile) */
+.ir-swipe-hint{display:none;}
+
 @media (max-width:1080px){
   .body-grid{grid-template-columns:1fr;}
   .detail-panel{position:relative;max-height:none;}
   .stats-row{grid-template-columns:repeat(2,1fr);}
 }
+
 @media (max-width:820px){
   .shell{grid-template-columns:1fr;}
   .sidebar{
@@ -348,14 +388,56 @@ input,textarea,select{font-family:inherit;}
     transform:translateX(-100%);transition:transform 0.3s var(--ease);
   }
   .sidebar.open{transform:translateX(0);}
-  .hamburger-admin{display:block;}
+  .hamburger-admin{display:flex;align-items:center;justify-content:center;width:36px;height:36px;}
   .tb-search{display:none;}
+  .tb-left h1{font-size:24px;}
+
+  /* stats become a horizontally-scrollable strip so 5 cards don't awkwardly wrap */
+  .stats-row{
+    display:flex;grid-template-columns:none;gap:12px;margin-bottom:20px;
+    overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;-webkit-overflow-scrolling:touch;
+  }
+  .stats-row::-webkit-scrollbar{display:none;}
+  .stat-card{flex:0 0 148px;padding:16px 16px;scroll-snap-align:start;}
+  .stat-card .sc-num{font-size:32px;}
+  .stat-card:hover{transform:none;}
+
+  .panel-head{padding:14px 16px;}
+  .panel-head h2{font-size:18px;}
+  .tabs{overflow-x:auto;}
+
+  /* mobile master/detail: list and detail panel toggle instead of stacking */
+  .body-grid.has-selection .panel:not(.detail-panel){display:none;}
+  .detail-panel{display:none;}
+  .body-grid.has-selection .detail-panel{display:flex;}
+  .d-back-mobile{
+    display:flex;align-items:center;gap:8px;padding:14px 16px;border-bottom:1px solid var(--grey-light);
+    background:var(--white);color:var(--navy);font-size:13px;font-weight:600;border:none;width:100%;
+    position:sticky;top:0;z-index:5;
+  }
+  .d-back-mobile i{font-size:13px;}
+
+  .inquiry-row{padding:14px 16px;}
+  .d-scroll{padding:18px 16px 24px;}
+  .d-name{font-size:20px;}
+  .d-meta{grid-template-columns:1fr 1fr;}
+  .d-footer-actions{
+    position:sticky;bottom:0;background:var(--white);margin:16px -16px -24px;padding:12px 16px;
+    border-top:1px solid var(--grey-light);
+  }
+  .send-btn,.mail-btn{flex:1;justify-content:center;padding:14px 16px;}
+  .ai-generate-btn{padding:10px 14px;}
+  .pill-btn{padding:10px 14px;font-size:12px;}
 }
+
 @media (max-width:560px){
-  .stats-row{grid-template-columns:1fr 1fr;}
-  .content{padding:20px 16px 32px;}
-  .topbar{padding:16px 18px;}
-  .toast-stack{left:14px;right:14px;width:auto;}
+  .content{padding:16px 14px 28px;}
+  .topbar{padding:14px 16px;}
+  .toast-stack{left:14px;right:14px;width:auto;bottom:16px;}
+  .d-meta{grid-template-columns:1fr;}
+  .d-actions-row{gap:6px;}
+  .pill-btn{flex:1;justify-content:center;}
+  .confirm-card{padding:24px 20px;}
 }
 </style>
 </head>
@@ -366,7 +448,12 @@ input,textarea,select{font-family:inherit;}
   <div class="login-card">
     <h2>Vicarte Admin</h2>
     <p>Enter your admin password to continue.</p>
-    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" />
+    <div class="login-pw-wrap">
+      <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" />
+      <button type="button" class="login-pw-toggle" id="loginPwToggle" aria-label="Show password" title="Show password">
+        <i class="fa-solid fa-eye"></i>
+      </button>
+    </div>
     <button id="loginBtn">Sign In</button>
     <div class="login-error" id="loginError"></div>
   </div>
@@ -467,7 +554,7 @@ input,textarea,select{font-family:inherit;}
         </div>
       </section>
 
-      <section class="body-grid">
+      <section class="body-grid" id="bodyGrid">
 
         <!-- LIST -->
         <div class="panel">
@@ -485,6 +572,7 @@ input,textarea,select{font-family:inherit;}
 
         <!-- DETAIL -->
         <div class="panel detail-panel" id="detailPanel">
+          <button class="d-back-mobile" id="backMobileBtn"><i class="fa-solid fa-arrow-left"></i> Back to Inquiries</button>
           <div class="detail-empty" id="detailEmpty">
             <i class="fa-regular fa-comment-dots"></i>
             <h3>Select an inquiry</h3>
@@ -494,6 +582,19 @@ input,textarea,select{font-family:inherit;}
         </div>
 
       </section>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DELETE CONFIRM MODAL ================= -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-card">
+    <div class="confirm-icon"><i class="fa-solid fa-trash-can"></i></div>
+    <h3>Delete this inquiry?</h3>
+    <p id="confirmText">This will permanently remove the message from your inbox. This can't be undone.</p>
+    <div class="confirm-actions">
+      <button class="confirm-cancel" id="confirmCancelBtn">Cancel</button>
+      <button class="confirm-delete" id="confirmDeleteBtn">Delete</button>
     </div>
   </div>
 </div>
@@ -513,12 +614,14 @@ const API_AI    = '/api/ai-reply';               // optional: POST {inquiry} -> 
 
 function replyUrl(id)  { return `/api/contacts/${id}/reply`; }
 function statusUrl(id) { return `/api/contacts/${id}/status`; }
+function deleteUrlFor(id) { return `/api/contacts/${id}`; }
 
 let inquiries = [];
 let selectedId = null;
 let activeFilter = 'all';
 let seenIds = new Set();
 let notifFeed = [];
+let pendingDeleteId = null;
 
 /* ---------- demo seed data (shown until your API responds) ---------- */
 const DEMO = [
@@ -553,6 +656,7 @@ function relTime(ts){
   return new Date(ts).toLocaleDateString('en-PH',{month:'short',day:'numeric'});
 }
 function ticketCode(id, idx){ return 'VIC-' + String(idx+1).padStart(5,'0'); }
+function isMobile(){ return window.matchMedia('(max-width:820px)').matches; }
 
 /* ---------- fetch inquiries from backend, fallback to demo ---------- */
 async function loadInquiries(isPoll=false){
@@ -635,7 +739,6 @@ function renderList(){
     return;
   }
   list.innerHTML = items.map(i=>{
-    const idx = inquiries.indexOf(i);
     return `
     <div class="inquiry-row ${i.id===selectedId?'selected':''}" data-id="${i.id}">
       <div class="ir-avatar">${initials(i.firstName,i.lastName)}</div>
@@ -660,6 +763,12 @@ function escapeHtml(s){
   return (s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
+function setMobileDetailOpen(open){
+  const grid = document.getElementById('bodyGrid');
+  if (!grid) return;
+  grid.classList.toggle('has-selection', !!open && isMobile());
+}
+
 function selectInquiry(id){
   selectedId = id;
   const i = inquiries.find(x=>x.id===id);
@@ -668,6 +777,7 @@ function selectInquiry(id){
   document.getElementById('detailEmpty').style.display = 'none';
   const scroll = document.getElementById('detailScroll');
   scroll.style.display = 'block';
+  setMobileDetailOpen(true);
 
   const idx = inquiries.indexOf(i);
   scroll.innerHTML = `
@@ -696,6 +806,7 @@ function selectInquiry(id){
       <button class="pill-btn" data-action="replied"><i class="fa-solid fa-check"></i> Mark Replied</button>
       <button class="pill-btn" data-action="new"><i class="fa-solid fa-envelope"></i> Mark Unread</button>
       <button class="pill-btn danger" data-action="archived"><i class="fa-solid fa-box-archive"></i> Archive</button>
+      <button class="pill-btn danger-solid" id="deleteInquiryBtn"><i class="fa-solid fa-trash-can"></i> Delete</button>
     </div>
 
     <div class="ai-box">
@@ -720,8 +831,13 @@ function selectInquiry(id){
   });
   document.getElementById('aiGenBtn').addEventListener('click', ()=> generateAiReply(i));
   document.getElementById('sendReplyBtn').addEventListener('click', ()=> sendReply(i));
+  document.getElementById('deleteInquiryBtn').addEventListener('click', ()=> requestDelete(i));
   updateMailFallback(i, '');
   document.getElementById('replyText').addEventListener('input', e=> updateMailFallback(i, e.target.value));
+
+  if (isMobile()){
+    document.getElementById('detailPanel').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
 }
 
 function updateMailFallback(i, body){
@@ -747,6 +863,48 @@ async function setStatus(id, status){
       body: JSON.stringify({ status })
     });
   }catch(e){ /* status still reflected locally even if this fails */ }
+}
+
+/* ---------- delete inquiry ---------- */
+function requestDelete(inquiry){
+  pendingDeleteId = inquiry.id;
+  document.getElementById('confirmText').textContent =
+    `This will permanently remove ${fullName(inquiry)}'s message from your inbox. This can't be undone.`;
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+
+function closeConfirm(){
+  pendingDeleteId = null;
+  document.getElementById('confirmOverlay').classList.remove('open');
+  const btn = document.getElementById('confirmDeleteBtn');
+  btn.disabled = false;
+  btn.textContent = 'Delete';
+}
+
+async function confirmDelete(){
+  if (!pendingDeleteId) return;
+  const id = pendingDeleteId;
+  const i = inquiries.find(x=>x.id===id);
+  const btn = document.getElementById('confirmDeleteBtn');
+  btn.disabled = true;
+  btn.textContent = 'Deleting…';
+
+  try{
+    await fetch(deleteUrlFor(id), { method:'DELETE', credentials:'include' });
+  }catch(e){ /* removed locally regardless so the UI stays in sync */ }
+
+  inquiries = inquiries.filter(x=>x.id!==id);
+  seenIds.delete(id);
+  if (selectedId === id){
+    selectedId = null;
+    document.getElementById('detailScroll').style.display = 'none';
+    document.getElementById('detailEmpty').style.display = 'flex';
+    setMobileDetailOpen(false);
+  }
+  renderList();
+  renderStats();
+  closeConfirm();
+  pushToast('fa-solid fa-trash-can', 'Inquiry deleted', i ? `${fullName(i)}'s message was removed.` : 'The message was removed.');
 }
 
 /* ---------- AI reply generation ---------- */
@@ -947,12 +1105,40 @@ document.getElementById('navInquiries').addEventListener('click', e=>{
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelector('.tab[data-filter="all"]').classList.add('active');
   activeFilter = 'all'; renderList();
+  sidebar.classList.remove('open'); mobOverlay.classList.remove('open');
 });
 document.getElementById('navArchived').addEventListener('click', e=>{
   e.preventDefault();
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelector('.tab[data-filter="archived"]').classList.add('active');
   activeFilter = 'archived'; renderList();
+  sidebar.classList.remove('open'); mobOverlay.classList.remove('open');
+});
+
+document.getElementById('backMobileBtn').addEventListener('click', ()=>{
+  setMobileDetailOpen(false);
+});
+
+document.getElementById('confirmCancelBtn').addEventListener('click', closeConfirm);
+document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDelete);
+document.getElementById('confirmOverlay').addEventListener('click', e=>{
+  if (e.target.id === 'confirmOverlay') closeConfirm();
+});
+
+window.addEventListener('resize', ()=>{
+  if (!isMobile()) document.getElementById('bodyGrid').classList.remove('has-selection');
+});
+
+/* ---------- login: show/hide password toggle ---------- */
+const loginPasswordInput = document.getElementById('loginPassword');
+const loginPwToggle = document.getElementById('loginPwToggle');
+loginPwToggle.addEventListener('click', ()=>{
+  const showing = loginPasswordInput.type === 'text';
+  loginPasswordInput.type = showing ? 'password' : 'text';
+  loginPwToggle.innerHTML = showing ? '<i class="fa-solid fa-eye"></i>' : '<i class="fa-solid fa-eye-slash"></i>';
+  loginPwToggle.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
+  loginPwToggle.title = showing ? 'Show password' : 'Hide password';
+  loginPasswordInput.focus();
 });
 
 /* ---------- request browser notification permission on first click ---------- */
