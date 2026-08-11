@@ -5,6 +5,9 @@ const cors = require('cors');
 const path = require('path');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
+const cookieParser = require('cookie-parser');
+const rateLimit = require('express-rate-limit');
+const crypto = require('crypto');
 
 // Firebase credentials:
 // - Locally: read from firebase-admin-key.json (gitignored, stays on your machine)
@@ -35,31 +38,101 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Admin key — set ADMIN_KEY in .env locally and in Vercel's Environment
-// Variables for the deployed site. Falls back to your old hardcoded value
-// so nothing breaks if you haven't set it yet.
+// Admin password — set ADMIN_KEY in .env locally and in Vercel's Environment
+// Variables for the deployed site. This is now only checked server-side at
+// login; it is never sent to or stored in the browser.
 const ADMIN_KEY = process.env.ADMIN_KEY || 'vicarte_admin_2024';
 
+// Signing secret for session tokens — set SESSION_SECRET in .env locally
+// and in Vercel's Environment Variables. Must be a long random string.
+const SESSION_SECRET = process.env.SESSION_SECRET || 'change-this-dev-only-secret';
+
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.SITE_URL || 'https://vicarte-website-9zqm.vercel.app',
+  credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public'));
 
+// ---------- session helpers ----------
+function safeCompare(a, b) {
+  const bufA = Buffer.from(String(a));
+  const bufB = Buffer.from(String(b));
+  if (bufA.length !== bufB.length) return false;
+  return crypto.timingSafeEqual(bufA, bufB);
+}
+
+function createSessionToken() {
+  const expiry = Date.now() + 12 * 60 * 60 * 1000; // 12 hour session
+  const signature = crypto.createHmac('sha256', SESSION_SECRET).update(String(expiry)).digest('hex');
+  return `${expiry}.${signature}`;
+}
+
+function verifySessionToken(token) {
+  if (!token) return false;
+  const [expiryStr, signature] = token.split('.');
+  if (!expiryStr || !signature) return false;
+  const expected = crypto.createHmac('sha256', SESSION_SECRET).update(expiryStr).digest('hex');
+  const sigBuf = Buffer.from(signature);
+  const expBuf = Buffer.from(expected);
+  if (sigBuf.length !== expBuf.length) return false;
+  if (!crypto.timingSafeEqual(sigBuf, expBuf)) return false;
+  return Number(expiryStr) > Date.now();
+}
+
 function requireAdmin(req, res, next) {
-  const adminKey = req.headers['admin-key'];
-  if (adminKey !== ADMIN_KEY) {
-    return res.status(403).json({ error: 'Unauthorized' });
+  if (!verifySessionToken(req.cookies?.admin_session)) {
+    return res.status(401).json({ error: 'Not authenticated' });
   }
   next();
 }
+
+// ---------- rate limiters ----------
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { error: 'Too many attempts. Try again in 15 minutes.' }
+});
+
+const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 10,
+  message: { error: 'Too many submissions. Please try again later.' }
+});
 
 // Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Vicarte API is working!' });
 });
 
+// ---------- admin auth routes ----------
+app.post('/api/admin/login', loginLimiter, (req, res) => {
+  const { password } = req.body;
+  if (!password || !safeCompare(password, ADMIN_KEY)) {
+    return res.status(401).json({ error: 'Incorrect password' });
+  }
+  res.cookie('admin_session', createSessionToken(), {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    maxAge: 12 * 60 * 60 * 1000
+  });
+  res.json({ success: true });
+});
+
+app.post('/api/admin/logout', (req, res) => {
+  res.clearCookie('admin_session');
+  res.json({ success: true });
+});
+
+app.get('/api/admin/check', requireAdmin, (req, res) => {
+  res.json({ authenticated: true });
+});
+
 // Contact form route with Firebase
-app.post('/api/contact/submit', async (req, res) => {
+app.post('/api/contact/submit', contactLimiter, async (req, res) => {
   try {
     const { firstName, lastName, email, phone, service, message } = req.body;
 

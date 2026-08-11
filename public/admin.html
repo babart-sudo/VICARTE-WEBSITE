@@ -30,6 +30,17 @@ input,textarea,select{font-family:inherit;}
 ::-webkit-scrollbar-thumb{background:rgba(184,151,90,0.35);border-radius:8px;}
 ::-webkit-scrollbar-thumb:hover{background:rgba(184,151,90,0.55);}
 
+/* ================= LOGIN ================= */
+.login-screen{position:fixed;inset:0;background:linear-gradient(160deg,var(--navy),var(--navy-deep));display:flex;align-items:center;justify-content:center;z-index:1000;}
+.login-card{background:var(--white);border-radius:14px;padding:40px 36px;width:320px;box-shadow:0 30px 80px rgba(0,0,0,0.4);}
+.login-card h2{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:6px;}
+.login-card p{font-size:12.5px;color:var(--grey);margin-bottom:20px;}
+.login-card input{width:100%;padding:12px 14px;border:1px solid var(--grey-light);border-radius:8px;font-size:14px;margin-bottom:12px;outline:none;}
+.login-card input:focus{border-color:var(--gold);}
+.login-card button{width:100%;background:var(--navy);color:white;border:none;padding:13px;border-radius:8px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;font-size:12px;}
+.login-card button:disabled{opacity:0.6;cursor:progress;}
+.login-error{color:var(--new);font-size:12px;margin-top:10px;display:none;}
+
 /* ================= SHELL ================= */
 .shell{display:grid;grid-template-columns:264px 1fr;height:100vh;}
 
@@ -82,6 +93,13 @@ input,textarea,select{font-family:inherit;}
   border-radius:6px;transition:background 0.22s,border-color 0.22s;
 }
 .side-view-site:hover{background:rgba(184,151,90,0.1);border-color:var(--gold-light);}
+.side-logout{
+  display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;
+  font-size:10.5px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);background:none;border:1px solid rgba(255,255,255,0.15);
+  border-radius:6px;padding:10px;width:100%;transition:background 0.22s,border-color 0.22s,color 0.22s;
+}
+.side-logout:hover{background:rgba(194,84,47,0.12);border-color:var(--new);color:var(--white);}
 
 /* ================= MAIN ================= */
 .main{display:flex;flex-direction:column;height:100vh;overflow:hidden;}
@@ -342,9 +360,20 @@ input,textarea,select{font-family:inherit;}
 </head>
 <body>
 
+<!-- ================= LOGIN SCREEN ================= -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <h2>Vicarte Admin</h2>
+    <p>Enter your admin password to continue.</p>
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" />
+    <button id="loginBtn">Sign In</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
 <div class="mob-nav-overlay" id="mobOverlay"></div>
 
-<div class="shell">
+<div class="shell" id="dashboardShell" style="display:none;">
 
   <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="sidebar">
@@ -376,6 +405,7 @@ input,textarea,select{font-family:inherit;}
         </div>
       </div>
       <a href="/index.html" class="side-view-site"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live Site</a>
+      <button class="side-logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
     </div>
   </aside>
 
@@ -468,15 +498,12 @@ input,textarea,select{font-family:inherit;}
 /* =========================================================
    DATA LAYER
    All inquiry data lives in memory for this session and is
-   loaded from the site's contact API when available. Swap
-   API_LIST / API_REPLY below to point at your backend.
+   loaded from the site's contact API. Authentication is now
+   handled entirely server-side via an httpOnly session cookie
+   set by /api/admin/login — no secret key lives in this file.
    ========================================================= */
-const API_LIST  = '/api/contacts/all';           // GET  — requires admin-key header
+const API_LIST  = '/api/contacts/all';           // GET  — requires a valid session cookie
 const API_AI    = '/api/ai-reply';               // optional: POST {inquiry} -> {reply}  (not wired up yet)
-
-// Admin key must match ADMIN_KEY in your server's .env file.
-// This is sent as a header on every admin request below.
-const ADMIN_KEY = 'vicarte_admin_2024';
 
 function replyUrl(id)  { return `/api/contacts/${id}/reply`; }
 function statusUrl(id) { return `/api/contacts/${id}/status`; }
@@ -527,9 +554,9 @@ async function loadInquiries(isPoll=false){
   refreshBtn.classList.add('active');
   let data = null;
   try{
-    const res = await fetch(API_LIST, { headers:{ 'Accept':'application/json', 'admin-key': ADMIN_KEY } });
+    const res = await fetch(API_LIST, { headers:{ 'Accept':'application/json' }, credentials:'include' });
     if (res.ok) data = await res.json();
-    else if (res.status === 403) console.error('Admin key rejected — check ADMIN_KEY matches your server .env');
+    else if (res.status === 401) { showLogin(); return; }
   }catch(e){ /* backend not available — use demo/current data */ }
 
   if (Array.isArray(data) && data.length){
@@ -698,7 +725,8 @@ async function setStatus(id, status){
   try{
     await fetch(statusUrl(id), {
       method:'PATCH',
-      headers:{ 'Content-Type':'application/json', 'admin-key': ADMIN_KEY },
+      headers:{ 'Content-Type':'application/json' },
+      credentials:'include',
       body: JSON.stringify({ status })
     });
   }catch(e){ /* status still reflected locally even if this fails */ }
@@ -720,6 +748,7 @@ async function generateAiReply(inquiry){
     const res = await fetch(API_AI, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
+      credentials:'include',
       body: JSON.stringify({ inquiry })
     });
     if (res.ok){
@@ -802,7 +831,8 @@ async function sendReply(inquiry){
   try{
     const res = await fetch(replyUrl(inquiry.id), {
       method:'PATCH',
-      headers:{ 'Content-Type':'application/json', 'admin-key': ADMIN_KEY },
+      headers:{ 'Content-Type':'application/json' },
+      credentials:'include',
       body: JSON.stringify({ reply: text })
     });
     if (!res.ok) throw new Error('failed');
@@ -916,9 +946,71 @@ document.body.addEventListener('click', function requestNotif(){
   document.body.removeEventListener('click', requestNotif);
 }, { once:true });
 
-/* ---------- boot ---------- */
-loadInquiries(false);
-setInterval(()=> loadInquiries(true), 30000); // poll every 30s for new submissions
+/* ---------- login / auth boot ---------- */
+function showLogin(){
+  document.getElementById('dashboardShell').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+
+function showDashboard(){
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboardShell').style.display = 'grid';
+  loadInquiries(false);
+  setInterval(()=> loadInquiries(true), 30000); // poll every 30s for new submissions
+}
+
+async function checkAuth(){
+  try{
+    const res = await fetch('/api/admin/check', { credentials:'include' });
+    return res.ok;
+  }catch(e){ return false; }
+}
+
+async function tryLogin(){
+  const pwInput = document.getElementById('loginPassword');
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+  const password = pwInput.value;
+  if (!password) return;
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+  errEl.style.display = 'none';
+  try{
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({ password })
+    });
+    if (res.ok){
+      pwInput.value = '';
+      showDashboard();
+    } else {
+      const data = await res.json().catch(()=>({}));
+      errEl.textContent = data.error || 'Incorrect password.';
+      errEl.style.display = 'block';
+    }
+  }catch(e){
+    errEl.textContent = 'Could not reach server.';
+    errEl.style.display = 'block';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Sign In';
+}
+
+async function doLogout(){
+  try{ await fetch('/api/admin/logout', { method:'POST', credentials:'include' }); }catch(e){}
+  location.reload();
+}
+
+document.getElementById('loginBtn').addEventListener('click', tryLogin);
+document.getElementById('loginPassword').addEventListener('keydown', e=>{ if(e.key==='Enter') tryLogin(); });
+document.getElementById('logoutBtn').addEventListener('click', doLogout);
+
+(async function boot(){
+  const authed = await checkAuth();
+  if (authed) showDashboard(); else showLogin();
+})();
 </script>
 </body>
 </html>
