@@ -329,6 +329,13 @@
       background: none;
       border: none;
       padding: 4px;
+      transition: opacity 0.2s var(--ease), visibility 0.2s var(--ease);
+    }
+
+    .hamburger.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .hamburger span {
@@ -380,6 +387,7 @@
       color: var(--white);
       font-size: 26px;
       cursor: pointer;
+      z-index: 201;
     }
 
     /* =============================================
@@ -3096,7 +3104,9 @@
       }
 
       .gallery-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
       }
     }
 
@@ -4019,9 +4029,17 @@
     });
 
     /* ---- MOBILE MENU ---- */
-    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileOverlay').classList.add('open'));
+    const hamburgerBtn = document.getElementById('hamburger');
+    const mobileOverlayEl = document.getElementById('mobileOverlay');
+    hamburgerBtn.addEventListener('click', () => {
+      mobileOverlayEl.classList.add('open');
+      hamburgerBtn.classList.add('is-hidden');
+    });
     document.getElementById('mobClose').addEventListener('click', closeMob);
-    function closeMob() { document.getElementById('mobileOverlay').classList.remove('open'); }
+    function closeMob() {
+      mobileOverlayEl.classList.remove('open');
+      hamburgerBtn.classList.remove('is-hidden');
+    }
     window.closeMob = closeMob;
 
     /* ---- SCROLL REVEAL ---- */
@@ -4030,9 +4048,9 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => obs.observe(el));
 
-    /* ---- GALLERY CARD STAGGERED REVEAL ---- */
+    /* ---- GALLERY CARD STAGGERED REVEAL (one at a time, in DOM order) ---- */
     const galleryCards = [...document.querySelectorAll('.gallery-card')];
-    galleryCards.forEach((el, i) => { el.style.transitionDelay = (i % 4) * 0.12 + 's'; });
+    galleryCards.forEach((el, i) => { el.style.transitionDelay = (i * 0.15) + 's'; });
     const galObs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); galObs.unobserve(e.target); } });
     }, { threshold: 0.15, rootMargin: '0px -40px -40px 0px' });
