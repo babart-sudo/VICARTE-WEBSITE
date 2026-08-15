@@ -131,7 +131,7 @@
       position: absolute;
       inset: 0;
       z-index: 0;
-      background: linear-gradient(to bottom, rgba(8, 14, 24, 0.38) 0%, rgba(8, 14, 24, 0.20) 60%, transparent 100%);
+      background: linear-gradient(to bottom, rgba(4, 8, 14, 0.72) 0%, rgba(4, 8, 14, 0.45) 55%, transparent 100%);
       opacity: 1;
       transition: opacity 0.35s ease;
       pointer-events: none;
@@ -156,6 +156,7 @@
       color: var(--white);
       line-height: 1;
       text-decoration: none;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
     }
 
     .nav-logo small {
@@ -184,6 +185,7 @@
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.82);
       text-decoration: none;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
       transition: color 0.2s;
     }
 
@@ -443,7 +445,7 @@
       position: relative;
       z-index: 4;
       text-align: left;
-      padding: 0 clamp(24px, 5vw, 72px) clamp(64px, 9vh, 110px);
+      padding: 0 clamp(24px, 5vw, 72px) clamp(64px, 9vh, 110px) clamp(56px, 7.5vw, 104px);
       max-width: 700px;
     }
 
@@ -740,7 +742,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: var(--section-pad) 0;
+      padding: clamp(28px, 3.5vw, 48px) 0 var(--section-pad);
       position: relative;
       overflow: hidden;
       background: url('/images/aluminum1.jpg') center/cover fixed;
@@ -1021,7 +1023,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: var(--section-pad) clamp(20px, 4vw, 48px);
+      padding: clamp(28px, 3.5vw, 48px) clamp(8px, 1vw, 16px);
       position: relative;
       overflow: hidden;
       background:
@@ -1055,7 +1057,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 1440px;
+      max-width: 1760px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -1067,18 +1069,20 @@
       justify-content: space-between;
       gap: 24px;
       flex-wrap: wrap;
-      margin-bottom: clamp(40px, 5vw, 64px);
-      padding-bottom: 28px;
+      margin-bottom: clamp(28px, 3.4vw, 44px);
+      padding-bottom: 26px;
       border-bottom: 1px solid rgba(199, 206, 212, 0.14);
     }
 
     .alu-head-left {
-      max-width: 620px;
+      max-width: none;
+      flex: 1 1 auto;
+      min-width: 0;
     }
 
     .alu-head .eyebrow {
       color: var(--aluminum-light);
-      font-size: 18px;
+      font-size: 21px;
       font-weight: 600;
       letter-spacing: 0.28em;
       text-transform: uppercase;
@@ -1086,14 +1090,16 @@
 
     .alu-head .eyebrow::before {
       background: var(--aluminum-light);
+      width: 32px;
     }
 
     .alu-head h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(38px, 5vw, 60px);
+      font-size: clamp(30px, 4.6vw, 78px);
       font-weight: 400;
       color: var(--white);
       line-height: 1.05;
+      white-space: nowrap;
     }
 
     .alu-head h2 em {
@@ -1112,15 +1118,15 @@
 
     .alu-spec-plate {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       letter-spacing: 0.04em;
       color: rgba(255, 255, 255, 0.55);
       border: 1px solid rgba(199, 206, 212, 0.22);
       border-radius: 6px;
-      padding: 14px 20px;
+      padding: 18px 26px;
       display: grid;
       grid-template-columns: auto auto;
-      gap: 4px 24px;
+      gap: 6px 30px;
       background: rgba(255, 255, 255, 0.02);
       white-space: nowrap;
     }
@@ -1144,8 +1150,8 @@
 
     .alu-body {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
+      grid-template-columns: 1.15fr 0.75fr 1.1fr;
+      gap: 34px;
       align-items: stretch;
     }
 
@@ -1153,7 +1159,7 @@
       position: relative;
       border-radius: 4px;
       overflow: hidden;
-      min-height: 560px;
+      min-height: 720px;
       border: 1px solid rgba(199, 206, 212, 0.16);
     }
 
@@ -1233,7 +1239,7 @@
       left: 0;
       right: 0;
       z-index: 4;
-      padding: 56px 26px 22px;
+      padding: 64px 30px 26px;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
       display: flex;
       align-items: flex-end;
@@ -1243,14 +1249,14 @@
 
     .alu-showcase-label .name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
+      font-size: 32px;
       color: var(--white);
       font-weight: 400;
     }
 
     .alu-showcase-label .code {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--gold-light);
       letter-spacing: 0.08em;
     }
@@ -1320,22 +1326,22 @@
 
     .alu-specs-top {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.32);
       display: flex;
       justify-content: space-between;
-      padding-bottom: 10px;
+      padding-bottom: 12px;
       border-bottom: 1px solid rgba(199, 206, 212, 0.16);
       margin-bottom: 4px;
     }
 
     .alu-row {
       display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 20px;
-      padding: 24px 4px;
+      grid-template-columns: 84px 1fr;
+      gap: 24px;
+      padding: 34px 6px;
       border-bottom: 1px solid rgba(199, 206, 212, 0.1);
       position: relative;
       transition: padding-left 0.35s var(--ease), border-color 0.35s;
@@ -1369,7 +1375,7 @@
 
     .alu-row-code {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 20px;
+      font-size: 25px;
       font-weight: 500;
       color: var(--aluminum-light);
       letter-spacing: 0.02em;
@@ -1383,26 +1389,26 @@
 
     .alu-row h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 27px;
       font-weight: 600;
       color: var(--white);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       line-height: 1.2;
     }
 
     .alu-row p {
-      font-size: 15px;
+      font-size: 16.5px;
       font-weight: 400;
       line-height: 1.75;
       color: rgba(255, 255, 255, 0.5);
-      max-width: 480px;
+      max-width: 560px;
     }
 
     .alu-cta {
       display: flex;
       flex-direction: column;
       gap: 16px;
-      margin-top: clamp(36px, 5vw, 52px);
+      margin-top: clamp(24px, 3vw, 36px);
       align-items: center;
       text-align: center;
     }
@@ -1415,13 +1421,15 @@
     }
 
     .alu-finishes {
-      margin-top: clamp(48px, 6vw, 72px);
       border: 1px solid rgba(199, 206, 212, 0.16);
       border-radius: 8px;
-      padding: clamp(30px, 4vw, 46px) clamp(24px, 4vw, 48px);
+      padding: 26px 38px 42px;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.006));
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     .alu-finishes::before {
@@ -1434,55 +1442,54 @@
 
     .alu-finishes-top {
       display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 14px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
       font-weight: 700;
-      flex-wrap: wrap;
-      margin-bottom: clamp(28px, 4vw, 40px);
+      margin-bottom: 40px;
       position: relative;
       z-index: 1;
     }
 
     .alu-finishes-top .tag {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 17px;
-      letter-spacing: 0.18em;
+      font-size: 15px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--gold-light);
-      margin-bottom: 10px;
+      margin-bottom: 2px;
       display: block;
     }
 
     .alu-finishes-top h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(32px, 3.5vw, 42px);
+      font-size: 40px;
       font-weight: 300;
       color: var(--white);
       line-height: 1.2;
     }
 
     .alu-finishes-top p {
-      font-size: 13px;
+      font-size: 17px;
       line-height: 1.7;
       color: rgba(255, 255, 255, 0.5);
-      max-width: 340px;
+      max-width: 100%;
     }
 
     .alu-swatch-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: clamp(16px, 2.4vw, 28px);
+      display: flex;
+      flex-direction: column;
+      gap: 38px;
       position: relative;
       z-index: 1;
     }
 
     .alu-swatch {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      gap: 16px;
-      text-align: center;
+      gap: 26px;
+      text-align: left;
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
@@ -1510,8 +1517,9 @@
     }
 
     .alu-swatch-disc {
-      width: clamp(72px, 8vw, 96px);
-      height: clamp(72px, 8vw, 96px);
+      width: 76px;
+      height: 76px;
+      flex-shrink: 0;
       border-radius: 50%;
       position: relative;
       box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.25), inset 0 -6px 10px rgba(0, 0, 0, 0.35);
@@ -1549,14 +1557,14 @@
 
     .alu-swatch-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 19px;
+      font-size: 26px;
       font-weight: 400;
       color: var(--white);
     }
 
     .alu-swatch-code {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-size: 13px;
       letter-spacing: 0.08em;
       color: rgba(255, 255, 255, 0.4);
     }
@@ -1970,25 +1978,81 @@
       flex-shrink: 0;
     }
 
-    @media (max-width: 900px) {
-      .expertise-grid {
-        grid-template-columns: 1fr;
-      }
+@media (max-width: 900px) {
+  /* video block in Services is fixed at 830px tall — way too tall on tablets/phones */
+  .expertise-video-wrap {
+    height: auto;
+    aspect-ratio: 4 / 5;
+    max-width: 100%;
+  }
+}
 
-      .expertise-collage {
-        max-width: 100%;
-      }
-
-      .expertise-checklist {
-        grid-template-columns: 1fr;
-      }
+  @media (max-width: 640px) {
+    /* ---- HERO: remove prev/next arrow buttons on mobile ---- */
+    .hero-prev,
+    .hero-next {
+      display: none;
     }
+
+    /* swiping/tapping the dots is enough on mobile; free up edge space */
+    .hero-content {
+      padding-left: 24px;
+      padding-right: 24px;
+      max-width: 100%;
+    }
+
+    /* the vertical accent line reads as clutter on narrow screens */
+    .hero-line {
+      display: none;
+    }
+
+    /* scroll hint collides with hero-dots on short mobile viewports */
+    .scroll-hint {
+      display: none;
+    }
+
+    .hero-actions {
+      width: 100%;
+    }
+
+    .hero-actions .btn-gold,
+    .hero-actions .btn-ghost {
+      flex: 1 1 auto;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* ---- SERVICES video: give it room instead of a fixed 830px ---- */
+    .expertise-video-wrap {
+      height: auto;
+      aspect-ratio: 3 / 4;
+    }
+
+    /* ---- ALUMINUM finish swatches: row wrap gets cramped at 4 items ---- */
+    .alu-swatch-row {
+      flex-direction: column;
+    }
+
+    .alu-swatch {
+      width: 100%;
+    }
+
+    /* ---- ABOUT: stack showroom thumbnails instead of squeezing 2-up ---- */
+    .about-showrooms-row {
+      grid-template-columns: 1fr;
+    }
+
+    /* ---- General: tighten section padding so mobile doesn't feel like desktop spacing ---- */
+    :root {
+      --section-pad: clamp(48px, 12vw, 72px);
+    }
+  }
 
     /* =============================================
        ABOUT
        ============================================= */
     #about {
-      padding: var(--section-pad) 0;
+      padding: clamp(32px, 4vw, 56px) 0 clamp(12px, 1.6vw, 20px);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -2008,25 +2072,37 @@
       position: relative;
       z-index: 1;
       width: 100%;
+      max-width: 1840px;
+      padding-left: clamp(4px, 0.5vw, 8px);
+      padding-right: clamp(4px, 0.5vw, 8px);
     }
 
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--gap);
-      align-items: center;
+      grid-template-columns: 1fr 1.05fr;
+      gap: clamp(28px, 3.4vw, 48px);
+      align-items: stretch;
     }
 
     .about-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(12px, 1.6vw, 18px);
+    }
+
+    .about-main-image {
       position: relative;
     }
 
     .about-img {
       width: 100%;
-      aspect-ratio: 4/5;
-      border-radius: 4px;
+      aspect-ratio: 4/3.3;
+      border-radius: 6px;
       overflow: hidden;
       background: var(--navy-light);
+      border: 1px solid rgba(199, 206, 212, 0.16);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
     }
 
     .about-img svg {
@@ -2034,46 +2110,202 @@
       height: 100%;
     }
 
+    .about-main-image::before {
+      content: '';
+      position: absolute;
+      top: -18px;
+      left: -18px;
+      width: 84px;
+      height: 84px;
+      border-top: 1px solid var(--gold-light);
+      border-left: 1px solid var(--gold-light);
+      z-index: 2;
+      pointer-events: none;
+    }
+
     .about-badge {
       position: absolute;
-      bottom: -24px;
-      right: -24px;
-      width: 130px;
-      height: 130px;
+      bottom: -22px;
+      right: -22px;
+      width: 116px;
+      height: 116px;
       border-radius: 50%;
-      background: var(--gold);
+      background: linear-gradient(150deg, var(--gold-light), var(--gold));
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 14px;
-      animation: spin 24s linear infinite;
+      padding: 12px;
+      box-shadow: 0 22px 48px rgba(184, 151, 90, 0.4), 0 0 0 6px rgba(8, 14, 24, 0.55);
+      animation: spin 26s linear infinite;
+      z-index: 3;
     }
 
     .about-badge .n {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 40px;
-      font-weight: 300;
+      font-size: 34px;
+      font-weight: 400;
       color: var(--white);
       line-height: 1;
     }
 
     .about-badge .l {
-      font-size: 9px;
-      letter-spacing: 0.16em;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.8);
-      margin-top: 2px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 3px;
+    }
+
+    .about-showrooms-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(10px, 1.2vw, 16px);
+      margin-top: 0;
+    }
+
+    .about-showroom-box {
+      position: relative;
+      display: block;
+      aspect-ratio: 16 / 10;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid rgba(199, 206, 212, 0.16);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.4);
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: box-shadow 0.5s var(--ease), transform 0.3s var(--ease);
+    }
+
+    .about-showroom-box:hover {
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 176, 122, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .about-showroom-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.08);
+      transition: transform 1.2s var(--ease);
+    }
+
+    .about-showroom-box:hover img {
+      transform: scale(1.16);
+    }
+
+    .about-showroom-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8, 14, 24, 0.78) 0%, rgba(8, 14, 24, 0.05) 45%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .about-showroom-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      background: rgba(184, 151, 90, 0.92);
+      backdrop-filter: blur(6px);
+      color: var(--white);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
+
+    .about-showroom-box .amb-hint {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(26, 40, 64, 0.85);
+      backdrop-filter: blur(6px);
+      color: var(--gold-light);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 11px;
+      border-radius: 20px;
+      border: 1px solid rgba(184, 151, 90, 0.3);
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+
+    .about-showroom-box:hover .amb-hint {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about-showroom-label {
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .about-showroom-label .asl-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      flex-shrink: 0;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .about-text .eyebrow {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+    }
+
+    .about-rule {
+      display: block;
+      width: 0;
+      height: 3px;
+      background: var(--gold);
+      margin: -2px 0 0;
+      transition: width 1s var(--ease) 0.2s;
+    }
+
+    .about-text.in .about-rule {
+      width: 90px;
     }
 
     .about-text h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 4.5vw, 56px);
+      font-size: clamp(42px, 4.8vw, 66px);
       font-weight: 300;
       color: var(--white);
-      line-height: 1.1;
-      margin-bottom: 24px;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      margin-bottom: 0;
     }
 
     .about-video-wrap {
@@ -2159,34 +2391,68 @@
     }
 
     .about-text p {
-      font-size: 15px;
-      line-height: 1.9;
-      color: rgba(255, 255, 255, 0.68);
-      margin-bottom: 18px;
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 14px;
+      max-width: 100%;
     }
 
     .about-stats {
       display: flex;
-      gap: clamp(32px, 5vw, 56px);
-      margin: 36px 0;
-      padding-top: 28px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      gap: 0;
+      margin: 0;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .about-stats>div {
+      flex: 1;
+      padding-right: clamp(16px, 2vw, 28px);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .about-stats>div:last-child {
+      border-right: none;
+      padding-right: 0;
     }
 
     .stat-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 52px;
+      font-size: 46px;
       font-weight: 300;
       color: var(--white);
       line-height: 1;
     }
 
+    .stat-num em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
     .stat-lbl {
-      font-size: 11px;
+      font-size: 10.5px;
+      font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.5);
-      margin-top: 4px;
+      margin-top: 6px;
+    }
+
+    .about-cta-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: clamp(28px, 3.6vw, 46px);
+    }
+
+    .about-cta-row .btn-gold,
+    .about-cta-row .btn-ghost {
+      padding: 15px 36px;
+      font-size: 12px;
+      letter-spacing: 0.18em;
     }
 
     /* =============================================
@@ -2483,6 +2749,33 @@
       overflow: hidden;
     }
 
+    .showroom-photo-inset {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      z-index: 3;
+      width: 92px;
+      height: 92px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+      transition: transform 0.3s var(--ease), width 0.3s var(--ease), height 0.3s var(--ease);
+    }
+
+    .showroom-photo-inset img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .showroom-card:hover .showroom-photo-inset {
+      transform: translateY(-2px);
+      width: 108px;
+      height: 108px;
+    }
+
     .showroom-map-wrap iframe {
       width: 100%;
       height: 100%;
@@ -2597,23 +2890,6 @@
       right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(184, 151, 90, 0.55), transparent);
-    }
-
-    footer::after {
-      content: 'VICARTE';
-      position: absolute;
-      bottom: -6%;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: clamp(90px, 14vw, 220px);
-      letter-spacing: 0.06em;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(184, 151, 90, 0.06);
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 0;
     }
 
     .footer-top {
@@ -2763,10 +3039,6 @@
       .footer-top {
         grid-template-columns: 1fr 1fr;
       }
-
-      footer::after {
-        display: none;
-      }
     }
 
     @media (max-width: 640px) {
@@ -2861,7 +3133,8 @@
       }
 
       .alu-swatch-row {
-        grid-template-columns: repeat(2, 1fr);
+        flex-direction: row;
+        flex-wrap: wrap;
       }
 
       .about-badge {
@@ -2976,10 +3249,8 @@
   <section id="hero">
     <div class="hero-slides">
       <div class="hero-slide active" style="background-image:url('/images/hero1.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('/images/hero2.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('/images/cabinet2.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('/images/aluminum4.jpg');"></div>
-      <div class="hero-slide" style="background-image:url('/images/hero1.jpg');"></div>
+      
+     
     </div>
     <div class="hero-line"></div>
 
@@ -3163,6 +3434,44 @@
           </div>
         </div>
 
+        <div class="alu-finishes reveal" id="aluFinishes">
+          <div class="alu-finishes-top">
+            <span class="tag">Finish Palette</span>
+            <h3>A Metal for Every <em style="font-style:italic;color:var(--gold-light);">Vision</em></h3>
+            <p>Every profile is powder-coated in-house to match the mood of your room.</p>
+          </div>
+          <div class="alu-swatch-row">
+            <div class="alu-swatch">
+              <div class="alu-swatch-disc alu-swatch-champagne"></div>
+              <div>
+                <div class="alu-swatch-name">Champagne Gold</div>
+                <div class="alu-swatch-code">RAL 1036</div>
+              </div>
+            </div>
+            <div class="alu-swatch">
+              <div class="alu-swatch-disc alu-swatch-graphite"></div>
+              <div>
+                <div class="alu-swatch-name">Matte Graphite</div>
+                <div class="alu-swatch-code">RAL 7024</div>
+              </div>
+            </div>
+            <div class="alu-swatch">
+              <div class="alu-swatch-disc alu-swatch-silver"></div>
+              <div>
+                <div class="alu-swatch-name">Silver Anodized</div>
+                <div class="alu-swatch-code">RAL 9006</div>
+              </div>
+            </div>
+            <div class="alu-swatch">
+              <div class="alu-swatch-disc alu-swatch-bronze"></div>
+              <div>
+                <div class="alu-swatch-name">Statuario Bronze</div>
+                <div class="alu-swatch-code">RAL 8007</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="alu-specs reveal-r">
           <div class="alu-specs-top"><span>Property</span><span>Rating</span></div>
 
@@ -3200,44 +3509,102 @@
 
       </div>
 
-      <div class="alu-finishes reveal" id="aluFinishes">
-        <div class="alu-finishes-top">
-          <div>
-            <span class="tag">Finish Palette</span>
-            <h3>A Metal for Every <em style="font-style:italic;color:var(--gold-light);">Vision</em></h3>
-          </div>
-          <p>Every profile is powder-coated in-house, so your aluminum always matches the mood of the room — not just
-            the hardware store's shelf.</p>
-        </div>
-        <div class="alu-swatch-row">
-          <div class="alu-swatch">
-            <div class="alu-swatch-disc alu-swatch-champagne"></div>
-            <div class="alu-swatch-name">Champagne Gold</div>
-            <div class="alu-swatch-code">RAL 1036</div>
-          </div>
-          <div class="alu-swatch">
-            <div class="alu-swatch-disc alu-swatch-graphite"></div>
-            <div class="alu-swatch-name">Matte Graphite</div>
-            <div class="alu-swatch-code">RAL 7024</div>
-          </div>
-          <div class="alu-swatch">
-            <div class="alu-swatch-disc alu-swatch-silver"></div>
-            <div class="alu-swatch-name">Silver Anodized</div>
-            <div class="alu-swatch-code">RAL 9006</div>
-          </div>
-          <div class="alu-swatch">
-            <div class="alu-swatch-disc alu-swatch-bronze"></div>
-            <div class="alu-swatch-name">Statuario Bronze</div>
-            <div class="alu-swatch-code">RAL 8007</div>
-          </div>
-        </div>
-      </div>
-
       <div class="alu-cta reveal">
         <a href="/portfolio.html?filter=aluminum" class="btn-alum">View Aluminum Projects</a>
 
       </div>
 
+    </div>
+  </section>
+
+
+  <!-- =============================================
+     ABOUT
+     ============================================= -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual reveal-l">
+          <div class="about-main-image">
+            <div class="about-img">
+              <div class="about-video-wrap" id="aboutVideoWrap">
+                <video class="about-video" id="aboutVideo" playsinline preload="auto" autoplay muted loop>
+                  <source src="/images/vicarte-story.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <div class="about-video-scrim"></div>
+                <button class="about-video-play" id="aboutPlayBtn" aria-label="Mute or unmute video">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="aboutPlayIcon">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                    <line x1="23" y1="9" x2="17" y2="15" />
+                    <line x1="17" y1="9" x2="23" y2="15" />
+                  </svg>
+                </button>
+                <div class="about-video-caption"><span class="avc-dot"></span> Behind the Craft</div>
+              </div>
+            </div>
+            <div class="about-badge"><span class="n">13+</span><span class="l">Years of Excellence</span></div>
+          </div>
+        </div>
+        <div class="about-text reveal-r">
+          <p class="eyebrow">Our Story</p>
+          <span class="about-rule"></span>
+          <h2>Crafting <em>Beautiful</em><br>Spaces Since 2013</h2>
+          <p>Vicarte Interior Concept was born from a simple belief: that your kitchen and living space should be a true
+            reflection of who you are.</p>
+          <p>Our team of designers, craftsmen, and project managers share a single passion for precision and beauty —
+            delivering spaces that endure.</p>
+          <div class="about-stats">
+            <div>
+              <div class="stat-num" data-count="500">0</div>
+              <div class="stat-lbl">Projects Completed</div>
+            </div>
+            <div>
+              <div class="stat-num" data-count="13">0</div>
+              <div class="stat-lbl">Years Experience</div>
+            </div>
+            <div>
+              <div class="stat-num" data-count="2">0</div>
+              <div class="stat-lbl">Showrooms</div>
+            </div>
+          </div>
+          <div class="about-showrooms-row">
+            <a class="about-showroom-box" href="https://www.google.com/maps/place/Vicarte+Interior+Concepts/@10.3211844,123.9107036,18z/data=!4m6!3m5!1s0x33a999256878f343:0xc6ca21a9b4737380!8m2!3d10.3217583!4d123.9124142!16s%2Fg%2F11y043g52b?entry=ttu"
+              target="_blank" rel="noopener noreferrer" aria-label="Open Cebu Showroom in Google Maps">
+              <img src="/images/showroom1.jpg" alt="Cebu Showroom">
+              <span class="about-showroom-tag">Main</span>
+              <span class="amb-hint">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+                Open in Maps
+              </span>
+              <div class="about-showroom-label"><span class="asl-dot"></span>Cebu Showroom</div>
+            </a>
+            <a class="about-showroom-box" href="https://www.google.com/maps/search/?api=1&query=Eton+Centris+Walk+Quezon+City+Philippines"
+              target="_blank" rel="noopener noreferrer" aria-label="Open Manila Showroom in Google Maps">
+              <img src="/images/showroom2.jpg" alt="Manila Showroom">
+              <span class="about-showroom-tag">Branch</span>
+              <span class="amb-hint">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+                Open in Maps
+              </span>
+              <div class="about-showroom-label"><span class="asl-dot"></span>Manila Showroom</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-cta-row reveal">
+        <a href="/portfolio.html" class="btn-gold">View Our Portfolio</a>
+        <a href="/about.html" class="btn-ghost">Read Our Full Story &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -3327,63 +3694,6 @@
 
 
   <!-- =============================================
-     ABOUT
-     ============================================= -->
-  <section id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-visual reveal-l">
-          <div class="about-img">
-            <div class="about-video-wrap" id="aboutVideoWrap">
-              <video class="about-video" id="aboutVideo" playsinline preload="auto" autoplay muted loop>
-                <source src="/images/vicarte-story.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
-              <div class="about-video-scrim"></div>
-              <button class="about-video-play" id="aboutPlayBtn" aria-label="Mute or unmute video">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="aboutPlayIcon">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                  <line x1="23" y1="9" x2="17" y2="15" />
-                  <line x1="17" y1="9" x2="23" y2="15" />
-                </svg>
-              </button>
-              <div class="about-video-caption"><span class="avc-dot"></span> Behind the Craft</div>
-            </div>
-          </div>
-          <div class="about-badge"><span class="n">13+</span><span class="l">Years of Excellence</span></div>
-        </div>
-        <div class="about-text reveal-r">
-          <p class="eyebrow">Our Story</p>
-          <h2>Crafting <em>Beautiful</em><br>Spaces Since 2013</h2>
-          <p>Vicarte Interior Concept was born from a simple belief: that your kitchen and living space should be a true
-            reflection of who you are.</p>
-          <p>Our team of designers, craftsmen, and project managers share a single passion for precision and beauty —
-            delivering spaces that endure.</p>
-          <div class="about-stats">
-            <div>
-              <div class="stat-num" data-count="500">0</div>
-              <div class="stat-lbl">Projects Completed</div>
-            </div>
-            <div>
-              <div class="stat-num" data-count="13">0</div>
-              <div class="stat-lbl">Years Experience</div>
-            </div>
-            <div>
-              <div class="stat-num" data-count="2">0</div>
-              <div class="stat-lbl">Showrooms</div>
-            </div>
-          </div>
-          <div style="display:flex; gap:14px; flex-wrap:wrap;">
-            <a href="/portfolio.html" class="btn-gold">View Our Portfolio</a>
-            <a href="/about.html" class="btn-ghost">Read Our Full Story &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- =============================================
      CONTACT + SHOWROOMS MAP
      ============================================= -->
   <section id="contact">
@@ -3433,9 +3743,9 @@
 
           <div class="follow-us-label">Connect With Us</div>
           <div class="socials">
-            <a href="https://www.facebook.com/vicartekitchencebu" target="_blank" aria-label="Facebook"><i
+            <a href="https://www.facebook.com/vicartekitchencebu" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i
                 class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/vicarte.kitchen/" target="_blank" aria-label="Instagram"><i
+            <a href="https://www.instagram.com/vicarte.kitchen/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i
                 class="fab fa-instagram"></i></a>
           </div>
         </div>
@@ -3477,12 +3787,16 @@
 
           <div class="showroom-card">
             <div class="showroom-map-wrap">
+              <div class="showroom-photo-inset">
+                <img src="/images/showroom1.jpg" alt="Vicarte Showroom — Mabolo, Cebu City">
+              </div>
               <iframe loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.8!2d123.8966!3d10.3236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999d0cfb6a0b9%3A0x1234567890abcdef!2sTAA%20Center%2C%20F.%20Cabahug%20St%2C%20Mabolo%2C%20Cebu%20City!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
                 title="Vicarte Showroom — Mabolo, Cebu City">
               </iframe>
               <a class="map-open-btn"
-                href="https://www.google.com/maps/place/Vicarte+Interior+Concepts/@10.3211844,123.9107036,18z/data=!4m6!3m5!1s0x33a999256878f343:0xc6ca21a9b4737380!8m2!3d10.3217583!4d123.9124142!16s%2Fg%2F11y043g52b?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D">
+                href="https://www.google.com/maps/place/Vicarte+Interior+Concepts/@10.3211844,123.9107036,18z/data=!4m6!3m5!1s0x33a999256878f343:0xc6ca21a9b4737380!8m2!3d10.3217583!4d123.9124142!16s%2Fg%2F11y043g52b?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank" rel="noopener noreferrer">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
                   <polyline points="15 3 21 3 21 9" />
@@ -3507,13 +3821,16 @@
 
           <div class="showroom-card">
             <div class="showroom-map-wrap">
+              <div class="showroom-photo-inset">
+                <img src="/images/showroom2.jpg" alt="Vicarte Branch — Mandaue City">
+              </div>
               <iframe loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.2!2d123.9241!3d10.3285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9a0c0e0e0e0e0%3A0xabcdef1234567890!2sMandaue%20City%2C%20Cebu%2C%20Philippines!5e0!3m2!1sen!2sph!4v1700000000001!5m2!1sen!2sph"
                 title="Vicarte Branch — Mandaue City">
               </iframe>
               <a class="map-open-btn"
                 href="https://www.bing.com/maps/search?v=2&pc=FACEBK&mid=8100&mkt=en-US&FORM=FBKPL1&style=r&q=Centris+walk%2C+Eton%2C+Quezon+City%2C+Philippines&secq=Eton+Centris+centris+walk+eton&sece=ypid%3AYN8144x15976936891469833487&cp=14.641938%7E121.040142&lvl=19.7"
-                target="_blank" rel="noopener">
+                target="_blank" rel="noopener noreferrer">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
                   <polyline points="15 3 21 3 21 9" />
@@ -3565,11 +3882,11 @@
       <div class="footer-col">
         <h5>Follow Us</h5>
         <div class="footer-socials" style="margin-top: 4px;">
-          <a href="https://www.facebook.com/vicartekitchencebu" target="_blank" aria-label="Facebook"><i
+          <a href="https://www.facebook.com/vicartekitchencebu" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i
               class="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/vicarte.kitchen/" target="_blank" aria-label="Instagram"><i
+          <a href="https://www.instagram.com/vicarte.kitchen/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i
               class="fab fa-instagram"></i></a>
-          <a href="#" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         </div>
       </div>
       <div class="footer-col">
@@ -3577,10 +3894,10 @@
         <ul>
           <li><a
               href="https://www.bing.com/maps/search?v=2&pc=FACEBK&mid=8100&mkt=en-US&FORM=FBKPL1&q=Vicarte+Kitchen+is+Located+at+TAA+Arcade+Building%2C+F.+Cabahug+St%2C+Kasambagan%2C+%2C+Cebu+City%2C+Philippines%2C+6000&cp=10.324975%7E123.915250&lvl=17.4&style=r"
-              target="_blank">TAA Center, Mabolo</a></li>
+              target="_blank" rel="noopener noreferrer">TAA Center, Mabolo</a></li>
           <li><a
               href="https://www.bing.com/maps/search?v=2&pc=FACEBK&mid=8100&mkt=en-US&FORM=FBKPL1&style=r&q=Centris+walk%2C+Eton%2C+Quezon+City%2C+Philippines&secq=Eton+Centris+centris+walk+eton&sece=ypid%3AYN8144x15976936891469833487&cp=14.641938%7E121.040142&lvl=19.7"
-              target="_blank">Centris Station, Quezon City</a></li>
+              target="_blank" rel="noopener noreferrer">Centris Station, Quezon City</a></li>
           <li><a href="tel:03244654207">(032) 4654207</a></li>
           <li><a href="mailto:vicarteinterior2@gmail.com">vicarteinterior2@gmail.com</a></li>
           <li><a href="mailto:vicartemnl@gmail.com">vicartemnl@gmail.com</a></li>
