@@ -1978,75 +1978,25 @@
       flex-shrink: 0;
     }
 
-@media (max-width: 900px) {
-  /* video block in Services is fixed at 830px tall — way too tall on tablets/phones */
-  .expertise-video-wrap {
-    height: auto;
-    aspect-ratio: 4 / 5;
-    max-width: 100%;
-  }
-}
+    @media (max-width: 900px) {
+      .expertise-grid {
+        grid-template-columns: 1fr;
+      }
 
-  @media (max-width: 640px) {
-    /* ---- HERO: remove prev/next arrow buttons on mobile ---- */
-    .hero-prev,
-    .hero-next {
-      display: none;
-    }
+      .expertise-collage {
+        max-width: 100%;
+      }
 
-    /* swiping/tapping the dots is enough on mobile; free up edge space */
-    .hero-content {
-      padding-left: 24px;
-      padding-right: 24px;
-      max-width: 100%;
-    }
+      .expertise-checklist {
+        grid-template-columns: 1fr;
+      }
 
-    /* the vertical accent line reads as clutter on narrow screens */
-    .hero-line {
-      display: none;
+      .expertise-video-wrap {
+        height: auto;
+        aspect-ratio: 4 / 5;
+        max-width: 100%;
+      }
     }
-
-    /* scroll hint collides with hero-dots on short mobile viewports */
-    .scroll-hint {
-      display: none;
-    }
-
-    .hero-actions {
-      width: 100%;
-    }
-
-    .hero-actions .btn-gold,
-    .hero-actions .btn-ghost {
-      flex: 1 1 auto;
-      justify-content: center;
-      text-align: center;
-    }
-
-    /* ---- SERVICES video: give it room instead of a fixed 830px ---- */
-    .expertise-video-wrap {
-      height: auto;
-      aspect-ratio: 3 / 4;
-    }
-
-    /* ---- ALUMINUM finish swatches: row wrap gets cramped at 4 items ---- */
-    .alu-swatch-row {
-      flex-direction: column;
-    }
-
-    .alu-swatch {
-      width: 100%;
-    }
-
-    /* ---- ABOUT: stack showroom thumbnails instead of squeezing 2-up ---- */
-    .about-showrooms-row {
-      grid-template-columns: 1fr;
-    }
-
-    /* ---- General: tighten section padding so mobile doesn't feel like desktop spacing ---- */
-    :root {
-      --section-pad: clamp(48px, 12vw, 72px);
-    }
-  }
 
     /* =============================================
        ABOUT
@@ -3163,22 +3113,156 @@
         display: flex;
       }
 
+      /* ---- General: tighten section padding so mobile doesn't feel like desktop spacing ---- */
+      :root {
+        --section-pad: clamp(48px, 12vw, 72px);
+      }
+
+      /* ---- EYEBROWS: shrink + allow wrap everywhere on mobile ---- */
+      .eyebrow,
+      .hero-eyebrow,
+      .alu-head .eyebrow,
+      .expertise-content .eyebrow,
+      .about-text .eyebrow {
+        font-size: 11px !important;
+        letter-spacing: 0.16em !important;
+        gap: 8px;
+        flex-wrap: wrap;
+        row-gap: 4px;
+      }
+
+      .eyebrow::before,
+      .hero-eyebrow span,
+      .alu-head .eyebrow::before {
+        width: 18px !important;
+      }
+
+      /* ---- HERO ---- */
+      .hero-prev,
+      .hero-next {
+        display: none;
+      }
+
+      .hero-line {
+        display: none;
+      }
+
+      .scroll-hint {
+        display: none;
+      }
+
+      .hero-content {
+        padding: 0 20px 56px;
+        max-width: 100%;
+      }
+
+      .hero-eyebrow {
+        white-space: normal;
+        line-height: 1.6;
+      }
+
       .hero-title {
-        font-size: clamp(40px, 10vw, 64px);
+        font-size: clamp(36px, 9vw, 52px);
+        line-height: 1.1;
       }
 
-      .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 28px;
+      .hero-sub {
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.75;
       }
 
+      .hero-actions {
+        width: 100%;
+        gap: 10px;
+      }
+
+      .hero-actions .btn-gold,
+      .hero-actions .btn-ghost {
+        flex: 1 1 auto;
+        justify-content: center;
+        text-align: center;
+        padding: 14px 20px;
+      }
+
+      /* ---- SERVICES video ---- */
+      .expertise-video-wrap {
+        height: auto;
+        aspect-ratio: 3 / 4;
+      }
+
+      /* ---- ALUMINUM HEAD ---- */
+      .alu-head h2 {
+        white-space: normal;
+        font-size: clamp(30px, 8vw, 40px);
+        line-height: 1.15;
+      }
+
+      .alu-head-left {
+        width: 100%;
+      }
+
+      /* ---- ALUMINUM SPEC ROWS ---- */
+      .alu-row {
+        grid-template-columns: 38px 1fr;
+        gap: 14px;
+        padding: 18px 4px;
+      }
+
+      .alu-row-code {
+        font-size: 15px;
+      }
+
+      .alu-row h3 {
+        font-size: 21px;
+      }
+
+      .alu-row p {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      /* ---- ALUMINUM SHOWCASE LABEL ---- */
       .alu-showcase {
         min-height: 340px;
       }
 
-      .alu-row {
-        grid-template-columns: 44px 1fr;
-        padding: 18px 4px;
+      .alu-showcase-label {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 48px 18px 18px;
+      }
+
+      .alu-showcase-label .name {
+        font-size: 22px;
+      }
+
+      .alu-showcase-label .code {
+        font-size: 11px;
+      }
+
+      /* ---- ALUMINUM SWATCHES ---- */
+      .alu-swatch-row {
+        flex-direction: column;
+        gap: 22px;
+      }
+
+      .alu-swatch {
+        width: 100%;
+      }
+
+      .alu-swatch-disc {
+        width: 56px;
+        height: 56px;
+      }
+
+      .alu-finishes {
+        padding: 22px 20px 30px;
+      }
+
+      .alu-finishes-top h3 {
+        font-size: 28px;
       }
 
       .form-row2 {
