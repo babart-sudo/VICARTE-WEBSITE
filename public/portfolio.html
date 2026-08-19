@@ -59,11 +59,14 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 clamp(20px, 4vw, 48px); height: 74px;
-      transition: transform 0.4s var(--ease), opacity 0.4s var(--ease), box-shadow 0.4s var(--ease);
+      transition: transform 0.45s var(--ease), opacity 0.35s var(--ease), visibility 0.45s var(--ease);
     }
-    #navbar.is-scrolling {
+    /* Navbar only lives on the hero — once the hero scrolls out, it's gone for good
+       (not just faded) until the person scrolls back up into it. */
+    #navbar.hide-navbar {
       transform: translateY(-100%);
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
     }
 
@@ -71,10 +74,8 @@
       position: absolute; inset: 0; z-index: 0;
       background: linear-gradient(to bottom, rgba(8,14,24,0.38) 0%, rgba(8,14,24,0.20) 60%, transparent 100%);
       opacity: 1;
-      transition: opacity 0.35s ease;
       pointer-events: none;
     }
-    #navbar.is-scrolling .navbar-shade { opacity: 0; }
 
     .nav-logo, .nav-links, .hamburger { position: relative; z-index: 1; }
 
@@ -168,10 +169,32 @@
     .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); z-index: 210; transition: width 0.1s linear; }
 
     /* =============================================
+       MOBILE FLOATING MENU BUTTON
+       Since the full navbar only appears on the hero, mobile visitors
+       need a persistent, lightweight way back into navigation once
+       they've scrolled past it.
+       ============================================= */
+    .mobile-fab {
+      display: none;
+      position: fixed; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); right: calc(18px + env(safe-area-inset-right, 0px)); z-index: 150;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--gold); border: none; cursor: pointer;
+      align-items: center; justify-content: center; flex-direction: column; gap: 4px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1);
+      opacity: 0; transform: scale(0.75) translateY(10px); pointer-events: none;
+      transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), background 0.2s;
+    }
+    .mobile-fab span { display: block; width: 20px; height: 1.5px; background: var(--white); border-radius: 2px; transition: 0.2s; }
+    .mobile-fab:active { background: var(--gold-light); }
+    body.past-hero .mobile-fab {
+      opacity: 1; transform: scale(1) translateY(0); pointer-events: auto;
+    }
+
+    /* =============================================
        PAGE HERO
        ============================================= */
     #page-hero {
-      min-height: 70vh; position: relative;
+      min-height: 60vh; position: relative;
       display: flex; align-items: center; justify-content: center;
       overflow: hidden; background: var(--navy);
       background-image: url('/images/aluminum1.jpg');
@@ -181,7 +204,13 @@
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(160deg, rgba(10,18,32,0.85) 0%, rgba(26,40,64,0.72) 60%, rgba(10,18,32,0.6) 100%);
     }
-    .page-hero-content { position: relative; z-index: 2; text-align: center; padding: 80px clamp(16px,4vw,64px); max-width: 100%; margin: 0 auto; width: 100%; }
+    #page-hero::before {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: 0; height: 120px; z-index: 1;
+      background: linear-gradient(to bottom, transparent 0%, rgba(16,26,44,0.9) 100%);
+      pointer-events: none;
+    }
+    .page-hero-content { position: relative; z-index: 2; text-align: center; padding: 60px clamp(16px,4vw,64px) 40px; max-width: 100%; margin: 0 auto; width: 100%; }
     .breadcrumb { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 28px; }
     .breadcrumb a { text-decoration: none; color: rgba(255,255,255,0.5); transition: color 0.2s; }
     .breadcrumb a:hover { color: var(--gold-light); }
@@ -272,7 +301,7 @@
     #gallery {
       position: relative;
       background: linear-gradient(180deg, #101a2c 0%, #16233a 100%);
-      padding: clamp(56px,7vw,84px) 0 var(--section-pad);
+      padding: clamp(32px,4vw,48px) 0 var(--section-pad);
       overflow: hidden;
     }
     #gallery::before {
@@ -530,16 +559,65 @@
       #navbar { height: 60px; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
+      .mobile-fab { display: flex; }
       .page-hero-title { font-size: clamp(34px, 10vw, 50px); }
-      .filter-btn { padding: 16px 12px 14px; font-size: 10px; }
-      .lightbox-close { top: 18px; right: 22px; font-size: 34px; }
-      .lightbox-prev, .lightbox-next { width: 40px; height: 40px; font-size: 15px; }
-      .lightbox-prev { left: 12px; }
-      .lightbox-next { right: 12px; }
-      .lightbox-caption { bottom: 32px; padding: 12px 20px; }
-      .lightbox { padding: 16px; }
-      .lightbox-frame img { max-width: 92vw; max-height: 78vh; }
+
+      /* --- Filter bar: horizontal swipe strip instead of wrapping pills --- */
+      .filter-row {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+        gap: 4px;
+        padding: 0 16px;
+        scrollbar-width: none;
+      }
+      .filter-row::-webkit-scrollbar { display: none; }
+      .filter-btn {
+        scroll-snap-align: start;
+        padding: 16px 14px 14px;
+        font-size: 10px;
+      }
+
+      /* --- Gallery cards: always-visible caption (no hover on touch), tamer heights --- */
+      .portfolio-grid { column-gap: 10px; }
+      .ig-post { margin-bottom: 10px; }
+      .portfolio-grid .ig-post:nth-child(6n+1) .ig-post-thumb,
+      .portfolio-grid .ig-post:nth-child(6n+3) .ig-post-thumb,
+      .portfolio-grid .ig-post:nth-child(6n+6) .ig-post-thumb { aspect-ratio: 4 / 5; }
+      .portfolio-grid .ig-post:nth-child(6n+2) .ig-post-thumb,
+      .portfolio-grid .ig-post:nth-child(6n+5) .ig-post-thumb { aspect-ratio: 4 / 5; }
+      .portfolio-grid .ig-post:nth-child(6n+4) .ig-post-thumb { aspect-ratio: 3 / 4; }
+
+      .ig-post-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 55%, transparent 78%); }
+      .ig-post-body { transform: translateY(0); opacity: 1; padding: 22px 16px 16px; }
+      .ig-post-title { font-size: 20px; }
+      .ig-post-tag { font-size: 9px; padding: 3px 9px; margin-bottom: 6px; }
+      .ig-post-cue { display: none; }
+      .ig-post:hover .ig-post-thumb img,
+      .ig-post:hover { transform: none; box-shadow: 0 4px 24px rgba(0,0,0,0.24); }
+      .ig-post:active { transform: scale(0.98); transition: transform 0.15s; }
+      .ig-material-tag { font-size: 9px; padding: 5px 10px 5px 8px; top: 10px; left: 10px; }
+      .ig-post-frame { inset: 8px; }
+
       .gallery-heading { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+      /* --- Lightbox: larger tap targets, tighter spacing --- */
+      .lightbox-close { top: 18px; right: 22px; font-size: 34px; padding: 8px; }
+      .lightbox-prev, .lightbox-next { width: 46px; height: 46px; font-size: 16px; }
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
+      .lightbox-caption { bottom: 30px; padding: 12px 20px; max-width: 88%; }
+      .lightbox-caption h3 { font-size: 19px; }
+      .lightbox { padding: 12px; }
+      .lightbox-frame img { max-width: 94vw; max-height: 76vh; }
+    }
+
+    /* Slightly larger phones / small tablets: keep two columns but ease spacing */
+    @media (min-width: 641px) and (max-width: 900px) {
+      .filter-row { gap: 2px; }
+      .filter-btn { padding: 18px 14px 15px; font-size: 10px; }
     }
   </style>
 </head>
@@ -589,6 +667,11 @@
   <a href="/portfolio.html" onclick="closeMob()">Portfolio</a>
   <a href="/#contact" onclick="closeMob()">Contact Us</a>
 </div>
+
+<!-- Floating menu button — mobile only, appears once past the hero -->
+<button class="mobile-fab" id="mobileFab" aria-label="Open menu">
+  <span></span><span></span><span></span>
+</button>
 
 
 <!-- =============================================
@@ -646,78 +729,56 @@
     <div class="portfolio-grid" id="portfolioGrid">
 
       <!-- ALUMINUM -->
-      <div class="ig-post" data-cat="aluminum" data-title="Aluminum Sliding Doors" data-category="Aluminum Systems" data-likes="187" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/aluminum1.jpg" alt="Aluminum Sliding Doors"></div>
+      <div class="ig-post" data-cat="aluminum" data-title="Aluminum Carcass Kitchen" data-category="Aluminum Systems" data-likes="187" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/aluminum1.jpg" alt="Aluminum Carcass Kitchen"></div>
         <div class="ig-material-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Aluminum</div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Aluminum Systems</span>
-          <h3 class="ig-post-title">Aluminum Sliding Doors</h3>
+          <h3 class="ig-post-title">Aluminum Carcass Kitchen</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
-      <div class="ig-post" data-cat="aluminum" data-title="Aluminum Window Frames" data-category="Aluminum Systems" data-likes="142" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/aluminum2.jpg" alt="Aluminum Window Frames"></div>
+      <div class="ig-post" data-cat="aluminum" data-title="Aluminum Modular Kitchen" data-category="Aluminum Systems" data-likes="142" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/aluminum12.jpg" alt="Aluminum Modular Kitchen"></div>
         <div class="ig-material-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Aluminum</div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Aluminum Systems</span>
-          <h3 class="ig-post-title">Aluminum Window Frames</h3>
+          <h3 class="ig-post-title">Aluminum Modular Kitchen</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
-      <div class="ig-post" data-cat="aluminum" data-title="Aluminum Kitchen Cabinet Frames" data-category="Aluminum Systems" data-likes="165" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/aluminum3.jpg" alt="Aluminum Kitchen Cabinet Frames"></div>
+      <div class="ig-post" data-cat="aluminum" data-title="Aluminum Kitchen Pantry Frames" data-category="Aluminum Systems" data-likes="165" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/aluminum3.jpg" alt="Aluminum Kitchen Pantry Frames"></div>
         <div class="ig-material-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Aluminum</div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Aluminum Systems</span>
-          <h3 class="ig-post-title">Kitchen Cabinet Frames</h3>
+          <h3 class="ig-post-title">Aluminum Kitchen Pantry Frames</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
-      <div class="ig-post" data-cat="aluminum" data-title="Aluminum Glass Partitions" data-category="Aluminum Systems" data-likes="159" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/aluminum4.jpg" alt="Aluminum Glass Partitions"></div>
+      <div class="ig-post" data-cat="aluminum" data-title="Imported Aluminum Doors" data-category="Aluminum Systems" data-likes="165" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/aluminum8.jpg" alt="Imported Aluminum Doors"></div>
         <div class="ig-material-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Aluminum</div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Aluminum Systems</span>
-          <h3 class="ig-post-title">Glass Partitions</h3>
+          <h3 class="ig-post-title">Imported Aluminum Doors</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
-      <div class="ig-post" data-cat="aluminum" data-title="Aluminum Staircase Railings" data-category="Aluminum Systems" data-likes="121" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/aluminum5.jpg" alt="Aluminum Staircase Railings"></div>
-        <div class="ig-material-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Aluminum</div>
-        <div class="ig-post-frame"></div>
-        <div class="ig-post-overlay"></div>
-        <div class="ig-post-body">
-          <span class="ig-post-tag">Aluminum Systems</span>
-          <h3 class="ig-post-title">Staircase Railings</h3>
-          <div class="ig-post-cue">View Project</div>
-        </div>
-      </div>
 
-      <div class="ig-post" data-cat="aluminum" data-title="Aluminum Curtain Wall Facade" data-category="Aluminum Systems" data-likes="198" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/aluminum6.jpg" alt="Aluminum Curtain Wall Facade"></div>
-        <div class="ig-material-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Aluminum</div>
-        <div class="ig-post-frame"></div>
-        <div class="ig-post-overlay"></div>
-        <div class="ig-post-body">
-          <span class="ig-post-tag">Aluminum Systems</span>
-          <h3 class="ig-post-title">Curtain Wall Facade</h3>
-          <div class="ig-post-cue">View Project</div>
-        </div>
-      </div>
-
+      
       <!-- KITCHEN -->
       <div class="ig-post" data-cat="kitchen" data-title="Modern Kitchen" data-category="Kitchen Design" data-likes="128" onclick="openLightbox(this)">
         <div class="ig-post-thumb"><img src="/images/services6.jpg" alt="Modern Kitchen"></div>
@@ -741,35 +802,46 @@
         </div>
       </div>
 
-      <div class="ig-post" data-cat="kitchen" data-title="Minimalist Kitchen" data-category="Kitchen Design" data-likes="96" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/horizontal4.jpg" alt="Minimalist Kitchen"></div>
+      <div class="ig-post" data-cat="kitchen" data-title="Classic Shaker-style With PVC Door" data-category="Kitchen Design" data-likes="96" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/kitchen10.jpg" alt="Classic Shaker-style With PVC Door"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Kitchen Design</span>
-          <h3 class="ig-post-title">Minimalist Kitchen</h3>
+          <h3 class="ig-post-title">Classic Shaker-style With PVC Door</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
-      <div class="ig-post" data-cat="kitchen" data-title="Rustic Kitchen" data-category="Kitchen Design" data-likes="151" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/kitchen6.jpg" alt="Rustic Kitchen"></div>
+      <div class="ig-post" data-cat="kitchen" data-title="Modern Contemporary Kitchen" data-category="Kitchen Design" data-likes="151" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/kitchen6.jpg" alt="Modern Contemporary Kitchen"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Kitchen Design</span>
-          <h3 class="ig-post-title">Rustic Kitchen</h3>
+          <h3 class="ig-post-title">Modern Contemporary Kitchen </h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
-      <div class="ig-post" data-cat="kitchen" data-title="Coastal Kitchen" data-category="Kitchen Design" data-likes="174" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/services2.jpg" alt="Coastal Kitchen"></div>
+      <div class="ig-post" data-cat="kitchen" data-title="High Gloss Marble Kitchen" data-category="Kitchen Design" data-likes="151" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/kitchen11.jpg" alt="High Gloss Marble Kitchen"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Kitchen Design</span>
-          <h3 class="ig-post-title">Coastal Kitchen</h3>
+          <h3 class="ig-post-title">High Gloss Marble Kitchen   </h3>
+          <div class="ig-post-cue">View Project</div>
+        </div>
+      </div>
+
+      <div class="ig-post" data-cat="kitchen" data-title="PVC Vacuum Laminated Kitchen" data-category="Kitchen Design" data-likes="174" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/services2.jpg" alt="PVC Vacuum Laminated Kitchen"></div>
+        <div class="ig-post-frame"></div>
+        <div class="ig-post-overlay"></div>
+        <div class="ig-post-body">
+          <span class="ig-post-tag">Kitchen Design</span>
+          <h3 class="ig-post-title">PVC Vacuum Laminated Kitchen  </h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
@@ -797,53 +869,64 @@
         </div>
       </div>
 
-      <div class="ig-post" data-cat="cabinet" data-title="Custom Cabinets" data-category="Custom Cabinetry" data-likes="134" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/cabinet7.jpg" alt="Custom Cabinets"></div>
+      <div class="ig-post" data-cat="cabinet" data-title="PVC & Melamine Laminated Marine Cabinets" data-category="Custom Cabinetry" data-likes="134" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/cabinet13.jpg" alt="PVC & Melamine Laminated Marine Cabinets"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Custom Cabinetry</span>
-          <h3 class="ig-post-title">Custom Cabinets</h3>
+          <h3 class="ig-post-title">PVC & Melamine Laminated Marine Cabinets</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
-      <div class="ig-post" data-cat="cabinet" data-title="White Cabinets" data-category="Custom Cabinetry" data-likes="99" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/cabinet4.jpg" alt="White Cabinets"></div>
+      <div class="ig-post" data-cat="cabinet" data-title="Japanese-Scandinavian Closet System" data-category="Custom Cabinetry" data-likes="99" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/cabinet8.jpg" alt="Japanese-Scandinavian Closet System"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Custom Cabinetry</span>
-          <h3 class="ig-post-title">White Cabinets</h3>
+          <h3 class="ig-post-title">Japanese-Scandinavian Closet System</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
-      <div class="ig-post" data-cat="cabinet" data-title="Luxury Cabinets" data-category="Custom Cabinetry" data-likes="167" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/services1.jpg" alt="Luxury Cabinets"></div>
+      <div class="ig-post" data-cat="cabinet" data-title="Walnut Closet & Dressing Nook" data-category="Custom Cabinetry" data-likes="167" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/services1.jpg" alt="Walnut Closet & Dressing Nook"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Custom Cabinetry</span>
-          <h3 class="ig-post-title">Luxury Cabinets</h3>
+          <h3 class="ig-post-title">Walnut Closet & Dressing Nook</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
       <!-- INTERIOR -->
-      <div class="ig-post" data-cat="interior" data-title="Luxury Bedroom" data-category="Interior Design" data-likes="190" onclick="openLightbox(this)">
-        <div class="ig-post-thumb"><img src="/images/interior2.jpg" alt="Luxury Bedroom"></div>
+      <div class="ig-post" data-cat="interior" data-title="Walnut Media Wall" data-category="Interior Design" data-likes="190" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/interior2.jpg" alt="Walnut Media Wall"></div>
         <div class="ig-post-frame"></div>
         <div class="ig-post-overlay"></div>
         <div class="ig-post-body">
           <span class="ig-post-tag">Interior Design</span>
-          <h3 class="ig-post-title">Luxury Bedroom</h3>
+          <h3 class="ig-post-title">Walnut Media Wall  </h3>
+          <div class="ig-post-cue">View Project</div>
+        </div>
+      </div>
+
+      <div class="ig-post" data-cat="interior" data-title="Commercial Marble Lobby Area" data-category="Interior Design" data-likes="190" onclick="openLightbox(this)">
+        <div class="ig-post-thumb"><img src="/images/interior6.jpg" alt="Commercial Marble Lobby Area"></div>
+        <div class="ig-post-frame"></div>
+        <div class="ig-post-overlay"></div>
+        <div class="ig-post-body">
+          <span class="ig-post-tag">Interior Design</span>
+          <h3 class="ig-post-title">Commercial Marble Lobby Area</h3>
           <div class="ig-post-cue">View Project</div>
         </div>
       </div>
 
     </div>
-  </div>
+  </div>  
 </section>
 
 
@@ -912,19 +995,29 @@
 </div>
 
 <script>
-  /* ---- NAV — matches homepage: hides on scroll, shade fades ---- */
+  /* ---- NAV — lives only on the hero. Once its bottom edge passes the
+     top of the viewport the navbar is fully hidden (not just faded),
+     and it only returns when scrolling back up into the hero. ---- */
   const nb = document.getElementById('navbar');
+  const heroEl = document.getElementById('page-hero');
   const scrollProgress = document.getElementById('scrollProgress');
-  let navScrollTimer;
+
+  function updateNavVisibility() {
+    const heroBottom = heroEl.getBoundingClientRect().bottom;
+    const pastHero = heroBottom <= 0;
+    nb.classList.toggle('hide-navbar', pastHero);
+    document.body.classList.toggle('past-hero', pastHero);
+  }
+
   window.addEventListener('scroll', () => {
-    nb.classList.add('is-scrolling');
-    clearTimeout(navScrollTimer);
-    navScrollTimer = setTimeout(() => nb.classList.remove('is-scrolling'), 180);
+    updateNavVisibility();
 
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
     scrollProgress.style.width = pct + '%';
   }, { passive: true });
+
+  updateNavVisibility();
 
   /* ---- NAV DROPDOWNS — delayed close so quick mouse movement
      between the link and the panel never gets caught in the gap ---- */
@@ -939,8 +1032,9 @@
     });
   });
 
-  /* ---- MOBILE MENU ---- */
+  /* ---- MOBILE MENU (opened from the hero hamburger or the floating button) ---- */
   document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileOverlay').classList.add('open'));
+  document.getElementById('mobileFab').addEventListener('click', () => document.getElementById('mobileOverlay').classList.add('open'));
   document.getElementById('mobClose').addEventListener('click', closeMob);
   function closeMob() { document.getElementById('mobileOverlay').classList.remove('open'); }
   window.closeMob = closeMob;
@@ -952,6 +1046,14 @@
     entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); } });
   }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
   posts.forEach(el => revealObserver.observe(el));
+
+  /* ---- Center the active filter pill in the scrollable strip on mobile ---- */
+  function centerActiveFilter(btn) {
+    if (window.innerWidth > 640 || !btn) return;
+    const row = document.querySelector('.filter-row');
+    const target = btn.offsetLeft - (row.clientWidth / 2) + (btn.clientWidth / 2);
+    row.scrollTo({ left: target, behavior: 'smooth' });
+  }
 
   /* ---- FILTER ---- */
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -977,7 +1079,7 @@
   if (filterParam) {
     filterBtns.forEach(b => b.classList.remove('active'));
     const match = [...filterBtns].find(b => b.getAttribute('data-filter') === filterParam);
-    if (match) { match.classList.add('active'); initialFilter = filterParam; }
+    if (match) { match.classList.add('active'); initialFilter = filterParam; centerActiveFilter(match); }
   }
   filterPortfolio(initialFilter);
 
@@ -986,12 +1088,14 @@
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       filterPortfolio(btn.getAttribute('data-filter'));
+      centerActiveFilter(btn);
     });
   });
 
   /* ---- LIGHTBOX ---- */
   let currentImageIndex = 0;
   let lightboxPosts = [];
+  let touchStartX = 0;
 
   function openLightbox(postEl) {
     lightboxPosts = Array.from(posts).filter(p => p.style.display !== 'none');
@@ -1034,6 +1138,14 @@
       if (e.key === 'ArrowRight') changeLightboxImage(1);
     }
   });
+
+  /* ---- Swipe left/right to navigate the lightbox on touch devices ---- */
+  const lightboxEl = document.getElementById('lightbox');
+  lightboxEl.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  lightboxEl.addEventListener('touchend', (e) => {
+    const deltaX = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(deltaX) > 50) changeLightboxImage(deltaX < 0 ? 1 : -1);
+  }, { passive: true });
 </script>
 </body>
 </html>
